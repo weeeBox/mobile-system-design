@@ -119,16 +119,54 @@ The interviewer might be looking for the following signals:
 
 ## API Design
 ### Real-time notification
-- Push Notifications _TBD_
-- HTTP-polling _TBD_
-- Server-Sent Events _TBD_
-- Web-Sockets _TBD_
+We need to provide real-time notifications support as a part of the design. Bellow are some of the approached you can mention during the discussion:
+- **Push Notifications**:
+  - pros:
+    - easier to implement compared to a dedicated service
+    - can wake the app in the background
+  - cons:
+    - not 100% reliable
+    - may take up to a minute to arrive
+    - relies on a 3rd-party service
+    - users can opt-out easily
+- **HTTP-polling**  
+Polling requires the client to periodically ask the server for updates. The biggest concern is the amount of unnecessary network traffic and increased backend load.
+  - **short polling**: the client samples the server with a predefined time interval.    
+    - pros:
+      - simple and not as expensive (if the time between requests is long).
+      - no need to keep a persistent connection.
+    - cons:
+      - the notification can be delayed for as long as the polling time interval.
+      - addition overhead due to TLS Handshake and HTTP-headers 
+  - **long polling**:
+     - pros:
+       - instant notification (no additional delay)
+     - cons:
+       - more complex and requires more server-side resources.
+       - keeps a persistent connection until the server replies.
+- **Server-Sent Events**  
+Allows the client to stream events over an HTTP connection without polling.
+  - pros:
+    - real-time traffic using a single connection.
+  - cons:
+    - keeps a persistent connection.
+- **Web-Sockets**:  
+Provide a bi-directional communication between client and server
+  - pros:
+    - can transmit both binary and text data
+  - cons:
+    - more complex to set-up compared to Polling/SSE
+    - keeps a persistent connection.
+
 
 ### Protocols
 - REST _TBD_
 - GraphQL _TBD_
 - WebSocket _TBD_
 - gRPC _TBD_
+
+### Pagination
+
 
 ## Providing the "signal"
 The interviewer might be looking for the following signals:
