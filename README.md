@@ -143,9 +143,9 @@ The interviewer might be looking for the following signals:
 ### Offline and Opportunistic State
 ### Caching
 ### Quality Of Service
-To make your system more energy efficient you can introduce the Quality Of Service classes for your network operations:
-- Limit the number of concurrent network operations (4-10)
-- Assign the Quality Of Service class to each of your network requests:
+To make your system more energy efficient you can introduce the Quality Of Service classes for your network operations. The implementation is quite tricky but you can discuss it on a higher level:
+- Limit the number of concurrent network operations (4-10).
+- Assign a Quality Of Service class to each of your network requests:
   - **User-critical** - should be dispatched as fast as possible: fetching the next page of data for the Tweet Feed; requesting Tweet Details.
   - **UI-critical**: - should be dispatched after User-critical requests: fetching low-res thumb images for tweets on the Feed while scrolling. Cancelled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
   - **UI-non-critical**: should be dispatched after UI-critical requests: fetching high-res images for tweets on the Feed. Cancelled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
@@ -153,3 +153,4 @@ To make your system more energy efficient you can introduce the Quality Of Servi
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Prefetching
 ## Additional Information
+
