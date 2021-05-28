@@ -158,7 +158,7 @@ Provide a bi-directional communication between client and server
     - more complex to set-up compared to Polling/SSE
     - keeps a persistent connection.
 
-The interviewer would expect you to pick a concrete approach most suitable for the design task at hand. One possible solution for the "Design Twitter Feed" question could be using a combination of SSE (a primary channel of receiving real-time updates on "likes") with Push Notifications (sent if the client does not have an active connection to the backend).
+The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. One possible solution for the "Design Twitter Feed" question could be using a combination of SSE (a primary channel of receiving real-time updates on "likes") with Push Notifications (sent if the client does not have an active connection to the backend).
 
 
 ### Protocols
