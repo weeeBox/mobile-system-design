@@ -168,6 +168,33 @@ The interviewer would expect you to **pick a concrete approach** most suitable f
 - gRPC _TBD_
 
 ### Pagination
+Endpoints that return a list of entities must support pagination. Without pagination, a single request could return a huge amount of results causing excessive network and memory usage.
+#### Type of pagination
+- **Offset Pagination**  
+Provides a `limit` and an `offset` query parameters. Example: `GET /feed?offset=100&limit=20`
+  - pros
+    - Easiest to implement - the request parameters can be passed directly to a SQL query.
+    - Stateless on the server.
+  - cons
+    - Bad performance on large offset values (the database needs to skip `offset` rows before returning the paginated result).
+     - Inconsistent when adding new rows into the database (Page Drift).
+- **Keyset Pagination**  
+Uses the values from the last page to fetch the next set of items. Example: `GET /feed?after=2021-05-25T00:00:00&limit=20`
+  - pros
+    - Translates easily into a SQL query.
+    - Good performance with large datasets.
+    - Stateless on the server.
+  - cons
+    - "Leaky abstraction" - the pagination mechanism becomes aware of the underlying database storage.
+    - Only works on field with natural ordering (timestamps, etc).
+- **Cursor/Seek Pagination**  
+Operates with stable ids which are decoupled from the database SQL queries (usually, a selected field is encoded using base64 and encrypted on the backend side). Example: `GET /items?after_id=t1234xzy&limit=20`
+  - pros
+    - Decouples pagination from SQL database.
+    - Consistent ordering when new items are inserted.
+  - cons
+    - More complex backend implementation.
+    - Does not work well if items get deleted (ids might become invalid)
 
 
 ## Providing the "signal"
@@ -179,7 +206,6 @@ The interviewer might be looking for the following signals:
 - The candidate is familiar with network error handling and rate-limiting.
 
 ## Additional topic
-### Pagination
 ### Offline and Opportunistic State
 ### Caching
 ### Quality Of Service
@@ -193,4 +219,3 @@ To make your system more energy efficient you can introduce the Quality Of Servi
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Prefetching
 ## Additional Information
-
