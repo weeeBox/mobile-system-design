@@ -188,7 +188,7 @@ Uses the values from the last page to fetch the next set of items. Example: `GET
     - "Leaky abstraction" - the pagination mechanism becomes aware of the underlying database storage.
     - Only works on field with natural ordering (timestamps, etc).
 - **Cursor/Seek Pagination**  
-Operates with stable ids which are decoupled from the database SQL queries (usually, a selected field is encoded using base64 and encrypted on the backend side). Example: `GET /items?after_id=t1234xzy&limit=20`
+Operates with stable ids which are decoupled from the database SQL queries (usually, a selected field is encoded using base64 and encrypted on the backend side). Example: `GET /feed?after_id=t1234xzy&limit=20`
   - pros
     - Decouples pagination from SQL database.
     - Consistent ordering when new items are inserted.
@@ -196,6 +196,43 @@ Operates with stable ids which are decoupled from the database SQL queries (usua
     - More complex backend implementation.
     - Does not work well if items get deleted (ids might become invalid)
 
+You need to select a single approach after listing the possible options and discussing their pros and cons. We'll pick Cursor Pagination in the scope of the "Design Twitter Feed" question. A sample API request might look like this:  
+```
+GET /v1/feed?after_id=p1234xzy&limit=20
+Authorization: Bearer <token>
+{
+  "data": {
+    "items": [
+      {
+        "id": "t123",
+        "author_id": "a123",
+        "title": "Title",
+        "description": "Description",
+        "likes": 12345,
+        "comments": 10,
+        "attachments": {
+          "media": [
+            {
+              "image_url": "https://static.cdn.com/image1234.webp",
+              "thumb_url": "https://static.cdn.com/thumb1234.webp"
+            },
+            ...
+          ]
+        },
+        "created_at": "2021-05-25T17:59:59.000Z"
+      },
+      ...
+    ]
+  },
+  "cursor": {
+    "count": 20,
+    "next_id": "p1235xzy",
+    "prev_id": null
+  }
+}
+```
+Although we left it out of scope, it's still beneficial to mention HTTP authentication. You can include an `Authorization` header and discuss how to properly handle `401 Unauthorized` response scenario. Also, don't forget to talk about Rate-Limiting strategies (`429 Too Many Requests`).  
+Make sure it keep it brief and simple (without unnecessary details): your primary goal during a system design interview is to provide "signal" and not to build a production ready solution.
 
 ## Providing the "signal"
 The interviewer might be looking for the following signals:
@@ -219,3 +256,5 @@ To make your system more energy efficient you can introduce the Quality Of Servi
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Prefetching
 ## Additional Information
+
+
