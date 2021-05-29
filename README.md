@@ -242,7 +242,9 @@ The interviewer might be looking for the following signals:
 - The candidate is familiar with authentication and security best practices.
 - The candidate is familiar with network error handling and rate-limiting.
 
-## Additional topic
+## Additional topics
+### Major Concerns
+### Privacy & Security
 ### Offline and Opportunistic State
 ### Caching
 ### Quality Of Service
@@ -254,7 +256,6 @@ To make your system more energy efficient you can introduce the Quality Of Servi
   - **UI-non-critical**: should be dispatched after UI-critical requests: fetching high-res images for tweets on the Feed. Cancelled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
   - **Background**: should be dispatched after all the above is finished: posting "likes", analytics.
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
+### Resumable Uploads
 ### Prefetching
 ## Additional Information
-
-
