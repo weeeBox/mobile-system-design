@@ -160,7 +160,6 @@ Provide a bi-directional communication between client and server
 
 The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. One possible solution for the "Design Twitter Feed" question could be using a combination of SSE (a primary channel of receiving real-time updates on "likes") with Push Notifications (sent if the client does not have an active connection to the backend).
 
-
 ### Protocols
 #### REST
 A text-based stateless protocol - most popular choice for CRUD (Create, Read, Update, and Delete) operations.
@@ -207,7 +206,6 @@ Remote Procedure Call framework which runs on top of HTTP/2. Supports bi-directi
   - steeper learning curve
 
 The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. Since the API layer for the "Design Twitter Feed" question is pretty simple and does not require much customization - we can select an approach based on REST.
-
 
 ### Pagination
 Endpoints that return a list of entities must support pagination. Without pagination, a single request could return a huge amount of results causing excessive network and memory usage.
@@ -284,11 +282,18 @@ The interviewer might be looking for the following signals:
 - The candidate is familiar with authentication and security best practices.
 - The candidate is familiar with network error handling and rate-limiting.
 
+## Data Storage
+_TBD_
+
 ## Additional topics
 ### Major Concerns
+_TBD_
 ### Privacy & Security
+_TBD_
 ### Offline and Opportunistic State
+_TBD_
 ### Caching
+_TBD_
 ### Quality Of Service
 To make your system more energy efficient you can introduce the Quality Of Service classes for your network operations. The implementation is quite tricky but you can discuss it on a higher level:
 - Limit the number of concurrent network operations (4-10).
@@ -299,5 +304,8 @@ To make your system more energy efficient you can introduce the Quality Of Servi
   - **Background**: should be dispatched after all the above is finished: posting "likes", analytics.
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Resumable Uploads
+_TBD_
 ### Prefetching
+_TBD_
 ## Additional Information
+_TBD_
