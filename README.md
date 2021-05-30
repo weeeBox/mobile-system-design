@@ -162,10 +162,52 @@ The interviewer would expect you to **pick a concrete approach** most suitable f
 
 
 ### Protocols
-- REST _TBD_
-- GraphQL _TBD_
-- WebSocket _TBD_
-- gRPC _TBD_
+#### REST
+A text-based stateless protocol - most popular choice for CRUD (Create, Read, Update, and Delete) operations.
+- pros
+  - easy to learn, understand, and implement
+  - easy to cache using built-in HTTP caching mechanism
+  - loose coupling between client and server
+- cons
+  - less efficient on mobile platforms since every request requires a separate physical connection
+  - schemaless - it's hard to check data validity on the client
+  - stateless - needs extra functionality to maintain a session
+  - additional overhead - every request contains textural metadata and headers
+
+#### GraphQL
+A query language for working with API - allows clients to requests data from several resources using a single endpoint (instead of making multiple requests in traditional RESTful apps)
+- pros
+  - schema-based typed queries - clients can verify data integrity and format
+  - highly customizable - clients can request specific data and reduce the amount of HTTP-traffic
+  - bi-directional communication with GraphQL Subscriptions (WebSocket based).
+- cons
+  - more complex backend implementation
+  - "leaky-abstraction" - clients become tightly coupled to the backend
+  - the performance of a query is bound to the performance of the slowest service on the backend (in case when the response data is federated between multiple services)
+
+#### WebSocket
+Full-duplex communication over a single TCP connection.
+- pros
+  - real time bi-directional communication
+  - provides both text-based and binary traffic
+- cons
+  - requires maintaining an active connection - might have poor performance on unstable cellular networks
+  - schemaless - it's hard to check data validity on the client
+  - the number of active connection on a single server is limited to 65k 
+#### gRPC
+Remote Procedure Call framework which runs on top of HTTP/2. Supports bi-directional streaming using a single physical connection.
+- pros
+  - lightweight binary messages (much smaller compared to text-based protocols)
+  - schema-based - built-in code generation with Protobuf
+  - provides support of event-driven architecture: server-side streaming, client-side streaming, and bi-directional streaming
+  - multiple parallel requests
+- cons
+  - limited browser support
+  - non human-readable format
+  - steeper learning curve
+
+The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. Since the API layer for the "Design Twitter Feed" question is pretty simple and does not require much customization - we can select an approach based on REST.
+
 
 ### Pagination
 Endpoints that return a list of entities must support pagination. Without pagination, a single request could return a huge amount of results causing excessive network and memory usage.
