@@ -118,6 +118,7 @@ The interviewer might be looking for the following signals:
 - The candidate is capable of designing self-contained isolated modules.
 
 ## API Design
+The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part or choose something you know best (in case if they don't have a strong preference).
 ### Real-time notification
 We need to provide real-time notifications support as a part of the design. Bellow are some of the approached you can mention during the discussion:
 - **Push Notifications**:
@@ -272,7 +273,7 @@ Authorization: Bearer <token>
 }
 ```
 Although we left it out of scope, it's still beneficial to mention HTTP authentication. You can include an `Authorization` header and discuss how to properly handle `401 Unauthorized` response scenario. Also, don't forget to talk about Rate-Limiting strategies (`429 Too Many Requests`).  
-Make sure it keep it brief and simple (without unnecessary details): your primary goal during a system design interview is to provide "signal" and not to build a production ready solution.
+Make sure to keep it brief and simple (without unnecessary details): your primary goal during a system design interview is to provide "signal" and not to build a production ready solution.
 
 ## Providing the "signal"
 The interviewer might be looking for the following signals:
@@ -286,10 +287,27 @@ The interviewer might be looking for the following signals:
 _TBD_
 
 ## Additional topics
-### Major Concerns
-_TBD_
+### Major Concerns For Mobile Development
+Here's the list of concerns to keep in mind while discussing your solution with the interviewer:
+- **User Data Privacy** - leaking customer's data can damage your business and reputation.
+- **Security** - protect your products against reverse-engineering (more important for Android)
+- **Target Platform Changes** - each new iOS/Android release may limit an existing functionality and make Privacy rules more strict.
+- **Non-reversibility of released products** - assume everything you ship is final and would never change. Make sure to use staged rollouts and server-side "feature" flags.
+- **Device Resources usage**
+  - Metered connections - cellular network traffic can be very expensive/
+  - Bandwidth usage - constant waking up of the cellular radio results in a faster battery drain
+  - CPU usage - higher computational load results in a faster battery drain
+- **Geo-Location Usage**
+  - Prefer the lowest possible location accuracy
+  - Don't compromise user's privacy while using location services
+
 ### Privacy & Security
-_TBD_
+- Keep as little of the user's data as possible - don't collect things you won't need.
+- Assume that on-device storage is not secure (even while using KeyStore/KeyChain functionality).
+- Assume that the backend storage is also not secure - discussed possible E2E encryption mechanisms.
+-  Assume that the target platform's (iOS/Android) Security & Privacy rules will change - make critical functionality controllable by remote "feature-killer" flags.
+- User's _perception_ of security is as important as the implemented security measures - make sure to discuss how you would educate your customers about data collection, storage, and transmission.
+
 ### Offline and Opportunistic State
 _TBD_
 ### Caching
