@@ -325,5 +325,11 @@ To make your system more energy efficient you can introduce the Quality Of Servi
 _TBD_
 ### Prefetching
 _TBD_
+## Conclusion
+### Things you can control
+### Things you cannot control
+### Judging the outcome
 ## Additional Information
 _TBD_
+
+
