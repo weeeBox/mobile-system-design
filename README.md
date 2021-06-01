@@ -326,10 +326,24 @@ _TBD_
 ### Prefetching
 _TBD_
 ## Conclusion
+There's a significant amount of randomness during a system design interview. The process and the structure can vary depending on the company and the interviewer.
 ### Things you can control
+- **Your attitude** - always be friendly no matter how the interview goes. Don't be pushy and don't argue with the interviewer - this might provide a bad "signal".
+- **Your preparation** - the better your preparation is, the bigger the chance of a positive outcome. Practice mock design interviews with your peers (you can find people on [Teamblind](https://www.teamblind.com/search/mock)).
+- **Your knowledge** - the more knowledge you have, the better your chances are.
+  - Gain more experience.
+  - Study popular open source projects: [iOS](https://github.com/search?q=iOS&type=Repositories), [Android](https://github.com/search?o=desc&q=Android&s=stars&type=Repositories)
+  - Read development blogs from tech companies:
+    - [Uber](https://eng.uber.com/category/articles/mobile/)
+    - Instagram: [iOS](https://instagram-engineering.com/tagged/ios), [Android](https://instagram-engineering.com/tagged/android)
+    - [Trello](https://tech.trello.com/)
+    - _TBD_
+- **Your resume** - make sure to list all your accomplishments with measurable impact.
 ### Things you cannot control
+- **Your interviewer's attitude** - they might have a bad day.
+- **Your competition** - sometimes there's simply a better candidate.
+- **The hiring committee** - they make a decision based on the interviewers' report and your resume.
 ### Judging the outcome
+You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
 ## Additional Information
 _TBD_
-
-
