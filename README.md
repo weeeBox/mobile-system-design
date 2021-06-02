@@ -12,7 +12,7 @@ This might not be the only and/or the best way of structuring your system design
 - 5 min - questions to the interviewer
 
 ## Acquaintances
-Your interviewer tells you about themselves and you tell about yourself. It's better to keep it simple and short. For example, _"My name is Alex, I've been working on iOS/Android since 2010 - mostly on frameworks and libraries. For the past 2.5 years, I've been leading a team on an XYZ project: my responsibilities include system design, planning and technical mentoring."_ The only purpose of the introduction is to break the ice and provide a gist of your background. More time you spend on this - less time you gonna have for the actual interview.
+Your interviewer tells you about themselves and you tell them about yourself. It's better to keep it simple and short. For example, _"My name is Alex, I've been working on iOS/Android since 2010 - mostly on frameworks and libraries. For the past 2.5 years, I've been leading a team on an XYZ project: my responsibilities include system design, planning and technical mentoring."_ The only purpose of the introduction is to break the ice and provide a gist of your background. The more time you spend on this, the less time you will have for the actual interview.
 
 ## Defining The Task
 The interviewer defines the task. For example: _"Design Twitter Feed"_.  Your first step is to figure out the scope of the task:
@@ -21,7 +21,7 @@ The interviewer defines the task. For example: _"Design Twitter Feed"_.  Your fi
 - **Client-side + API + Back-end** -  less likely choice since most mobile engineers would not have a proper backend experience. If the interviewer asks server-side questions - let them know that you're most comfortable with the client-side and don't have hands-on experience with backend infrastructure. It's better to be honest than trying to fake your knowledge. If they still persist - let them know that everything you know comes from books, YouTube videos, and blog posts.
 
 ## Gathering Requirements
-Task requirements can be split into **functional**, **non-functional** and **out of scope**.  Will define them in the scope of "Design Twitter Feed" task.
+Task requirements can be split into **functional**, **non-functional** and **out of scope**.  We'll define them in the scope of "Design Twitter Feed" task.
 ### Functional requirements
 Think about 3–5 features that would bring _the biggest value to the business_.
 - Users should be able to scroll through an infinite list of tweets.
@@ -49,13 +49,13 @@ System design questions are made ambiguous. The interviewer is more interested i
 Your best bet is to ask many questions and cover as much ground as possible. Make it clear that you're starting with the BFS approach and ask them which feature or component they want to dig in. Some interviewers would let you choose which topics you want to discuss :  pick something you know best.
 
 ## Clarifying Questions
-Here some of the questions you might ask during the task clarification step
+Here are some of the questions you might ask during the task clarification step
 - **Do we need to support Emerging Markets?**  
 Publishing in a developing country brings additional challenges. The app size should be as small as possible due to the widespread use of low-end devices and higher cost of cellular traffic. The app itself should limit the number and the frequency of network requests and heavily rely on caching.
 - **What number of users do we expect?**  
 This seems like an odd question for a mobile engineer but it can be very important: a large number of clients results in a higher back-end load  -  if you don't design your API right , you can easily initiate a DDoS attack on your own servers. Make sure to discuss an Exponential Backoff and API Rate-Limiting with your interviewer.
 - **How big is the engineering team?**  
-This question might make sense for senior candidates. Building a product with a smaller team (2–4 engineers) is very different from building it with a larger team (20–100 engineers). The major concern is project structure and modularization. You need to design your system in a way that allows multiple people to work on without stepping on each other's toes.
+This question might make sense for senior candidates. Building a product with a smaller team (2–4 engineers) is very different from building it with a larger team (20–100 engineers). The major concern is project structure and modularization. You need to design your system in a way that allows multiple people to work on it without stepping on each other's toes.
 
 ## High-Level Diagram
 Once your interviewer is satisfied with the clarification step and your choice for the system requirements  - you should ask if they want to see a high-level diagram. Below is a possible solution for the "Twitter Feed" question.
@@ -78,7 +78,7 @@ A mediator component between API Service and Persistence.
 - **Tweet Feed Flow**  
 Represents a set of components responsible for displaying an infinite scrollable list of tweets.
 - **Tweet Details Flow**  
-Represents a set of components responsible for displaying a single tweet details.
+Represents a set of components responsible for displaying a single tweet's details.
 - **DI Graph**  
 Dependency injection graph. _TBD_.
 - **Image Loader**  
@@ -95,7 +95,7 @@ The interviewer might be looking for the following signals:
 - The candidate has app modularity in mind and is capable of thinking in the scope of the entire team and not limiting themselves as a single contributor (this might be more important for senior candidates).
 
 ## Deep Dive: Tweet Feed Flow
-After a high-level discussion your interviewer might steer the conversation towards some specific component of the system. Let's assume it was "Tweet Feed Flow". Things you might want to talk about:
+After a high-level discussion, your interviewer might steer the conversation towards some specific component of the system. Let's assume it was "Tweet Feed Flow". Things you might want to talk about:
 - **Architecture patterns**: MVP, MVVM, MVI, etc. MVC is considered a poor choice these days. It's better to select a well known pattern since it makes it easier to onboard new hires (compared to some less known home-grown approaches).
 - **Pagination**: essential for an infinite scroll functionality. For more details see Pagination.
 - **Dependency injection**: helps building an isolated and testable module.
@@ -118,9 +118,9 @@ The interviewer might be looking for the following signals:
 - The candidate is capable of designing self-contained isolated modules.
 
 ## API Design
-The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part or choose something you know best (in case if they don't have a strong preference).
+The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part, or choose something you know best (in case they don't have a strong preference).
 ### Real-time notification
-We need to provide real-time notifications support as a part of the design. Bellow are some of the approached you can mention during the discussion:
+We need to provide real-time notifications support as a part of the design. Bellow are some of the approaches you can mention during the discussion:
 - **Push Notifications**:
   - pros:
     - easier to implement compared to a dedicated service
@@ -138,7 +138,7 @@ Polling requires the client to periodically ask the server for updates. The bigg
       - no need to keep a persistent connection.
     - cons:
       - the notification can be delayed for as long as the polling time interval.
-      - addition overhead due to TLS Handshake and HTTP-headers 
+      - additional overhead due to TLS Handshake and HTTP-headers 
   - **long polling**:
      - pros:
        - instant notification (no additional delay)
@@ -172,10 +172,10 @@ A text-based stateless protocol - most popular choice for CRUD (Create, Read, Up
   - less efficient on mobile platforms since every request requires a separate physical connection
   - schemaless - it's hard to check data validity on the client
   - stateless - needs extra functionality to maintain a session
-  - additional overhead - every request contains textural metadata and headers
+  - additional overhead - every request contains contextual metadata and headers
 
 #### GraphQL
-A query language for working with API - allows clients to requests data from several resources using a single endpoint (instead of making multiple requests in traditional RESTful apps)
+A query language for working with API - allows clients to request data from several resources using a single endpoint (instead of making multiple requests in traditional RESTful apps)
 - pros
   - schema-based typed queries - clients can verify data integrity and format
   - highly customizable - clients can request specific data and reduce the amount of HTTP-traffic
@@ -183,7 +183,7 @@ A query language for working with API - allows clients to requests data from sev
 - cons
   - more complex backend implementation
   - "leaky-abstraction" - clients become tightly coupled to the backend
-  - the performance of a query is bound to the performance of the slowest service on the backend (in case when the response data is federated between multiple services)
+  - the performance of a query is bound to the performance of the slowest service on the backend (in case the response data is federated between multiple services)
 
 #### WebSocket
 Full-duplex communication over a single TCP connection.
@@ -193,7 +193,7 @@ Full-duplex communication over a single TCP connection.
 - cons
   - requires maintaining an active connection - might have poor performance on unstable cellular networks
   - schemaless - it's hard to check data validity on the client
-  - the number of active connection on a single server is limited to 65k 
+  - the number of active connections on a single server is limited to 65k 
 #### gRPC
 Remote Procedure Call framework which runs on top of HTTP/2. Supports bi-directional streaming using a single physical connection.
 - pros
@@ -210,7 +210,7 @@ The interviewer would expect you to **pick a concrete approach** most suitable f
 
 ### Pagination
 Endpoints that return a list of entities must support pagination. Without pagination, a single request could return a huge amount of results causing excessive network and memory usage.
-#### Type of pagination
+#### Types of pagination
 - **Offset Pagination**  
 Provides a `limit` and an `offset` query parameters. Example: `GET /feed?offset=100&limit=20`
   - pros
@@ -227,7 +227,7 @@ Uses the values from the last page to fetch the next set of items. Example: `GET
     - Stateless on the server.
   - cons
     - "Leaky abstraction" - the pagination mechanism becomes aware of the underlying database storage.
-    - Only works on field with natural ordering (timestamps, etc).
+    - Only works on fields with natural ordering (timestamps, etc).
 - **Cursor/Seek Pagination**  
 Operates with stable ids which are decoupled from the database SQL queries (usually, a selected field is encoded using base64 and encrypted on the backend side). Example: `GET /feed?after_id=t1234xzy&limit=20`
   - pros
@@ -288,13 +288,13 @@ _TBD_
 
 ## Additional topics
 ### Major Concerns For Mobile Development
-Here's the list of concerns to keep in mind while discussing your solution with the interviewer:
+Here's a list of concerns to keep in mind while discussing your solution with the interviewer:
 - **User Data Privacy** - leaking customer's data can damage your business and reputation.
 - **Security** - protect your products against reverse-engineering (more important for Android)
 - **Target Platform Changes** - each new iOS/Android release may limit an existing functionality and make Privacy rules more strict.
 - **Non-reversibility of released products** - assume everything you ship is final and would never change. Make sure to use staged rollouts and server-side "feature" flags.
 - **Device Resources usage**
-  - Metered connections - cellular network traffic can be very expensive/
+  - Metered connections - cellular network traffic can be very expensive
   - Bandwidth usage - constant waking up of the cellular radio results in a faster battery drain
   - CPU usage - higher computational load results in a faster battery drain
 - **Geo-Location Usage**
