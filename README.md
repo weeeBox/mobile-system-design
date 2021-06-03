@@ -1,5 +1,5 @@
 # A Simple Framework For Mobile System Design Interviews (work in progress)
-Below is a simple framework for Mobile System Design interviews. As an example, we are going to use "Design Twitter Feed" question. The proposed solution is far from being perfect but it is not the point of a system design interview round: no one expects you to build a robust system in just 30 min - the interviewer is mosly looking for specific "signals" from your thought process and communication. Everything you say or do should help the interviewer to evaluate you as a candidate.
+Below is a simple framework for Mobile System Design interviews. As an example, we are going to use "Design Twitter Feed" question. The proposed solution is far from being perfect but it is not the point of a system design interview round: no one expects you to build a robust system in just 30 min - the interviewer is mostly looking for specific "signals" from your thought process and communication. Everything you say or do should help the interviewer to evaluate you as a candidate.
 
 ## Disclaimer
 This might not be the only and/or the best way of structuring your system design interview. The framework was mostly inspired by similar "Scalable Backend Design" articles. Feel free to contribute. Use it at your own risk.
