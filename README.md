@@ -308,6 +308,28 @@ Here's a list of concerns to keep in mind while discussing your solution with th
 -  Assume that the target platform's (iOS/Android) Security & Privacy rules will change - make critical functionality controllable by remote "feature-killer" flags.
 - User's _perception_ of security is as important as the implemented security measures - make sure to discuss how you would educate your customers about data collection, storage, and transmission.
 
+#### Cloud vs On-Device
+At some point during the interview you might need to choose between running some functionality on a device and moving it to a cloud. The approach you select would have the biggest impact when it comes to _On-Device AI_ but can also be extended to any kind of data processing as well.  
+
+**Advantages of running things in a cloud:**
+- Device independent - your customers are not limited by the characteristics of their devices.
+- Better usage of client system resources - any intensive computation can be executed on the backend to save the device's battery.
+- Fast pace of changes - you don't need to release an update to all the clients in order to get the desired functionality available.
+- Much bigger computational resources - your backend can autoscale as the load pressure grows.
+- Better security - the client code can be tampered and reverse engineered while the backend applications tend to be more secure.
+- Easier analytics and offline data analysis - you gather all the data you need in your data centers.
+
+**Advantages of running things on a device:**
+- Better privacy - the data does not leave the user's device and is not stored on the cloud.
+- Real-time functionality - certain operations can run much faster on a user's device than being sent to a backend.
+- Lower bandwidth usage - you don't need to send data over the network.
+- Offline functionality - the client does not need a persistent network connection to operate.
+- Lower backend usage - the load is splitted between all the clients and the backend.  
+
+**Things you should never run on a device:**  
+- New "resource" creation - generating coupons, tickets, etc.
+- Transactions and Payment verification - unless it's delegated to a 3rd-party SDK.
+
 ### Offline and Opportunistic State
 _TBD_
 ### Caching
