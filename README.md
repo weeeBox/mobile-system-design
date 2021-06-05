@@ -344,6 +344,7 @@ To make your system more energy efficient you can introduce the Quality Of Servi
   - **Background**: should be dispatched after all the above is finished: posting "likes", analytics.
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Resumable Uploads
+"A resumable upload allows you to resume data transfer operations to Cloud Storage after a communication failure has interrupted the flow of data. Resumable uploads work by sending multiple requests, each of which contains a portion of the object you're uploading. This is different from a single-request upload, which contains all of the object's data in a single request and must restart from the beginning if it fails part way through.". More information [here](https://cloud.google.com/storage/docs/resumable-uploads).  
 _TBD_
 ### Prefetching
 _TBD_
