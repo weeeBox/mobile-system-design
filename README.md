@@ -347,7 +347,13 @@ To make your system more energy efficient you can introduce the Quality Of Servi
 "A resumable upload allows you to resume data transfer operations to Cloud Storage after a communication failure has interrupted the flow of data. Resumable uploads work by sending multiple requests, each of which contains a portion of the object you're uploading. This is different from a single-request upload, which contains all of the object's data in a single request and must restart from the beginning if it fails part way through.". More information [here](https://cloud.google.com/storage/docs/resumable-uploads).  
 _TBD_
 ### Prefetching
+Prefetching improves app performance by hiding the data transfer latency over slow and unreliable networks. The biggest concern while designing your prefetching solution is the increase of battery and cellular data usage.
 _TBD_
+#### More Info:
+- [Optimize downloads for efficient network access](https://developer.android.com/training/efficient-downloads/efficient-network-access)
+- [Improving performance with background data prefetching](https://instagram-engineering.com/improving-performance-with-background-data-prefetching-b191acb39898)
+- [Informed mobile prefetching](https://dl.acm.org/doi/10.1145/2307636.2307651)
+- [Understanding prefetching and how Facebook uses prefetching](https://www.facebook.com/business/help/1514372351922333)
 ## Conclusion
 There's a significant amount of randomness during a system design interview. The process and the structure can vary depending on the company and the interviewer.
 ### Things you can control
@@ -370,3 +376,6 @@ There's a significant amount of randomness during a system design interview. The
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
 ## Additional Information
 _TBD_
+
+
+
