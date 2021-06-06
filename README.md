@@ -1,8 +1,8 @@
 # A Simple Framework For Mobile System Design Interviews (work in progress)
-Below is a simple framework for Mobile System Design interviews. As an example, we are going to use the "Design Twitter Feed" question. The proposed solution is far from being perfect but it is not the point of a system design interview round: no one expects you to build a robust system in just 30 min - the interviewer is mostly looking for specific "signals" from your thought process and communication. Everything you say or do should help the interviewer to evaluate you as a candidate.
+Below is a simple framework for Mobile System Design interviews. As an example, we are going to use the "Design Twitter Feed" question. The proposed solution is far from being perfect but it is not the point of a system design interview round: no one expects you to build a robust system in just 30 min - the interviewer is mostly looking for specific "signals" from your thought process and communication. Everything you say or do should showcase your strengths and help the interviewer to evaluate you as a candidate.
 
 ## Disclaimer
-This might not be the only and/or the best way of structuring your system design interview. The framework was mostly inspired by similar "Scalable Backend Design" articles. Feel free to contribute. Use it at your own risk.
+The framework was heavily inspired by the similar "Scalable Backend Design" articles. Learning the framework does not guarantee passing the interview. The structure of the interview process depends on the personal style of the interviewer. The dialog is really important - make sure you understand what the interviewer is looking for. Make no assumptions and ask clarifying questions.
 
 ## Interview Process (45–60 min)
 - 2–5 min - acquaintances
@@ -42,6 +42,7 @@ Features which will be excluded from the task but would still be important in a 
 
 ## Providing the "signal"
 System design questions are made ambiguous. The interviewer is more interested in seeing your thought process than the actual solution you produce:
+- What assumptions did you make and how did you state them?
 - What features did you choose?
 - What clarifying questions did you ask?
 - What concerns and trade-offs did you mention?
@@ -376,6 +377,3 @@ There's a significant amount of randomness during a system design interview. The
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
 ## Additional Information
 _TBD_
-
-
-
