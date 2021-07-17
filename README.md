@@ -39,6 +39,7 @@ Features which will be excluded from the task but would still be important in a 
 - Login/Authentication.
 - Tweet sending.
 - Followers/Retweets.
+- Analytics.
 
 ## Providing the "signal"
 System design questions are made ambiguous. The interviewer is more interested in seeing your thought process than the actual solution you produce:
@@ -74,7 +75,7 @@ Responsible for delivering static content to clients.
 Abstracts client-server communications from the rest of the system.
 - **Persistence**  
 A single source of truth. The data your system receives gets persisted on the disk first and then propagated to other components.
-- **Repository**
+- **Repository**  
 A mediator component between API Service and Persistence.
 - **Tweet Feed Flow**  
 Represents a set of components responsible for displaying an infinite scrollable list of tweets.
@@ -124,13 +125,13 @@ The goal is to cover as much ground as possible - you won't have enough time to 
 We need to provide real-time notifications support as a part of the design. Bellow are some of the approaches you can mention during the discussion:
 - **Push Notifications**:
   - pros:
-    - easier to implement compared to a dedicated service
-    - can wake the app in the background
+    - easier to implement compared to a dedicated service.
+    - can wake the app in the background.
   - cons:
-    - not 100% reliable
-    - may take up to a minute to arrive
-    - relies on a 3rd-party service
-    - users can opt-out easily
+    - not 100% reliable.
+    - may take up to a minute to arrive.
+    - relies on a 3rd-party service.
+    - users can opt-out easily.
 - **HTTP-polling**  
 Polling requires the client to periodically ask the server for updates. The biggest concern is the amount of unnecessary network traffic and increased backend load.
   - **short polling**: the client samples the server with a predefined time interval.    
@@ -142,7 +143,7 @@ Polling requires the client to periodically ask the server for updates. The bigg
       - additional overhead due to TLS Handshake and HTTP-headers 
   - **long polling**:
      - pros:
-       - instant notification (no additional delay)
+       - instant notification (no additional delay).
      - cons:
        - more complex and requires more server-side resources.
        - keeps a persistent connection until the server replies.
@@ -153,11 +154,11 @@ Allows the client to stream events over an HTTP connection without polling.
   - cons:
     - keeps a persistent connection.
 - **Web-Sockets**:  
-Provide a bi-directional communication between client and server
+Provide a bi-directional communication between client and server.
   - pros:
-    - can transmit both binary and text data
+    - can transmit both binary and text data.
   - cons:
-    - more complex to set-up compared to Polling/SSE
+    - more complex to set-up compared to Polling/SSE.
     - keeps a persistent connection.
 
 The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. One possible solution for the "Design Twitter Feed" question could be using a combination of SSE (a primary channel of receiving real-time updates on "likes") with Push Notifications (sent if the client does not have an active connection to the backend).
@@ -165,47 +166,47 @@ The interviewer would expect you to **pick a concrete approach** most suitable f
 ### Protocols
 #### REST
 A text-based stateless protocol - most popular choice for CRUD (Create, Read, Update, and Delete) operations.
-- pros
-  - easy to learn, understand, and implement
-  - easy to cache using built-in HTTP caching mechanism
-  - loose coupling between client and server
-- cons
-  - less efficient on mobile platforms since every request requires a separate physical connection
-  - schemaless - it's hard to check data validity on the client
-  - stateless - needs extra functionality to maintain a session
-  - additional overhead - every request contains contextual metadata and headers
+- pros:
+  - easy to learn, understand, and implement.
+  - easy to cache using built-in HTTP caching mechanism.
+  - loose coupling between client and server.
+- cons:
+  - less efficient on mobile platforms since every request requires a separate physical connection.
+  - schemaless - it's hard to check data validity on the client.
+  - stateless - needs extra functionality to maintain a session.
+  - additional overhead - every request contains contextual metadata and headers.
 
 #### GraphQL
-A query language for working with API - allows clients to request data from several resources using a single endpoint (instead of making multiple requests in traditional RESTful apps)
-- pros
-  - schema-based typed queries - clients can verify data integrity and format
-  - highly customizable - clients can request specific data and reduce the amount of HTTP-traffic
+A query language for working with API - allows clients to request data from several resources using a single endpoint (instead of making multiple requests in traditional RESTful apps).
+- pros:
+  - schema-based typed queries - clients can verify data integrity and format.
+  - highly customizable - clients can request specific data and reduce the amount of HTTP-traffic.
   - bi-directional communication with GraphQL Subscriptions (WebSocket based).
-- cons
-  - more complex backend implementation
-  - "leaky-abstraction" - clients become tightly coupled to the backend
-  - the performance of a query is bound to the performance of the slowest service on the backend (in case the response data is federated between multiple services)
+- cons:
+  - more complex backend implementation.
+  - "leaky-abstraction" - clients become tightly coupled to the backend.
+  - the performance of a query is bound to the performance of the slowest service on the backend (in case the response data is federated between multiple services).
 
 #### WebSocket
 Full-duplex communication over a single TCP connection.
-- pros
-  - real time bi-directional communication
-  - provides both text-based and binary traffic
-- cons
-  - requires maintaining an active connection - might have poor performance on unstable cellular networks
-  - schemaless - it's hard to check data validity on the client
-  - the number of active connections on a single server is limited to 65k 
+- pros:
+  - real time bi-directional communication.
+  - provides both text-based and binary traffic.
+- cons:
+  - requires maintaining an active connection - might have poor performance on unstable cellular networks.
+  - schemaless - it's hard to check data validity on the client.
+  - the number of active connections on a single server is limited to 65k.
 #### gRPC
 Remote Procedure Call framework which runs on top of HTTP/2. Supports bi-directional streaming using a single physical connection.
-- pros
-  - lightweight binary messages (much smaller compared to text-based protocols)
-  - schema-based - built-in code generation with Protobuf
+- pros:
+  - lightweight binary messages (much smaller compared to text-based protocols).
+  - schema-based - built-in code generation with Protobuf.
   - provides support of event-driven architecture: server-side streaming, client-side streaming, and bi-directional streaming
-  - multiple parallel requests
-- cons
-  - limited browser support
-  - non human-readable format
-  - steeper learning curve
+  - multiple parallel requests.
+- cons:
+  - limited browser support.
+  - non human-readable format.
+  - steeper learning curve.
 
 The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. Since the API layer for the "Design Twitter Feed" question is pretty simple and does not require much customization - we can select an approach based on REST.
 
@@ -213,30 +214,30 @@ The interviewer would expect you to **pick a concrete approach** most suitable f
 Endpoints that return a list of entities must support pagination. Without pagination, a single request could return a huge amount of results causing excessive network and memory usage.
 #### Types of pagination
 - **Offset Pagination**  
-Provides a `limit` and an `offset` query parameters. Example: `GET /feed?offset=100&limit=20`
-  - pros
-    - Easiest to implement - the request parameters can be passed directly to a SQL query.
-    - Stateless on the server.
-  - cons
-    - Bad performance on large offset values (the database needs to skip `offset` rows before returning the paginated result).
-     - Inconsistent when adding new rows into the database (Page Drift).
+Provides a `limit` and an `offset` query parameters. Example: `GET /feed?offset=100&limit=20`.
+  - pros:
+    - easiest to implement - the request parameters can be passed directly to a SQL query.
+    - stateless on the server.
+  - cons:
+    - bad performance on large offset values (the database needs to skip `offset` rows before returning the paginated result).
+    - inconsistent when adding new rows into the database (Page Drift).
 - **Keyset Pagination**  
-Uses the values from the last page to fetch the next set of items. Example: `GET /feed?after=2021-05-25T00:00:00&limit=20`
-  - pros
-    - Translates easily into a SQL query.
-    - Good performance with large datasets.
-    - Stateless on the server.
-  - cons
-    - "Leaky abstraction" - the pagination mechanism becomes aware of the underlying database storage.
-    - Only works on fields with natural ordering (timestamps, etc).
+Uses the values from the last page to fetch the next set of items. Example: `GET /feed?after=2021-05-25T00:00:00&limit=20`.
+  - pros:
+    - translates easily into a SQL query.
+    - good performance with large datasets.
+    - stateless on the server.
+  - cons:
+    - "leaky abstraction" - the pagination mechanism becomes aware of the underlying database storage.
+    - only works on fields with natural ordering (timestamps, etc).
 - **Cursor/Seek Pagination**  
-Operates with stable ids which are decoupled from the database SQL queries (usually, a selected field is encoded using base64 and encrypted on the backend side). Example: `GET /feed?after_id=t1234xzy&limit=20`
-  - pros
-    - Decouples pagination from SQL database.
-    - Consistent ordering when new items are inserted.
-  - cons
-    - More complex backend implementation.
-    - Does not work well if items get deleted (ids might become invalid)
+Operates with stable ids which are decoupled from the database SQL queries (usually, a selected field is encoded using base64 and encrypted on the backend side). Example: `GET /feed?after_id=t1234xzy&limit=20`.
+  - pros:
+    - decouples pagination from SQL database.
+    - consistent ordering when new items are inserted.
+  - cons:
+    - more complex backend implementation.
+    - does not work well if items get deleted (ids might become invalid).
 
 You need to select a single approach after listing the possible options and discussing their pros and cons. We'll pick Cursor Pagination in the scope of the "Design Twitter Feed" question. A sample API request might look like this:  
 ```
@@ -291,22 +292,22 @@ _TBD_
 ### Major Concerns For Mobile Development
 Here's a list of concerns to keep in mind while discussing your solution with the interviewer:
 - **User Data Privacy** - leaking customer's data can damage your business and reputation.
-- **Security** - protect your products against reverse-engineering (more important for Android)
+- **Security** - protect your products against reverse-engineering (more important for Android).
 - **Target Platform Changes** - each new iOS/Android release may limit an existing functionality and make Privacy rules more strict.
 - **Non-reversibility of released products** - assume everything you ship is final and would never change. Make sure to use staged rollouts and server-side "feature" flags.
 - **Device Resources usage**
-  - Metered connections - cellular network traffic can be very expensive
-  - Bandwidth usage - constant waking up of the cellular radio results in a faster battery drain
-  - CPU usage - higher computational load results in a faster battery drain
+  - Metered connections - cellular network traffic can be very expensive.
+  - Bandwidth usage - constant waking up of the cellular radio results in a faster battery drain.
+  - CPU usage - higher computational load results in a faster battery drain and device overheating.
 - **Geo-Location Usage**
-  - Prefer the lowest possible location accuracy
-  - Don't compromise user's privacy while using location services
+  - Prefer the lowest possible location accuracy.
+  - Don't compromise user's privacy while using location services.
 
 ### Privacy & Security
 - Keep as little of the user's data as possible - don't collect things you won't need.
 - Assume that on-device storage is not secure (even while using KeyStore/KeyChain functionality).
-- Assume that the backend storage is also not secure - discussed possible E2E encryption mechanisms.
--  Assume that the target platform's (iOS/Android) Security & Privacy rules will change - make critical functionality controllable by remote "feature-killer" flags.
+- Assume that the backend storage is also not secure - discussed possible end-to-end encryption mechanisms.
+-  Assume that the target platform's (iOS/Android) Security & Privacy rules will change - make critical functionality controllable by remote "feature" flags.
 - User's _perception_ of security is as important as the implemented security measures - make sure to discuss how you would educate your customers about data collection, storage, and transmission.
 
 #### Cloud vs On-Device
@@ -337,7 +338,7 @@ _TBD_
 _TBD_
 ### Quality Of Service
 To make your system more energy efficient you can introduce the Quality Of Service classes for your network operations. The implementation is quite tricky but you can discuss it on a higher level:
-- Limit the number of concurrent network operations (4-10).
+- Limit the number of concurrent network operations (4-10). The number itself may depend on the device state (battery/wall charger, WiFi/cellular, doze/standby, etc).
 - Assign a Quality Of Service class to each of your network requests:
   - **User-critical** - should be dispatched as fast as possible: fetching the next page of data for the Tweet Feed; requesting Tweet Details.
   - **UI-critical**: - should be dispatched after User-critical requests: fetching low-res thumb images for tweets on the Feed while scrolling. Cancelled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
@@ -370,7 +371,7 @@ There's a significant amount of randomness during a system design interview. The
     - _TBD_
 - **Your resume** - make sure to list all your accomplishments with measurable impact.
 ### Things you cannot control
-- **Your interviewer's attitude** - they might have a bad day.
+- **Your interviewer's attitude** - they might have a bad day or simply dislike you.
 - **Your competition** - sometimes there's simply a better candidate.
 - **The hiring committee** - they make a decision based on the interviewers' report and your resume.
 ### Judging the outcome
