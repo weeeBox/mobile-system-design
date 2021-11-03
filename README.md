@@ -362,7 +362,9 @@ A resumable (chunked) media upload breaks down a single upload request in three 
 **Note:** Resumable uploads are most effective with large uploads (videos, archives) on unstable networks. For smaller files (images, texts) and stable networks, a single-request upload should be sufficient.  
 
 #### More Info:
-- [Google Cloud: Resumable Uploads](https://cloud.google.com/storage/docs/resumable-uploads).  
+- [YouTube: Resumable Uploads](https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol)  
+- [Google Photos: Resumable Uploads](https://developers.google.com/photos/library/guides/resumable-uploads)  
+- [Google Cloud: Resumable Uploads](https://cloud.google.com/storage/docs/resumable-uploads)  
 - [Twitter: Chunked Media Upload](https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/uploading-media/chunked-media-upload)
 
 ### Prefetching
