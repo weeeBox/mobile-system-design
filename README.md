@@ -274,6 +274,10 @@ Authorization: Bearer <token>
   }
 }
 ```
+#### Additional Information
+- [Evolving API Pagination at Slack](https://slack.engineering/evolving-api-pagination-at-slack/)  
+- [Everything You Need to Know About API Pagination](https://nordicapis.com/everything-you-need-to-know-about-api-pagination/)  
+
 Although we left it out of scope, it's still beneficial to mention HTTP authentication. You can include an `Authorization` header and discuss how to properly handle `401 Unauthorized` response scenario. Also, don't forget to talk about Rate-Limiting strategies (`429 Too Many Requests`).  
 Make sure to keep it brief and simple (without unnecessary details): your primary goal during a system design interview is to provide "signal" and not to build a production ready solution.
 
