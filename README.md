@@ -346,8 +346,25 @@ To make your system more energy efficient you can introduce the Quality Of Servi
   - **Background**: should be dispatched after all the above is finished: posting "likes", analytics.
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Resumable Uploads
-"A resumable upload allows you to resume data transfer operations to Cloud Storage after a communication failure has interrupted the flow of data. Resumable uploads work by sending multiple requests, each of which contains a portion of the object you're uploading. This is different from a single-request upload, which contains all of the object's data in a single request and must restart from the beginning if it fails part way through.". More information [here](https://cloud.google.com/storage/docs/resumable-uploads).  
-_TBD_
+A resumable (chunked) media upload breaks down a single upload request in three stages:
+- Upload initialization
+- Chunk bytes uploading (appending)
+- Upload finalization
+
+![Resumable-Uploads](/images/resumable-uploads.svg)
+
+**Advantages of resumable uploads:**
+- Allows you to resume interrupted data transfer operations without restarting from the beginning.  
+
+**Disadvantages of resumable uploads:**
+- An overhead from additional connections and metadata.  
+
+**Note:** Resumable uploads are most effective with large uploads (videos, archives) on unstable networks. For smaller files (images, texts) and stable networks, a single-request upload should be sufficient.  
+
+#### More Info:
+- [Google Cloud: Resumable Uploads](https://cloud.google.com/storage/docs/resumable-uploads).  
+- [Twitter: Chunked Media Upload](https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/uploading-media/chunked-media-upload)
+
 ### Prefetching
 Prefetching improves app performance by hiding the data transfer latency over slow and unreliable networks. The biggest concern while designing your prefetching solution is the increase of battery and cellular data usage.
 _TBD_
