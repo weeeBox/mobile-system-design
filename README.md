@@ -415,3 +415,4 @@ There's a significant amount of randomness during a system design interview. The
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
 ## Additional Information
 _TBD_
+## Consider "starring" the repository to help other people discover the guide! Thank you!
