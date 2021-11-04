@@ -290,7 +290,10 @@ The interviewer might be looking for the following signals:
 - The candidate is familiar with network error handling and rate-limiting.
 
 ## Data Storage
-_TBD_
+- Security: _TBD_
+- Format: _TBD_
+- Migration: _TBD_
+- Size: _TBD_
 
 ## Additional topics
 ### Major Concerns For Mobile Development
@@ -299,19 +302,30 @@ Here's a list of concerns to keep in mind while discussing your solution with th
 - **Security** - protect your products against reverse-engineering (more important for Android).
 - **Target Platform Changes** - each new iOS/Android release may limit an existing functionality and make Privacy rules more strict.
 - **Non-reversibility of released products** - assume everything you ship is final and would never change. Make sure to use staged rollouts and server-side "feature" flags.
-- **Device Resources usage**
-  - Metered connections - cellular network traffic can be very expensive.
+- **Performance/Stability**
+  - Metered data usage - cellular network traffic can be very expensive.
   - Bandwidth usage - constant waking up of the cellular radio results in a faster battery drain.
   - CPU usage - higher computational load results in a faster battery drain and device overheating.
+  - Memory Usage - higher memory usage increases the risk of the app being killed in the background.
+  - Startup Time - doing too much work at the app start creates poor user experience.
+  - Crashers/ANRs - doing too much of work on main thread can lead to app shutdowns and UI-jank. App crashes is the leading factor of poor store ratings. 
 - **Geo-Location Usage**
-  - Prefer the lowest possible location accuracy.
-  - Don't compromise user's privacy while using location services.
+  - Don't compromise user privacy while using location services.  
+  - Prefer the lowest possible location accuracy. Progressively ask for increased location accuracy if needed.  
+  - Provide location access rationale before requesting permissions.  
 
 ### Privacy & Security
 - Keep as little of the user's data as possible - don't collect things you won't need.
+  - Avoid collecting device IDs (prefer one-time generated pseudo-anonymous IDs).
+  - Anonymize collected data.
+- Minimize the use of permissions
+  - Be prepared for the user to deny permissions and respect the user's choice when they deny permission the second time.
+  - Be prepared for the system to auto-reset permissions.
+  - Be prepared for app hibernation of unused apps.
+  - Delegate functionality to the 1st party apps (Camera, Photo Picker, File Manager, etc).
 - Assume that on-device storage is not secure (even while using KeyStore/KeyChain functionality).
 - Assume that the backend storage is also not secure - discussed possible end-to-end encryption mechanisms.
--  Assume that the target platform's (iOS/Android) Security & Privacy rules will change - make critical functionality controllable by remote "feature" flags.
+- Assume that the target platform's (iOS/Android) Security & Privacy rules will change - make critical functionality controllable by remote "feature" flags.
 - User's _perception_ of security is as important as the implemented security measures - make sure to discuss how you would educate your customers about data collection, storage, and transmission.
 
 #### Cloud vs On-Device
