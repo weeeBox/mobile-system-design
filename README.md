@@ -131,7 +131,7 @@ We need to provide real-time notifications support as a part of the design. Bell
     - not 100% reliable.
     - may take up to a minute to arrive.
     - relies on a 3rd-party service.
-    - users can opt-out easily.
+    - users can opt out easily.
 - **HTTP-polling**  
 Polling requires the client to periodically ask the server for updates. The biggest concern is the amount of unnecessary network traffic and increased backend load.
   - **short polling**: the client samples the server with a predefined time interval.    
@@ -290,10 +290,94 @@ The interviewer might be looking for the following signals:
 - The candidate is familiar with network error handling and rate-limiting.
 
 ## Data Storage
-- Security: _TBD_
-- Format: _TBD_
-- Migration: _TBD_
-- Size: _TBD_
+### Data Storage Options
+Bellow are the most common options for local device data storage:
+- **Key-Value Storage (UserDefaults/SharedPreferences/Property List)**:
+  - pros:
+    - easy to use built-in API.
+    - works best for simple, unstructured, non-sensitive data (settings, flags, etc).
+  - cons:
+    - insecure (Android provides [EncryptedSharedPreferences](https://developer.android.com/reference/androidx/security/crypto/EncryptedSharedPreferences); 3rd party wrapper libraries available on iOS).
+    - not suitable for storing large data.
+    - no schema support nor ability to query data.
+    - no data migration support.
+    - poor performance.
+- **Database/ORM (sqlite/Room/Core Data/Realm/etc)**:
+  - pros:
+    - object–relational mapping support. 
+    - schema and querying support.
+    - data migration support.
+  - cons:
+    - more complex setup. 
+    - insecure (wrapper libraries available on iOS/Android).
+    - bigger memory footprint.
+- **Custom/Binary (DataStore/NSCoding/Codable/etc)**:
+  - pros:
+    - highly customizable.
+    - performant.
+  - cons:
+    - no schema/migration support.
+    - lots of manual effort.
+- **On-Device Secure Storage (Keystore/Key Chain)**:
+  - pros:
+    - secure (not 100% unless provided by the hardware).
+  - cons:
+    - not optimized for storing anything but encryption keys.
+    - encryption/decryption performance overhead.
+    - no schema/migration support.
+### Storage Location
+- **Internal**  
+  Sand-boxed by the app and not readable to other apps (with few exceptions).
+- **External**  
+  Publicly visible and most likely not deleted when your app is deleted.
+- **Media/Scoped**  
+  Special type of storage for media files.
+### Storage Type
+- **Documents (Automatically Backed Up)**  
+  User-generated data that cannot be easily re-generated and will be automatically backed up.
+- **Cache**  
+  Data that can be downloaded again or regenerated. Can be deleted by user to free-up space.
+- **Temp**  
+  Data that is only used temporary and should be deleted when no longer needed. 
+
+### Best Practices
+- Store as little sensitive data as possible.
+- Use encrypted storage if you can't avoid storing sensitive data.
+- Do not allow your app storage grow uncontrollably. Make sure that cleaning up cached files won't affect app functionality.
+
+### Approach
+You need to select a single approach after listing options and discussing their pros and cons. Don't worry about building a complete solution - just try to lay out a high-level idea without going too deep into details.  
+A possible breakdown for the "Design Twitter Feed" question might look like this:
+#### Feed Pagination Table
+Create a "feed" database table for storing paginated feed response:
+```
+item_id:        String
+author_id:      String
+title:          String
+description:    String
+likes:          Int
+comments:       Int
+attachments:    String # comma separated list
+created_at:     Date   # also used for sorting
+cursor_next_id: String # points to the next cursor page
+cursor_prev_id: String # points to the prev cursor page
+```
+- Limit the total number of entries to 500 in order to control local storage size.
+- Flatten attachments into a comma separated list. Alternatively, you can create an `attachments` table and join it with the `feed` table on `item_id`.
+- Explicitly store next/prev cursor id with each item to simplify paged navigation.
+
+#### Attachments Storage
+- Store attachments as files in Internal Cached storage.
+- Use attachment URLs as cache keys.
+- Delete attachments after deleting corresponding items from the `feed` table.
+- Limit the cache size to 200-400 Mb.
+
+A possible follow-up question might require you to handle sensitive media data (private accounts, etc). In this case, you can selectively encrypt image files with encryption keys stored in Keystore/KeyChain.
+
+## Providing the "signal"
+The interviewer might be looking for the following signals:
+- The candidate is aware of mobile storage types, security, limitations, and compatibility.
+- The candidate is capable of designing a storage solution for most common scenarios.
 
 ## Additional topics
 ### Major Concerns For Mobile Development
