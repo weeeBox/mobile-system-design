@@ -438,7 +438,47 @@ At some point, during the interview, you might need to choose between running so
 - Transactions and Payment verification - unless it's delegated to a 3rd-party SDK.
 
 ### Offline and Opportunistic State
-_TBD_
+Adding an Offline State ensures the app's usability without a network connection:
+- user can like/comment/delete tweets without having a network connection.
+- the UI gets updated "opportunistically" assuming that each request will be sent when the network goes back online.
+- the app should display cached results when possible.
+- the app properly notifies users about its Offline State
+- all state changes are batched and sent when the network goes back online.
+#### Request de-duplication
+The client should ensure that retrying the same request won't create a duplication resource on the server (idempotence). A possible workaround could involve unique client-side generated request identifiers and server-side de-duplication.
+#### Synching Local and Remote States
+A follow-up question might require you to properly handle state synchronization across multiple devices with the same account. Merge conflict resolution could be trickly. Below are a few possible solutions.  
+
+**Local Conflict Resolution**  
+A local device pulls the remote state from the backend after going online, merges it with the local state, and upload changes.  
+
+pros:  
+- easy to implement
+
+cons:  
+- insecure - gives a local device authority over the backend.
+- won't solve the problem if multiple devices send their updates simultaneously (the last update "wins").
+- any changes in merging logic requires app update.
+
+**Remote Conflict Resolution**  
+A local device sends its local state to the backend after going online, receives a new state, and overwrites the local state.  
+
+pros:  
+- moves conflict resolution authority to the backend.
+- does not require client updates.
+
+cons:  
+- more complex backend implementation.
+
+#### More Information
+- Offline functionality for Trello’s mobile applications:
+  - [Airplane Mode: Enabling Trello Mobile Offline](https://tech.trello.com/sync-architecture/)
+  - [Syncing Changes](https://tech.trello.com/syncing-changes/)
+  - [Sync Failure Handling](https://tech.trello.com/sync-failure-handling/)
+  - [The Two ID Problem](https://tech.trello.com/sync-two-id-problem/)
+  - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
+  - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
+  - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
 ### Caching
 _TBD_
 ### Quality Of Service
