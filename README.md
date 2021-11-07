@@ -385,7 +385,7 @@ The interviewer might be looking for the following signals:
 ## Additional topics
 ### Major Concerns For Mobile Development
 Here's a list of concerns to keep in mind while discussing your solution with the interviewer:
-- **User Data Privacy** - leaking customer's data can damage your business and reputation.
+- **User Data Privacy** - leaking customer data can damage your business and reputation.
 - **Security** - protect your products against reverse-engineering (more important for Android).
 - **Target Platform Changes** - each new iOS/Android release may limit an existing functionality and make Privacy rules more strict.
 - **Non-reversibility of released products** - assume everything you ship is final and would never change. Make sure to use staged rollouts and server-side "feature" flags.
@@ -394,8 +394,8 @@ Here's a list of concerns to keep in mind while discussing your solution with th
   - Bandwidth usage - constant waking up of the cellular radio results in a faster battery drain.
   - CPU usage - higher computational load results in a faster battery drain and device overheating.
   - Memory Usage - higher memory usage increases the risk of the app being killed in the background.
-  - Startup Time - doing too much work at the app start creates poor user experience.
-  - Crashers/ANRs - doing too much of work on main thread can lead to app shutdowns and UI-jank. App crashes is the leading factor of poor store ratings. 
+  - Startup Time - doing too much work at the app start creates a poor user experience.
+  - Crashers/ANRs - doing too much work on the main thread can lead to app shutdowns and UI-jank. App crashes is the leading factor of poor store ratings. 
 - **Geo-Location Usage**
   - Don't compromise user privacy while using location services.  
   - Prefer the lowest possible location accuracy. Progressively ask for increased location accuracy if needed.  
@@ -416,12 +416,12 @@ Here's a list of concerns to keep in mind while discussing your solution with th
 - User's _perception_ of security is as important as the implemented security measures - make sure to discuss how you would educate your customers about data collection, storage, and transmission.
 
 #### Cloud vs On-Device
-At some point during the interview you might need to choose between running some functionality on a device and moving it to a cloud. The approach you select would have the biggest impact when it comes to _On-Device AI_ but can also be extended to any kind of data processing as well.  
+At some point, during the interview, you might need to choose between running some functionality on a device and moving it to a cloud. The approach you select would have the biggest impact when it comes to _On-Device AI_ but can also be extended to any kind of data processing as well.  
 
 **Advantages of running things in a cloud:**
-- Device independent - your customers are not limited by the characteristics of their devices.
+- Device-independent - your customers are not limited by the characteristics of their devices.
 - Better usage of client system resources - any intensive computation can be executed on the backend to save the device's battery.
-- Fast pace of changes - you don't need to release an update to all the clients in order to get the desired functionality available.
+- The fast pace of changes - you don't need to release an update to all the clients in order to get the desired functionality available.
 - Much bigger computational resources - your backend can autoscale as the load pressure grows.
 - Better security - the client code can be tampered and reverse engineered while the backend applications tend to be more secure.
 - Easier analytics and offline data analysis - you gather all the data you need in your data centers.
@@ -431,7 +431,7 @@ At some point during the interview you might need to choose between running some
 - Real-time functionality - certain operations can run much faster on a user's device than being sent to a backend.
 - Lower bandwidth usage - you don't need to send data over the network.
 - Offline functionality - the client does not need a persistent network connection to operate.
-- Lower backend usage - the load is splitted between all the clients and the backend.  
+- Lower backend usage - the load is split between all the clients and the backend.  
 
 **Things you should never run on a device:**  
 - New "resource" creation - generating coupons, tickets, etc.
@@ -442,12 +442,12 @@ _TBD_
 ### Caching
 _TBD_
 ### Quality Of Service
-To make your system more energy efficient you can introduce the Quality Of Service classes for your network operations. The implementation is quite tricky but you can discuss it on a higher level:
+To make your system more energy-efficient you can introduce the Quality Of Service classes for your network operations. The implementation is quite tricky but you can discuss it on a higher level:
 - Limit the number of concurrent network operations (4-10). The number itself may depend on the device state (battery/wall charger, WiFi/cellular, doze/standby, etc).
 - Assign a Quality Of Service class to each of your network requests:
   - **User-critical** - should be dispatched as fast as possible: fetching the next page of data for the Tweet Feed; requesting Tweet Details.
-  - **UI-critical**: - should be dispatched after User-critical requests: fetching low-res thumb images for tweets on the Feed while scrolling. Cancelled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
-  - **UI-non-critical**: should be dispatched after UI-critical requests: fetching high-res images for tweets on the Feed. Cancelled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
+  - **UI-critical** - should be dispatched after User-critical requests: fetching low-res thumb images for tweets on the Feed while scrolling. Canceled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
+  - **UI-non-critical**: should be dispatched after UI-critical requests: fetching high-res images for tweets on the Feed. Canceled if the user scrolls past the target tweet. May be delayed in case of fast scrolling.
   - **Background**: should be dispatched after all the above is finished: posting "likes", analytics.
 - Introduce a priority queue for scheduling network requests: dispatch requests in the order of their priority. Suspend low-priority requests if the max number of concurrent operations is reached and a high-priority request is scheduled.
 ### Resumable Uploads
@@ -473,7 +473,7 @@ A resumable (chunked) media upload breaks down a single upload request in three 
 - [Twitter: Chunked Media Upload](https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/uploading-media/chunked-media-upload)
 
 ### Prefetching
-Prefetching improves app performance by hiding the data transfer latency over slow and unreliable networks. The biggest concern while designing your prefetching solution is the increase of battery and cellular data usage.
+Prefetching improves app performance by hiding the data transfer latency over slow and unreliable networks. The biggest concern while designing your prefetching solution is the increase in battery and cellular data usage.
 _TBD_
 #### More Info:
 - [Optimize downloads for efficient network access](https://developer.android.com/training/efficient-downloads/efficient-network-access)
