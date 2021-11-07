@@ -292,17 +292,18 @@ The interviewer might be looking for the following signals:
 ## Data Storage
 ### Data Storage Options
 Bellow are the most common options for local device data storage:
-- **Key-Value Storage (UserDefaults/SharedPreferences/Property List)**:
+- **Key-Value Storage (UserDefaults/SharedPreferences/Property List)**:  
+  Usually, baked by XML or binary files. Allows associating primitive data with string-based keys. Works best for simple, unstructured, non-sensitive data (settings, flags, etc).  
   - pros:
     - easy to use built-in API.
-    - works best for simple, unstructured, non-sensitive data (settings, flags, etc).
   - cons:
     - insecure (Android provides [EncryptedSharedPreferences](https://developer.android.com/reference/androidx/security/crypto/EncryptedSharedPreferences); 3rd party wrapper libraries available on iOS).
     - not suitable for storing large data.
     - no schema support nor ability to query data.
     - no data migration support.
     - poor performance.
-- **Database/ORM (sqlite/Room/Core Data/Realm/etc)**:
+- **Database/ORM (sqlite/Room/Core Data/Realm/etc)**:  
+  Based on a relational database. Perfect for large amounts of structured data that needs complex querying logic.  
   - pros:
     - object–relational mapping support. 
     - schema and querying support.
@@ -311,14 +312,16 @@ Bellow are the most common options for local device data storage:
     - more complex setup. 
     - insecure (wrapper libraries available on iOS/Android).
     - bigger memory footprint.
-- **Custom/Binary (DataStore/NSCoding/Codable/etc)**:
+- **Custom/Binary (DataStore/NSCoding/Codable/etc)**:  
+  Handles storing and loading data on a low level. Works best when you need to customize the data storage pipeline.  
   - pros:
     - highly customizable.
     - performant.
   - cons:
     - no schema/migration support.
     - lots of manual effort.
-- **On-Device Secure Storage (Keystore/Key Chain)**:
+- **On-Device Secure Storage (Keystore/Key Chain)**:  
+  Use OS-encrypted storage for creating/storing encryption keys and key-value data.  
   - pros:
     - secure (not 100% unless provided by the hardware).
   - cons:
