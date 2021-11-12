@@ -1,5 +1,6 @@
 # Typical Mobile System Design Interview Questions
 - [Design "File Downloader Library"](/exercises/file-downloader-library.md)
+- Design "Caching Library"
 - Design "Image Library"
 - Design "Location Sharing Library"
 - Design "Network Library"
