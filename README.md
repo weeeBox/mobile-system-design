@@ -552,5 +552,5 @@ There's a significant amount of randomness during a system design interview. The
 ### Judging the outcome
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
 ## Additional Information
-_TBD_
+More System Design exericses [here](https://github.com/weeeBox/mobile-system-design/tree/master/exercises)!
 ## Consider "starring" the repository to help other people discover the guide! Thank you!
