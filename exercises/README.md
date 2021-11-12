@@ -2,6 +2,7 @@
 - [Design "File Downloader Library"](/exercises/file-downloader-library.md)
 - Design "Image Library"
 - Design "Location Sharing Library"
+- Design "Network Library"
 - Design "Photo App"
 - Design "Chat App"
 - Design "Photo Editing App"
