@@ -195,3 +195,6 @@ Might run in a separate process while the app is suspended. Best for long-runnin
 - Listen to your interviewer and keep track of the time.
 
 Try to cover as much ground as possible without digging too much into the implementation details.
+
+## Looking for more content?
+I’m thinking about creating an in-depth mobile system design course on top of the free articles. Please, fill out this [form](https://forms.gle/KfvmZhPNPMRBE8Jj9) to express your interest!
