@@ -75,7 +75,6 @@ CacheTask:
 + getCachedData(): [byte]?
 + getErrorMessage(): String?
 + addOnCompleteCallback(callback: (Task) -> Void))
-
 ```
 
 > **Interviewer**: "Why do you return a `CacheTask` from `get` and `set` methods?"  
@@ -97,8 +96,12 @@ A high-level diagram shows all major system components and their interactions (w
 - **Cache Eviction** - manages cache overflow and item eviction.  
 
 ## Deep Dive
-After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).
+After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
 
+## Deep Dive: Dispatcher
+_TBD_
+
+## Deep Dive: Journal
 _TBD_
 
 ## Follow-up Questions
