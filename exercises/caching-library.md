@@ -121,7 +121,7 @@ _TBD_
 
 > **Interviewer**: "So the Journal would only store the metadata - where would the actual bytes be stored?"  
 
-### First Option
+### First Option: File System
 > **Candidate**: "We can write binary files in the app 'cache' directory and use generated [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier)'s as file names. The item key won't work as a filename since the user may pass illegal path characters."  
 > **Candidate**: "One drawback of such approach - we would need to sync the Journal and the file system separately which might lead to race condition bugs. For example, the host app might crash after the Journal is updated but before the data is written to the disk."  
 > **Candidate**: "We may overcome this by introducing items states: `CLEAN`, `DIRTY`, `REMOVE`, etc. When the item is being created or updated - it will be marked with `DIRTY` state; once the process completes - it will be marked with `CLEAN` state; same for `REMOVE` state. The library may check the Journal upon initialization and prune dirty items and their files."  
@@ -142,6 +142,28 @@ _TBD_
 > **Candidate**: "The introduction of states makes it more reliable but won't solve all potential concurrency issues. We might still run in situations where different threads are trying to write the same item concurrently. We may try to add more synchronization but it would greatly complicate the design."  
 
 > **Candidate**: "The advantage of this option - the app cache (with all binary files) might be cleaned up by the user from the app settings when device storage is low."  
+
+### Second Option: BLOBs
+> **Candidate**: "We can store the binary data in the same database where the Journal data is stored."  
+
+<div align="center">
+ 
+|     name      |  type  |
+|---------------|--------|
+| key           | String |
+| data          | BLOB   |
+| size_bytes    | Int    |
+| access_count  | Int    |
+| last_accessed | Date   |
+
+</div>
+
+> **Candidate**: "This way we don't need to worry about synchronization and item states. We can also merge the Journal and the Persistent Store components."  
+
+_NOTE: It's ok to change some of your initial statements as the interview progresses - it's more about the thinking process and not pretty diagrams nor "making it right" on the first attempt._  
+
+> **Candidate**: "The disadvantage of this option - the binary data can't be cleaned from the app settings without removing the database itself and losing all its metadata."  
+> **Candidate**: "There are lots of discussions around BLOBs vs file system. I don't have enough experience to take any side but I think the second option is an easier one."  
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.
