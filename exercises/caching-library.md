@@ -12,15 +12,21 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 
 > **Candidate**: "Do we have a size limit for each entry and an upper bound for the total number of items?"  
 > **Interviewer**: "Generally, no. But, for the sake of simplicity, let's assume image-like data up to 10 Mb per item. The max number of items is in order of thousands."  
-> 
+
+> **Candidate**: "Do we need to handle sensitive data? Should we support encrypted storage?"  
+> **Interviewer**: "Great question! What's your recommendation?"  
+> **Candidate**: "Having access to encrypted storage might be useful for specific use-cases. However, doing it in a general case might lead to an unnecessary overhead (encryption/decryption comes with CPU and memory cost)."  
+> **Candidate**: "We can allow turning encryption on/off on a library level or for certain specific items and let users decide based on their user-cases."  
+> **Interviewer**: "Sounds good. Let's leave it out of scope for now."  
+
 > **Candidate**: "How are we going to identify each cached item? Would string keys suffice?"  
 > **Interviewer**: "String keys are fine."  
-> 
+
 > **Candidate**: "Do we need to support an in-memory cache, a disk cache, or a hybrid memory-and-disk cache?"  
 > **Interviewer**: "Good question. How would the 'hybrid' approach work?"  
 > **Candidate**: "The cache would use the disk as a primary storage and keep a subset of items in memory for a quicker access."  
 > **Interviewer**: "Let's use the 'hybrid' approach."  
-> 
+
 > **Candidate**: "Should we limit the size of the cache?"  
 > **Interviewer**: "What's your recommendation?"  
 > **Candidate**: "I think, we should limit the number of bytes stored in memory and on the disk. Once the specific limit is reached - we should remove a portion of items according to the eviction policy."  
@@ -45,6 +51,7 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 
 ## Out of scope
 - User-defined eviction policies.
+- Secure item storage.
 
 ## Client Public API (Optional)
 Your interviewer might want to discuss the client public API. In the simplest form it might look like this:
