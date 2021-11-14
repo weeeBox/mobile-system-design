@@ -37,6 +37,9 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 > **Candidate**: "We can also allow user-defined eviction policies using the [Strategy](https://en.wikipedia.org/wiki/Strategy_pattern) design pattern. Although, we should probably leave it out of scope for now."  
 > **Interviewer**: "Sounds good. Let's leave user-defined policies out of scope."  
 
+> **Interviewer**: "Do we need to share the library between multiple platforms?"  
+> **Candidate**: "No. Let's leave it out of scope."  
+
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
 ## Functional requirements
@@ -52,6 +55,7 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 ## Out of scope
 - User-defined eviction policies.
 - Secure item storage.
+- Cross-platform support.
 
 ## Client Public API (Optional)
 Your interviewer might want to discuss the client public API. In the simplest form it might look like this:
