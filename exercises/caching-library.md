@@ -65,8 +65,16 @@ TBD
 ```
 
 ## High-Level Diagram
-A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams here.
-_TBD_
+A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams [here](https://github.com/weeeBox/mobile-system-design#high-level-diagram).
+
+![High-level Diagram](/images/exercise-caching-library-high-level-diagram.svg)
+
+### Components:
+- **Dispatcher** - coordinates async read/write operations between the client and the library.  
+- **Journal** - maintains a structural record of metadata for cached items (access count, timestamps, size, etc).  
+- **In-Memory Cache** - handles fast in-memory item storage for quicker sequential access.  
+- **Persistent Store** - handles slow persistent disk item storage.  
+- **Cache Eviction** - manages cache overflow and item eviction.  
 
 ## Deep Dive
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).
