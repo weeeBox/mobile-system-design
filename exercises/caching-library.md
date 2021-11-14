@@ -61,8 +61,28 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 Your interviewer might want to discuss the client public API. In the simplest form it might look like this:
 
 ```
-TBD
+Cache:
++ init(config: CacheConfig)
++ set(key: String, value: [byte]): CacheTask
++ get(key: String): CacheTask
++ clear()
+
+CacheConfig:
++ init(maxMemoryCacheSize: Int, maxDiskCacheSize: Int)
+
+CacheTask:
++ isSuccessful(): Bool
++ getCachedData(): [byte]?
++ getErrorMessage(): String?
++ addOnCompleteCallback(callback: (Task) -> Void))
+
 ```
+
+> **Interviewer**: "Why do you return a `CacheTask` from `get` and `set` methods?"  
+> **Candidate**: "`get` and `set` calls may result in blocking I/O operations and should not be invoked on the main thread."  
+> **Candidate**: "We should make both of them async and let users specify completion callbacks."  
+
+_NOTE_: in this exercise, the API description is purposely left platform/language agnostic to reach a broader audience. During an actual interview, you would most likely design for either iOS or Android, and select the API style most suitable for the target platform. For example, you can advocate for coroutines instead of callbacks, suggest Rx-extensions, etc.  
 
 ## High-Level Diagram
 A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams [here](https://github.com/weeeBox/mobile-system-design#high-level-diagram).
