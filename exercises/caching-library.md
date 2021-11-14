@@ -102,7 +102,46 @@ After a high-level discussion, your interviewer might want to discuss some speci
 _TBD_
 
 ## Deep Dive: Journal
-_TBD_
+> **Interviewer**: "Would you explain how the Journal component works?"  
+> **Candidate**: "The Journal component creates and updates metadata records for cached items."  
+
+<div align="center">
+ 
+|     name      |  type  |
+|---------------|--------|
+| key           | String |
+| size_bytes    | Int    |
+| access_count  | Int    |
+| last_accessed | Date   |
+
+</div>
+
+> **Candidate**: "Every time a cached item is accessed - the Journal will increase the `access_count` and update the `last_accessed` timestamp. This metadata would allow selecting items for eviction and calculating the total cache size."  
+> **Candidate**: "The Journal itself could be stored in a text/binary file, property list, or a relational database (ORM). I think a relational database might be the best approach since it allows partial updates, querying, and provides data integrity."  
+
+> **Interviewer**: "So the Journal would only store the metadata - where would the actual bytes be stored?"  
+
+### First Option
+> **Candidate**: "We can write binary files in the app 'cache' directory and use generated [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier)'s as file names. The item key won't work as a filename since the user may pass illegal path characters."  
+> **Candidate**: "One drawback of such approach - we would need to sync the Journal and the file system separately which might lead to race condition bugs. For example, the host app might crash after the Journal is updated but before the data is written to the disk."  
+> **Candidate**: "We may overcome this by introducing items states: `CLEAN`, `DIRTY`, `REMOVE`, etc. When the item is being created or updated - it will be marked with `DIRTY` state; once the process completes - it will be marked with `CLEAN` state; same for `REMOVE` state. The library may check the Journal upon initialization and prune dirty items and their files."  
+
+<div align="center">
+ 
+|     name      |  type  |
+|---------------|--------|
+| key           | String |
+| path          | String |
+| size_bytes    | Int    |
+| access_count  | Int    |
+| last_accessed | Date   |
+| state         | Int    |
+
+</div>
+
+> **Candidate**: "The introduction of states makes it more reliable but won't solve all potential concurrency issues. We might still run in situations where different threads are trying to write the same item concurrently. We may try to add more synchronization but it would greatly complicate the design."  
+
+> **Candidate**: "The advantage of this option - the app cache (with all binary files) might be cleaned up by the user from the app settings when device storage is low."  
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.
