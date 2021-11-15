@@ -75,7 +75,7 @@ CacheTask:
 + isSuccessful(): Bool
 + getCachedData(): [byte]?
 + getErrorMessage(): String?
-+ addOnCompleteCallback(callback: (Task) -> Void))
++ addOnCompleteCallback(callback: (CacheTask) → Void)
 ```
 
 > **Interviewer**: "Why do you return a `CacheTask` from `get` and `set` methods?"  
