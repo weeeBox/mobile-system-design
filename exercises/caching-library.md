@@ -1,5 +1,5 @@
 # Mobile System Design Exercise: Caching Library
-The task might be simply defined as "Design Caching Library Library". The definition is purposely vague and requires some clarification.
+The task might be simply defined as "Design Caching Library". The definition is purposely vague and requires some clarification.
 
 ## Gathering Requirements
 You are expected to ask clarifying questions and narrow down the scope of the task. This should not take more than 5 minutes.
