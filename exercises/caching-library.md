@@ -65,7 +65,8 @@ Cache:
 + init(config: CacheConfig)
 + set(key: String, value: [byte]): CacheTask
 + get(key: String): CacheTask
-+ clear()
++ clear(key: String): CacheTask
++ clearAll()
 
 CacheConfig:
 + init(maxMemoryCacheSize: Int, maxDiskCacheSize: Int)
@@ -164,6 +165,30 @@ _NOTE: It's ok to change some of your initial statements as the interview progre
 
 > **Candidate**: "The disadvantage of this option - the binary data can't be cleaned from the app settings without removing the database itself and losing all its metadata."  
 > **Candidate**: "There are lots of discussions around BLOBs vs file system. I don't have enough experience to take any side but I think the second option is an easier one."  
+
+## Deep Dive: Cache Eviction
+
+> **Interviewer**: "How does the Cache Eviction component work?"  
+> **Candidate**: "When a new cache item is created - the component checks the disk and in-memory storage sizes; if any of them exceed the maximum allowed size - the Cache Eviction runs a prepared query to purge a sub-set of items."  
+
+> **Interviewer**: "Why do you need a separate component and won't include the logic directly into the Journal and the In-Memory Cache?"  
+> **Candidate**: "I'm trying to follow a [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle): the Journal and the In-Memory Cache components should only perform a single function and should not be aware of cache eviction existence. It's also easier to test different components in isolation."  
+
+> **Interviewer**: "You've mentioned _prepared queries_ - can you provide a bit more details?"  
+> **Candidate**: "For the Journal component, it could be a prepared SQL statement, a fetch/batch request, or any other ORM mechanism to delete multiple items. Alternatively, we can iterate using a cursor (if the vendor supports it) and delete items until the new size can accommodate an extra item."  
+> **Candidate**: "The drawback of this approach is that the Cache Eviction components might _know_ too much about other components implementation. At the same time - this is an efficient and a simple-to-build approach. Everything is a trade-off."  
+
+> **Interviewer**: "What method would you choose?"  
+> **Candidate**: "I think, a SQL cursor might be the most efficient since we don't need to load unnecessary items."  
+
+> **Interviewer**: "Do you know how cursors work under the hood?"  
+> **Candidate**: "Not really. I only worked with them and don't know the implementation details."  
+
+> **Interviewer**: "How about the In-Memory eviction?"  
+> **Candidate**: "For the In-Memory component, it could be a custom iterator over the collection which would perform a similar function."  
+
+> **Interviewer**: "What data structure would you use for the in-memory store?"  
+> **Candidate**: "I think a self-balancing tree with a custom item comparator should work."  
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.
