@@ -191,8 +191,10 @@ _NOTE: It's ok to change some of your initial statements as the interview progre
 > **Candidate**: "I think a self-balancing tree with a custom item comparator should work."  
 
 ## Follow-up Questions
-Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.
-_TBD_
+Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
+
+> **Interviewer**: "How would you change your design to support handling sensitive information?"  
+> **Candidate**: _TBD_
 
 ## Major Concerns and Trade-Offs
 _TBD_
