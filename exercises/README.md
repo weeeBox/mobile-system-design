@@ -8,5 +8,6 @@
 - Design "Photo App"
 - Design "Chat App"
 - Design "Photo Editing App"
+- Design "Live Wallpaper Display App"
 
 Feel free to [suggest](https://github.com/weeeBox/mobile-system-design/issues/new) your own topics.
