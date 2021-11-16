@@ -1,4 +1,4 @@
-# Mobile System Design Exercise: Caching Library
+# Mobile System Design Exercise: Caching Library [work in progress]
 The task might be simply defined as "Design Caching Library". The definition is purposely vague and requires some clarification.
 
 ## Gathering Requirements
@@ -170,6 +170,8 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 > **Candidate**: "This way we don't need to worry about synchronization and item states. We can also merge the Journal and the Persistent Store components."  
 
+![High-level Diagram](/images/exercise-caching-library-high-level-diagram-simplified.svg)
+
 _NOTE: It's ok to change some of your initial statements as the interview progresses - it's more about the thinking process and not pretty diagrams nor "making it right" on the first attempt._  
 
 > **Candidate**: "The disadvantage of this option - the binary data can't be cleaned from the app settings without removing the database itself and losing all its metadata."  
@@ -203,7 +205,10 @@ _NOTE: It's ok to change some of your initial statements as the interview progre
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
 > **Interviewer**: "How would you change your design to support handling sensitive information?"  
-> **Candidate**: _TBD_
+> **Candidate**: _TBD_  
+
+> **Interviewer**: "Imagine, you need to write a cross-platform library that should run on mobile and desktop platforms. How would you change your design?"  
+> **Candidate**: 😐  
 
 ## Major Concerns and Trade-Offs
 _TBD_
