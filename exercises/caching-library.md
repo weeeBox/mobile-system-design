@@ -100,7 +100,16 @@ A high-level diagram shows all major system components and their interactions (w
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
 
 ## Deep Dive: Dispatcher
-_TBD_
+> **Interviewer**: "I’m not sure what the Request Dispatcher component does…"  
+> **Candidate**: "It simplifies handling read/write concurrency."  
+> **Candidate**: "Using synchronous API calls might be a poor idea since item access might result in a blocking I/O operation. Doing so on the Main thread is not advisable and may result in jank, app termination, and _interview failures_."  
+> **Candidate**: "To solve this issue, we need to use async API. There might be a few options (depending on the platform and the programming language) but the callback-base approach is the simplest one and can be extended to coroutines, futures, promises, etc."  
+
+![Dispatcher Sequence Diagram](/images/exercise-caching-library-dispatcher-sequence.svg)
+
+> **Candidate**: "1) Dispatcher would maintain a _limited_ pool of concurrent workers (via executor, dispatch queue, etc) to avoid creating too many background threads if the client makes a huge number of requests."  
+> **Candidate**: "2) Each worker would perform a cache access operation and notify its dispatcher via a callback when complete."  
+> **Candidate**: "3) After a worker completes - the dispatcher would notify the client by invoking the completion callback on the main thread (or user-specified executor/queue)."  
 
 ## Deep Dive: Journal
 > **Interviewer**: "Would you explain how the Journal component works?"  
