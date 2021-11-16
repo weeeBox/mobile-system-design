@@ -211,7 +211,9 @@ Some interviewers might ask follow-up questions that might change the original d
 > **Candidate**: 😐  
 
 ## Major Concerns and Trade-Offs
-_TBD_
+- Library responsiveness vs CPU/Memory Usage: _TBD_
+- Data Security vs Battery Life: _TBD_
+- On-device data is not 100% secure: _TBD_
 
 ## Conclusion
 - Keep this in mind while preparing for a system design interview:
