@@ -256,9 +256,13 @@ CacheConfig:
 > **Candidate**: "However, I would be very cautious around using native code: 1) hard to debug; 2) hard to read crash logs; 3) need to compile for all supported architectures (arm7, arm64, x86, etc); 4) more likely to crash the host app (instead of just throwing an exception). 5) harder to develop compared to modern languages. 6) iOS/Android developers are more likely to submit pull-requests if the codebase is native to their platform (assuming open-source)."  
 
 ## Major Concerns and Trade-Offs
-- Library responsiveness vs CPU/Memory Usage: _TBD_
-- Data Security vs Battery Life: _TBD_
-- On-device data is not 100% secure: _TBD_
+
+### Library responsiveness vs device resource usage
+The biggest decision to make is Dispatcher's worker pool size. Having a larger amount of workers might make the library more responsive but would eventually spawn more threads.
+  
+### Data security
+- No data is considered secure as long as its encryption key is stored on the same device. Some devices provide hardware-backed key storage but we can't guarantee this in a general case.  
+- Encryption/Decryption also comes with a CPU and memory cost: this is especially important for performance-critical cases and low-level devices.  
 
 ## Conclusion
 - Keep this in mind while preparing for a system design interview:
