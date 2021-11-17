@@ -204,9 +204,47 @@ _NOTE: It's ok to change some of your initial statements as the interview progre
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
+### Sensitive Information
 > **Interviewer**: "How would you change your design to support handling sensitive information?"  
-> **Candidate**: _TBD_  
+> **Candidate**: "Is every item considered to be sensitive?"  
+> **Interviewer**: "Not necessary."  
+> **Candidate**: "In this case, we might want to provide users some flexibility. They can set the whole cache to be encrypted or only secure a subset of the items."  
 
+> **Candidate**: "To my best knowledge, iOS/Android platforms do not provide a built-in secure database at the moment. As a workaround, we could use third-party providers (like [SQLCipher](https://www.zetetic.net/)) to _encrypt the whole database_ or only _encrypt data BLOB storage_ in the database (under a strong assumption that cache keys do not contain any sensitive information)".  
+> **Candidate**: "For our general-case purpose, I would rather select the BLOB encryption since the vast majority of users won't store any sensitive information".  
+![High-level Diagram](/images/exercise-caching-library-encryption.svg)
+
+> **Candidate**: "The encryption key would be generated and stored in the Keystore/Keychain."  
+> **Candidate**: "We should also store an `encrypted` flag in the database to mark secure items."  
+
+<div align="center">
+ 
+|     name      |  type  |
+|---------------|--------|
+| key           | String |
+| data          | BLOB   |
+| size_bytes    | Int    |
+| access_count  | Int    |
+| last_accessed | Date   |
+| encrypted     | Bool   |
+
+</div>
+
+> **Candidate**: "As a side note, many applications already have a mature encryption stack. For this case, we might provide them the ability to specify a custom encryption/decryption implementation."  
+
+```
+CacheEncryption:
++ encrypt(data: [Byte]): [Byte]
++ decrypt(data: [Byte]): [Byte]
+
+CacheConfig:
++ init(maxMemoryCacheSize: Int, maxDiskCacheSize: Int)
++ setCacheEncryption(encryption: CacheEncryption)
+```
+
+> **Candidate**: "This way they can better control user data privacy: for example, download encryption key from the backend upon login, etc."  
+
+### Cross-platform Support
 > **Interviewer**: "Imagine, you need to write a cross-platform library that should run on mobile and desktop platforms. How would you change your design?"  
 > **Candidate**: 😐  
 
