@@ -5,6 +5,7 @@
 - Design "Location Sharing Library"
 - Design "Network Library"
 - Design "Json Parsing Library like Moshi/Gson"
+- Design "Pagination Library"
 - Design "A/B Experiment Library"
 - Design "Photo App"
 - Design "Chat App"
