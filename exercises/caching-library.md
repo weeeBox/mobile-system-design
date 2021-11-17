@@ -211,7 +211,7 @@ Some interviewers might ask follow-up questions that might change the original d
 > **Candidate**: "In this case, we might want to provide users some flexibility. They can set the whole cache to be encrypted or only secure a subset of the items."  
 
 > **Candidate**: "To my best knowledge, iOS/Android platforms do not provide a built-in secure database at the moment. As a workaround, we could use third-party providers (like [SQLCipher](https://www.zetetic.net/)) to _encrypt the whole database_ or only _encrypt data BLOB storage_ in the database (under a strong assumption that cache keys do not contain any sensitive information)".  
-> **Candidate**: "For our general-case purpose, I would rather select the BLOB encryption since the vast majority of users won't store any sensitive information".  
+> **Candidate**: "For our general-case purpose, I would rather select the BLOB encryption since the vast majority of users won't store any sensitive information. Also, I'd be very cautious before adding a 3rd-party dependency into the library: it might introduce licensing issues and binary/version incompatibility with the host app." 
 ![High-level Diagram](/images/exercise-caching-library-encryption.svg)
 
 > **Candidate**: "The encryption key would be generated and stored in the Keystore/Keychain."  
