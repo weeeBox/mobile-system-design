@@ -246,7 +246,14 @@ CacheConfig:
 
 ### Cross-platform Support
 > **Interviewer**: "Imagine, you need to write a cross-platform library that should run on mobile and desktop platforms. How would you change your design?"  
-> **Candidate**: 😐  
+> **Candidate**: "Would we need to share the cached storage somehow?"  
+> **Interviewer**: "What do you mean?"  
+> **Candidate**: "Should the permanent cache storage be transferred between platforms?"  
+> **Interviewer**: "No."  
+> **Candidate**: "In this case, we don't need storage binary compatibility".  
+> **Candidate**: "I would separate the library into two modules: 1) common code (written in C/C++); 2) native implementation/adapters (Java/Kotlin/Swift/Objective-C)."  
+> **Candidate**: "The Journal, the Cache Eviction, and the Database interface would be included in the common module; the rest would be included in the implementation module."  
+> **Candidate**: "However, I would be very cautious around using native code: 1) hard to debug; 2) hard to read crash logs; 3) need to compile for all supported architectures (arm7, arm64, x86, etc); 4) more likely to crash the host app (instead of just throwing an exception). 5) harder to develop compared to modern languages. 6) iOS/Android developers are more likely to submit pull-requests if the codebase is native to their platform (assuming open-source)."  
 
 ## Major Concerns and Trade-Offs
 - Library responsiveness vs CPU/Memory Usage: _TBD_
