@@ -8,6 +8,7 @@
 - Design "A/B Experiment Library"
 - Design "Photo App"
 - Design "Chat App"
+- Design "Clock App"
 - Design "Photo Editing App"
 - Design "Live Wallpaper Display App"
 
