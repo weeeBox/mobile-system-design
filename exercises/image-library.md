@@ -28,7 +28,7 @@ TBD
 ## High-Level Diagram
 A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams [here](https://github.com/weeeBox/mobile-system-design#high-level-diagram).
 
-_TBD_
+![High-level Diagram](/images/exercise-image-library-high-level-diagram-simplified.svg)
 
 ### Components:
 - _TBD_
