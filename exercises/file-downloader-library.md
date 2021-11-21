@@ -119,8 +119,6 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 ![Download Job Diagram](/images/exercise-file-downloader-library-job-diagram.svg)
 
-> **Candidate**: "Each download worker reads a stream of bytes from the Network Client and stores them in the File Store."  
-
 > **Interviewer**: "Why do you need Init and Complete/Fail operations in the File Store?"  
 > **Candidate**: "This gives you an ability to pre-allocate disk space before downloading a file and perform post-processing/cleanup after a complete download."  
 
@@ -149,10 +147,7 @@ Some interviewers might ask follow-up questions that might change the original d
 </div>
 
 > **Interviewer**: "Why won't you store files in the database?"  
-> **Candidate**:
-> - "Small file storage is more efficient using the file system."
-> - "Each file should be converted into a BLOB and must be fully loaded into RAM before being accessed (makes streaming impossible)."
-> - "Many APIs are optimized for reading files directly from the disk."  
+> **Candidate**: "It's easier to access a file on the disk than from the database. We can partially read BLOBs and provide the content as a stream but it might not be sufficient in the general case."  
 
 > **Interviewer**: "How would you handle downloading sensitive information?"  
 > **Candidate**: "We might introduce an "encrypted" File Store implementation and encrypt a fully-received file in post-processing. Not sure if we can do it on the fly - don't have much experience working with encryption libraries."  
