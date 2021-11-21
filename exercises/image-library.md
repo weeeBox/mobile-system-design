@@ -36,6 +36,8 @@ _NOTE: some interviewers may want you to "drive" the conversation and would "sub
 > **Candidate**: "That means that the library would track view hierarchy lifecycle events to decide when to stop loading and free resources. For example, you should interrupt image loading when the target view becomes detached from the view hierarchy."  
 > **Interviewer**: "Yes, it's a good feature."  
 
+_TBD_: Low Data Mode (iOS) and Data Saver mode (Android)
+
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
 ## Functional requirements
@@ -62,7 +64,12 @@ A high-level diagram shows all major system components and their interactions (w
 ![High-level Diagram](/images/exercise-image-library-high-level-diagram.svg)
 
 ### Components:
-- _TBD_
+- **Image Request** - _TBD_
+- **Dispatcher** - _TBD_
+- **Request Manager** - _TBD_
+- **Image Cache** - _TBD_
+- **Image Loader** - _TBD_
+- **Image Target** - _TBD_
 
 ## Deep Dive
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
