@@ -24,6 +24,11 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 > **Interviewer**: "I don't know - what do you think?"  
 > **Candidate**: "I think, having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources. At the same time, we can't make any assumptions about app-specific use-cases, so the best approach might be selecting a sensible default value (for example, no more than 4 parallel downloads) and letting developers configure it based on their application's need".  
 
+> **Interviewer**: "Why do you think `4` is a good number for parallel downloads?"  
+> **Candidate**: "It's a tricky question. We can use different heuristics to select the best number. For example, we can limit the size to the number of CPU cores on the device."  
+> **Candidate**: "On the other hand - each downloader would be blocked on the network I/O so we can use a higher number like `16`."  
+> **Candidate**: "It's hard to figure this out for the general case. So `4`-`16` seems reasonable by default. The user may pick a better size depending on the use-case."  
+
 > **Candidate**: "Should we support progress reporting for active downloads?"  
 > **Interviewer**: "Might skip it for now and discuss it if we have time"  
 
