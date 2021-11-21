@@ -22,7 +22,7 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 
 > **Candidate**: "Should we limit the number of active simultaneous downloads?"  
 > **Interviewer**: "I don't know - what do you think?"  
-> **Candidate**: "I think, having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources. At the same time, we can't make any assumptions about app-specific use-cases, so the best approach might be selecting a sensible default value (for example, no more than 4 parallel downloads) and letting developers configure it based on their application's need".  
+> **Candidate**: "I think, having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources. At the same time, we can't make any assumptions about app-specific use-cases, so the best approach might be selecting a sensible default value (for example, no more than `4` parallel downloads) and letting developers configure it based on their application's need".  
 
 > **Interviewer**: "Why do you think `4` is a good number for parallel downloads?"  
 > **Candidate**: "It's a tricky question. We can use different heuristics to select the best number. For example, we can limit the size to the number of CPU cores on the device."  
