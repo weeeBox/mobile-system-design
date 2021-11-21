@@ -105,16 +105,17 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 ![Download Dispatcher Diagram](/images/exercise-file-downloader-library-deep-dive-download-dispatcher-diagram.svg)
 
-> **Candidate**: "Download Dispatcher maintains a _concurrent_ dispatch queue with a _limited_ number of active jobs. Each job consists of a download request, a download task, and a state (PENDING, ACTIVE, PAUSED, COMPLETED, FAILED). The active jobs are dispatched by download workers."  
-
-> **Interviewer**: "Why do you need download jobs?"  
-> **Candidate**: "Separation of concerns: a job represents an abstraction layer - the download dispatcher should know nothing about download requests or tasks, and vice versa."  
+> **Candidate**: "Download Dispatcher maintains a _concurrent_ dispatch queue of jobs. Each job consists of a download request, a download task, and a state (PENDING, ACTIVE, PAUSED, COMPLETED, FAILED). The active jobs are dispatched by download workers."  
 
 > **Interviewer**: "Why do you need to maintain a job state?"  
-> **Candidate**: "To keep track of pending, active, and completed jobs: we limit the number of parallel jobs by design. Also to know when the jobs are paused."  
+> **Candidate**: "To keep track of _pending_, _active_, and _completed_ jobs: we limit the number of parallel downloads by design. Also, we need to maintain the `pause` state of the scheduled jobs."  
 
-> **Interviewer**: "What is Download Worker?"  
-> **Candidate**: "A background thread or a background execution task where a job runs."  
+> **Interviewer**: "What's the difference between a `Job` and a `Download Worker`?"  
+> **Candidate**: "A `Job` encapsulates a single downloading request from the user. A `Download Worker` is responsible for actual data transmission from the network."  
+> **Candidate**: "A `Job` is cheap and doesn't do anything. A `Download Worker` is expensive and handles blocking I/O."  
+> **Candidate**: "There might be an unlimited number of jobs and only a handful of workers (limited by the pool size)."  
+> **Candidate**: "There might be _multiple jobs_ for the same URL but only _one worker_ per download. For example, the same video file can be included in multiple playlists. The user can download these playlists in parallel - as a result, there might be different jobs for the same worker."  
+> **Candidate**: "If a single job gets canceled - its worker keeps downloading until done or all the associated jobs are canceled, too." 
 
 ![Download Job Diagram](/images/exercise-file-downloader-library-job-diagram.svg)
 
