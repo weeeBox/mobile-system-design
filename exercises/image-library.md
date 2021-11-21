@@ -4,13 +4,30 @@ The task might be simply defined as "Design Image Library". The definition is pu
 ## Gathering Requirements
 You are expected to ask clarifying questions and narrow down the scope of the task. This should not take more than 5 minutes.
 
-> **Candidate**: ""  
-> **Interviewer**: ""  
+> **Candidate**: "Are we designing a part of an application or a general-purpose library?"  
+> **Interviewer**: "A general-purpose library."  
+
+> **Candidate**: "Are we designing a library that loads images or handles a collection of photos?"  
+> **Interviewer**: "The one that loads images."  
+
+> **Candidate**: "Where do we need to load images from?"  
+> **Interviewer**: "I don't know - you tell me."  
+
+_NOTE: some interviewers may want you to "drive" the conversation and would "subtract points" if you try to ask them what you need to do._
+
+> **Candidate**: "Network, filesystem, and app bundle would make sense. We can expose an API to create custom loaders but we could leave it out of scope for now."  
+> **Interviewer**: "Yes, let's leave it out of scope."  
+
+> **Candidate**: "Do we need to support UI-targets?"  
+> **Interviewer**: "Not sure what you mean."  
+> **Candidate**: "Do we want the library to load images directly to UI components (like ImageView)?"  
+> **Interviewer**: "Yes."  
+> **Candidate**: "I think, it might be beneficial to support non-UI targets - like saving the image to a file or providing a callback to access the image data when loading is complete."  
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
 ## Functional requirements
-- _TBD_
+- Users should be able to load images.
 
 ## Non-functional requirements
 - _TBD_
