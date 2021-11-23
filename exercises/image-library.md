@@ -64,8 +64,7 @@ A high-level diagram shows all major system components and their interactions (w
 ![High-level Diagram](/images/exercise-image-library-high-level-diagram.svg)
 
 ### Components:
-- **Image Request** - _TBD_
-- **Dispatcher** - _TBD_
+- **Image Request** - encapsulates a single image request; accepted by request manager as input.  
 - **Request Manager** - _TBD_
 - **Image Cache** - _TBD_
 - **Image Loader** - _TBD_
