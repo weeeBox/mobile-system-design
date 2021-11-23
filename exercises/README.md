@@ -1,4 +1,5 @@
 # Typical Mobile System Design Interview Questions
+The following exercises emulate typical interview scenarios using common system design questions. The solution to each question might not be accurate and should not be taken as the "ground truth". The purpose of the exercises is to demonstrate different interviewer-candidate interactions.
 - [Design "File Downloader Library"](/exercises/file-downloader-library.md)
 - [Design "Caching Library"](/exercises/caching-library.md)
 - Design "Image Library"
