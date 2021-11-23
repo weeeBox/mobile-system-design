@@ -134,15 +134,14 @@ Some interviewers might ask follow-up questions that might change the original d
 
 <div align="center">
 
-|       name       |  type  | primary |
-|------------------|--------|---------|
-| _ID              | Int    | YES     |
-| url              | String |         |
-| path             | String |         |
-| created_at       | Date   |         |
-| total_bytes      | Int    |         |
-| downloaded_bytes | Int    |         |
-| state            | Int    |         |
+|       name       |  type  |
+|------------------|--------|
+| url              | String |
+| path             | String |
+| created_at       | Date   |
+| total_bytes      | Int    |
+| downloaded_bytes | Int    |
+| state            | Int    |
   
 </div>
 
