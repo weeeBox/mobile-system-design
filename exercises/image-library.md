@@ -44,7 +44,7 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 - Users should be able to load images from the network, filesystem, and app resources to UI/non-UI targets.
 
 ## Non-functional requirements
-- Cache downloaded images on the disk.
+- Cache loaded images in memory and on the disk.
 - Image loading respects view hierarchy lifecycle events.
 
 ## Out of scope
@@ -65,10 +65,10 @@ A high-level diagram shows all major system components and their interactions (w
 
 ### Components:
 - **Image Request** - encapsulates a single image request; accepted by request manager as input.  
-- **Request Manager** - _TBD_
-- **Image Cache** - _TBD_
-- **Image Loader** - _TBD_
-- **Image Target** - _TBD_
+- **Request Manager** - accepts and dispatches image requests to corresponding targets.  
+- **Image Cache** - fast in-memory image storage for quicker access.
+- **Image Loader** - coordinates image loading from different source (filesystem, app resources, network).
+- **Image Target** - incapsulate image target destination (UI-element, in-memory image data, etc).
 
 ## Deep Dive
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
