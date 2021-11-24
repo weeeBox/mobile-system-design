@@ -81,11 +81,11 @@ After a high-level discussion, your interviewer might want to discuss some speci
 > **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
 > 
 > **Interviewer**: "Why do you think so?"  
-> **Candidate**: "Most of the modern HTTP clients have built-in caching mechanisms that respect [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) directives for responses."  
+> **Candidate**: "Most of the modern HTTP clients have built-in disk caching mechanisms that respect `Cache-Control` directives for responses."  
 > **Candidate**: "This way, we only need to specify the cache size and the client can handle content expiration for us."  
 > 
 > **Interviewer**: "How would you select the size of the cache?"  
-> **Candidate**: "I would start with some default value. For example, the Google Drive app has `250`Mb by default."  
+> **Candidate**: "I would start with some default value. For example, the Google Drive app has `250`Mb disk cache size by default."  
 > **Candidate**: "Then I would provide a library setting to override this."  
 > 
 > **Interviewer**: "Can you see any drawbacks of using a 3rd party library?"  
