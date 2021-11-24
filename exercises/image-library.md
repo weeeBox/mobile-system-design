@@ -73,6 +73,26 @@ A high-level diagram shows all major system components and their interactions (w
 ## Deep Dive
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
 
+## Deep Dive: Image Cache
+> **Interviewer**: "What is the purpose of the `Image Cache` component?"  
+> **Candidate**: "It's an in-memory LRU cache to keep a subset of loaded images for quicker access."  
+> 
+> **Interviewer**: "Should this component also handle disk cache?"  
+> **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
+> 
+> **Interviewer**: "Why do you think so?"  
+> **Candidate**: "Most of the modern HTTP clients have built-in caching mechanisms that respect [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) directives for responses."  
+> **Candidate**: "This way, we only need to specify the cache size and the client can handle content expiration for us."  
+> 
+> **Interviewer**: "How would you select the size of the cache?"  
+> **Candidate**: "I would start with some default value. For example, the Google Drive app has `250`Mb by default."  
+> **Candidate**: "Then I would provide a library setting to override this."  
+> 
+> **Interviewer**: "Can you see any drawbacks of using a 3rd party library?"  
+> **Candidate**: "Depending on a 3rd party library is tricky since it can lead to semantic and binary incompatibilities with the host app. On the other hand, it handles lots of complexity for us and encapsulates the experience of many developers who worked on it. I think it's a trade-off between time-to-the-market and code ownership."  
+
+_NOTE: If you don't have much experience with network stack internals - it's ok to mention a well-known library as a workaround._
+
 ## Deep Dive: Image Loader
 
 ![High-level Diagram](/images/exercise-image-library-image-loader.svg)
