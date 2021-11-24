@@ -124,6 +124,9 @@ _NOTE: Android engineers might also want to mention a [Bitmap](https://developer
 > **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
 > **Interviewer**: "That's fine - we can leave it out of scope."  
 
+## Deep Dive: Image Request and Image Target
+_TBD_
+
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
