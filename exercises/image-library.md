@@ -76,20 +76,27 @@ After a high-level discussion, your interviewer might want to discuss some speci
 ## Deep Dive: Image Cache
 > **Interviewer**: "What is the purpose of the `Image Cache` component?"  
 > **Candidate**: "It's an in-memory LRU cache to keep a subset of loaded images for quicker access."  
-> 
+ 
 > **Interviewer**: "Should this component also handle disk cache?"  
 > **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
-> 
+ 
 > **Interviewer**: "Why do you think so?"  
 > **Candidate**: "Most of the modern HTTP clients have built-in disk caching mechanisms that respect `Cache-Control` directives for responses."  
 > **Candidate**: "This way, we only need to specify the cache size and the client can handle content expiration for us."  
-> 
+ 
 > **Interviewer**: "How would you select the size of the cache?"  
 > **Candidate**: "I would start with some default value. For example, the Google Drive app has `250`Mb disk cache size by default."  
 > **Candidate**: "Then I would provide a library setting to override this."  
-> 
+ 
+> **Interviewer**: "That makes sense but I was asking about in-memory cache size 🙂"  
+> **Candidate**: "This part is harder since we can't make any strong assumptions on the memory usage patterns of the host app."  
+> **Candidate**: "A simple heuristics could be allocating a chunk proportional to the max device memory. For example, Google [suggests](https://developer.android.com/topic/performance/graphics/cache-bitmap#memory-cache
+) `1/8`th."  
+> **Candidate**: "We can also use low-memory callbacks to purge the cache when the memory runs low."  
+
 > **Interviewer**: "Can you see any drawbacks of using a 3rd party library?"  
 > **Candidate**: "Depending on a 3rd party library is tricky since it can lead to semantic and binary incompatibilities with the host app. On the other hand, it handles lots of complexity for us and encapsulates the experience of many developers who worked on it. I think it's a trade-off between time-to-the-market and code ownership."  
+
 
 _NOTE: If you don't have much experience with network stack internals - it's ok to mention a well-known library as a workaround._
 
