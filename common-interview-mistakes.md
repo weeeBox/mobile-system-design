@@ -15,3 +15,9 @@ _TBD_
 
 ### Asking about their strong points - not candidate's
 _TBD_
+
+### Not moving on when the candidate is stuck
+_TBD_
+
+### Digging too much into details (BFS approach)
+_TBD_
