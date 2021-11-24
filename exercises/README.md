@@ -7,10 +7,12 @@ The following exercises emulate typical interview scenarios using common system 
 - Design "Network Library"
 - Design "Json Parsing Library like Moshi/Gson"
 - Design "Pagination Library"
+- Design "Analytics Library"
 - Design "A/B Experiment Library"
 - Design "Photo App"
 - Design "Chat App"
 - Design "Clock App"
+- Design "Recipe App"
 - Design "Photo Editing App"
 - Design "Live Wallpaper Display App"
 
