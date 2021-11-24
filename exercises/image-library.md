@@ -97,12 +97,32 @@ After a high-level discussion, your interviewer might want to discuss some speci
 > **Interviewer**: "Can you see any drawbacks of using a 3rd party library?"  
 > **Candidate**: "Depending on a 3rd party library is tricky since it can lead to semantic and binary incompatibilities with the host app. On the other hand, it handles lots of complexity for us and encapsulates the experience of many developers who worked on it. I think it's a trade-off between time-to-the-market and code ownership."  
 
-
 _NOTE: If you don't have much experience with network stack internals - it's ok to mention a well-known library as a workaround._
 
 ## Deep Dive: Image Loader
+> **Interviewer**: "Can we talk more about the `Image Loader` component?"  
+> **Candidate**: "The component is responsible for loading images from different sources such as file system, app resources, and network."  
+> **Candidate**: "It accepts a `Loader Request` and returns an image as a result."  
+
+> **Interviewer**: "What would you include in the request?"  
+> **Candidate**: "Source URI, image dimensions, and image format (like `RGBA_8888`, `RGB_888`, `RGB_565`, etc)"  
+
+```
+LoaderRequest:
++ init(source:Uri, width: Int, height: Int, format: ImageFormat)
+```
+
+> **Interviewer**: "Why would you need to include image dimensions and format?"  
+> **Candidate**: "Mostly to save memory: 1) there's no need to load an image bigger than its target view; 2) we can drop alpha channel or lower the bit-depth."  
 
 ![High-level Diagram](/images/exercise-image-library-image-loader.svg)
+
+> **Candidate**: "I would also decouple image data loading from the decoding. This way we can easily add new decoders without changing the loader itself."  
+
+_NOTE: Android engineers might also want to mention a [Bitmap](https://developer.android.com/reference/android/graphics/Bitmap) cache to avoid excessive garbage collection by recycling bitmaps. For more information check Glide's [BitmapPool](https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/engine/bitmap_recycle/BitmapPool.java)_
+
+> **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
+> **Interviewer**: "That's fine - we can leave it out of scope."  
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
