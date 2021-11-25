@@ -120,6 +120,10 @@ After a high-level discussion, your interviewer might steer the conversation tow
 - **Pager** - trigger data fetching from the Remote Mediator and exposes an observable stream of paged data to UI.
 - **"Tweet Like" and "Tweet Details" use cases** - provide delegated implementation for "Like" and "Show Details" operations. Injected via DI-graph.
 - **Image Loader** - abstracts image loading from the image loading library. Injected via DI-graph.
+
+## "How much detail should I provide?"
+There's no rule of thumb here. Work closely with the interviewer: ask them if you need to go deeper or move on to the next topic. If you have an in-person/video interview - watch their facial expressions. For example, if you see that the interviewer wants to interrupt you - stop talking and ask if they have any questions. The whole point is to work together - that provides a good signal for you as a team player/collaborator.
+
 ## Providing the "signal"
 The interviewer might be looking for the following signals:
 - The candidate is familiar with most common MVx patterns.
