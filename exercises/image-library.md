@@ -51,13 +51,6 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 - Custom image loaders.
 - Image placeholders, loading indicators, transition animations.
 
-## Client Public API (Optional)
-Your interviewer might want to discuss the client public API. In the simplest form it might look like this:
-
-```
-TBD
-```
-
 ## High-Level Diagram
 A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams [here](https://github.com/weeeBox/mobile-system-design#high-level-diagram).
 
