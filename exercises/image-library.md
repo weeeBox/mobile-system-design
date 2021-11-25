@@ -126,9 +126,9 @@ _NOTE: in this exercise, the API description is purposely left platform/language
 
 ![High-level Diagram](/images/exercise-image-library-image-loader.svg)
 
-> **Candidate**: "I would also decouple image data loading from the decoding. This way we can easily add new decoders without changing the loader itself."  
+> **Candidate**: "I would also decouple image data loading from the decoding. This way, we can easily add new decoders using the [Strategy](https://en.wikipedia.org/wiki/Strategy_pattern) design pattern without changing the loader itself."  
 
-_NOTE: Android engineers might also want to mention a [Bitmap](https://developer.android.com/reference/android/graphics/Bitmap) cache to avoid excessive garbage collection by recycling bitmaps. For more information check Glide's [BitmapPool](https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/engine/bitmap_recycle/BitmapPool.java)_
+_NOTE: Android engineers might also want to mention a special [Bitmap](https://developer.android.com/reference/android/graphics/Bitmap) cache to avoid excessive garbage collection with recycled bitmaps. For more information check [BitmapPool](https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/engine/bitmap_recycle/BitmapPool.java) from Glide._
 
 > **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
 > **Interviewer**: "That's fine - we can leave it out of scope."  
