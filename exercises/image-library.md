@@ -76,7 +76,24 @@ After a high-level discussion, your interviewer might want to discuss some speci
 ## Deep Dive: Image Cache
 > **Interviewer**: "What is the purpose of the `Image Cache` component?"  
 > **Candidate**: "It's an in-memory LRU cache to keep a subset of loaded images for quicker access."  
+
+> **Interviewer**: "What would you use for the cache key?"  
+> **Candidate**: "It's a good question. The first option is to use the image URI. However, we might also want to distinguish between images with the same URI but different dimensions and formats. To accomplish this - we can create a new `ImageKey` type to encapsulate image parameters."  
+
+```
+ImageKey:
++ init(source:Uri, width: Int, height: Int, format: ImageFormat)
+```  
+
+> **Interviewer**: "Why would you need to include image dimensions?"  
+> **Candidate**: "Mostly to save memory and make drawing more efficient: it's better to re-scale the image to fit its target while loading."  
+
+> **Interviewer**: "What do you mean by `format`?"  
+> **Candidate**: "The image format describes the bit encoding for every pixel (for example, `RGBA8888`, `RGB888`, `RGB565`, etc). We can optimize our memory usage by reducing the bit depth or discarding the alpha channel."  
  
+> **Interviewer**: "Should this component also handle disk cache?"  
+> **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
+
 > **Interviewer**: "Should this component also handle disk cache?"  
 > **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
  
@@ -102,18 +119,17 @@ _NOTE: If you don't have much experience with network stack internals - it's ok 
 ## Deep Dive: Image Loader
 > **Interviewer**: "Can we talk more about the `Image Loader` component?"  
 > **Candidate**: "The component is responsible for loading images from different sources such as file system, app resources, and network."  
-> **Candidate**: "It accepts a `Loader Request` and returns an image as a result."  
+> **Candidate**: "It accepts a `Loader Request` and produces an image in return."  
 
 > **Interviewer**: "What would you include in the request?"  
-> **Candidate**: "Source URI, image dimensions, and image format (like `RGBA_8888`, `RGB_888`, `RGB_565`, etc)"  
+> **Candidate**: "An `ImageKey` and a callback function."  
 
 ```
 LoaderRequest:
-+ init(source:Uri, width: Int, height: Int, format: ImageFormat)
++ init(key: ImageKey, callback: (key: ImageKey, image: Image?, error: String?) → Void)
 ```
 
-> **Interviewer**: "Why would you need to include image dimensions and format?"  
-> **Candidate**: "Mostly to save memory: 1) there's no need to load an image bigger than its target view; 2) we can drop alpha channel or lower the bit-depth."  
+_NOTE: in this exercise, the API description is purposely left platform/language agnostic to reach a broader audience. During an actual interview, you would most likely design for either iOS or Android and select the API style most suitable for the target platform. For example, you can advocate for coroutines instead of callbacks, suggest Rx-extensions, etc._  
 
 ![High-level Diagram](/images/exercise-image-library-image-loader.svg)
 
