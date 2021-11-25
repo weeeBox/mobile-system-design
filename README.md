@@ -427,9 +427,10 @@ Here's a list of concerns to keep in mind while discussing your solution with th
   - Prefer the lowest possible location accuracy. Progressively ask for increased location accuracy if needed.  
   - Provide location access rationale before requesting permissions.  
 - **3rd-Party SDKs Usage**  
-  - 3rd-Party SDKs might cause performance regressions and/or serious outages (example).  
-  - You need to have a way to remotely turn on/off SDKs.  
-  - It's better to introduce a new SDK integration as an A/B test or a staged rollout.  
+  - 3rd-Party SDKs might cause performance regressions and/or serious outages ([example](https://www.bugsnag.com/blog/sdks-should-not-crash-apps)).  
+  - Each SDK should be guarded by a feature flag.
+  - A new SDK integration should be introduced as an A/B test or a staged rollout.  
+  - You need to have a "support and upgrade" plan for the 3rd-party SDKs in a long term.
 
 ### Privacy & Security
 - Keep as little of the user's data as possible - don't collect things you won't need.
