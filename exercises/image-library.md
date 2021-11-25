@@ -157,7 +157,14 @@ Some interviewers might ask follow-up questions that might change the original d
 > **Candidate**: "I would prefer an internal storage for privacy reasons and to avoid using extra permissions (Android only)."  
 > **Candidate**: "I don't think if I know a better storage option."  
 
+> **Interviewer**: "What if you need to store sensitive images?"  
+> **Candidate**: "I would add this as a flag to the `ImageRequest` and encrypt/decrypt corresponding image files using encryption keys from Android Keystore or iOS Keychain."  
+> **Candidate**: "A **better** option is not to store sensitive images at all."  
+
 ## Major Concerns and Trade-Offs
+
+### Memory/Disk/CPU/Bandwidth
+_TBD_
 
 ### Low Data Mode (iOS) and Data Saver mode (Android)
 _TBD_
