@@ -3,8 +3,9 @@
 ## Candidate
 
 ### Not being prepared
-- Study company blog
-_TBD_
+- **Study open-source projects** - not every project is perfect but you still can learn lots of useful things from each of them.
+- **Study company dev blog** - you can learn a lot about their underlying technical stack and think about potential questions they might ask. For example, there's no need to mention GraphQL at Google interview or Protobuf at Facebook.
+- **Conduct mock interviews with your friends** - time management is crucial: your goal is to cover as much ground as possible in the shortest amount of time. Having some practice also eases up the stress from the actual interivew.
 
 ### Being unresponsive
 _TBD_
@@ -49,6 +50,9 @@ _TBD_
 Everything you do would make a negative effect - your goal is to minimize it.
 _TBD_
 
+### Ignoring interviewer's hints
+_TBD_
+
 ## Interviewer
 
 ### Not being prepared
@@ -70,10 +74,13 @@ _TBD_
 ### "Grilling" the candidate
 _TBD_
 
-### Asking about their strong points - not candidate's
+### Asking about their owm strong points - not candidate's
 _TBD_
 
 ### Not moving on when the candidate is stuck
+_TBD_
+
+### Forcing the candidate into a solution they have in mind
 _TBD_
 
 ### Digging too much into details (BFS approach)
