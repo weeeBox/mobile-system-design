@@ -128,7 +128,20 @@ _NOTE: Android engineers might also want to mention a special [Bitmap](https://d
 
 > **Interviewer**: "I'm a little confused by your caching approach - why there's no cache functionality in the Image Loader component?"  
 > **Candidate**: "Mostly due to the [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle): the Image Loader should not know anything about caching - its single purpose is to ~~pass butter~~ load images."  
-> **Candidate**: "However, the HttpClient component handles the disk cache for downloaded images. This is a trade-off between 'clean' design and 'time-to-market'."  
+> **Candidate**: "However, the HttpClient component handles the disk cache for downloaded images. This is a trade-off between a 'clean' design and an 'ease of implementation' - might be a good short-term strategy but would scale poorly in a long run."  
+
+> **Interviewer**: "What do you mean by `scaling`? Are we talking about any backend issues?"  
+> **Candidate**: "No. By `scaling`, I mean library compatibility and long-run support. Depending on the platform, a 3rd-party dependency may have version conflicts with other libraries from the host app."  
+> **Candidate**: "You also need to have a good plan on supporting and updating the dependency over time: for example, you need to decide on the update schedule (each release, each major release, critical bugfix-only, etc) or if you want to maintain a private fork."  
+> **Candidate**: "There might be licensing issues for the customers, too."  
+
+_NOTE: See "Chapter 21. Dependency Management" from the "Software Engineering at Google" book._  
+
+> **Interviewer**: "Sounds tough - why would you want to have the dependency in the first place?"  
+> **Candidate**: "This a good example of `implement` vs `re-use` trade-off. Personally, I think we should prioritize time-to-market first and then refine in future releases."  
+> **Interviewer**: "Makes sense."  
+
+_NOTE: The system design interview is not all about technology and engineering - it's always good to keep business needs in mind, too._  
 
 > **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
 > **Interviewer**: "That's fine - we can leave it out of scope."  
