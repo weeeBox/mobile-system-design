@@ -56,6 +56,9 @@ _TBD_
 ### Ignoring interviewer's hints
 _TBD_
 
+### Not explaining your decisions
+_TBD_
+
 ## Interviewer
 
 ### Not being prepared
