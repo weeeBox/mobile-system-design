@@ -53,6 +53,11 @@ _TBD_
 Everything you do would make a negative effect - your goal is to minimize it.
 _TBD_
 
+### Making assumptions
+It's better to tell that you don't know instead of makind assumptions.
+_TBD_
+
+
 ### Ignoring interviewer's hints
 _TBD_
 
