@@ -43,6 +43,9 @@ _TBD_
 ### Rushing towards a solution
 _TBD_
 
+### Not having good structure in your solution
+_TBD_
+
 ### Speaking in terms of specific vendors
 _TBD_
 
