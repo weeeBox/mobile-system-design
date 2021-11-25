@@ -133,8 +133,19 @@ _NOTE: Android engineers might also want to mention a [Bitmap](https://developer
 > **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
 > **Interviewer**: "That's fine - we can leave it out of scope."  
 
-## Deep Dive: Image Request and Image Target
-_TBD_
+## Deep Dive: Image Request
+
+> **Interviewer**: "Tell me more about `ImageRequest`."  
+> **Candidate**: "It encapsulates the image loading parameters and the image target. We can use fluent chaining to create a cleaner interface."  
+
+```
+ImageRequest:
++ load(source: Uri): ImageRequest
++ load(format: ImageFormat): ImageRequest
++ into(target: ImageView): ImageRequest // we can overload this to support multiple targets
+```
+
+> **Candidate**: "We can register lifecycle callbacks with UI-targets (ImageView, Button, etc) for stoping the loading and freeing up resources."  
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
