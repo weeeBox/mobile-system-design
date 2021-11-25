@@ -22,6 +22,7 @@ _NOTE: some interviewers may want you to "drive" the conversation and would "sub
 > **Interviewer**: "Not sure what you mean."  
 > **Candidate**: "Do we want the library to load images directly to UI components (like ImageView, Button, etc)?"  
 > **Interviewer**: "Yes."  
+
 > **Candidate**: "I think, it might be beneficial to support non-UI targets - like saving the image to a file or providing a callback to access the image data when loading is complete."  
 > **Interviewer**: "Sounds good."  
 
@@ -35,8 +36,6 @@ _NOTE: some interviewers may want you to "drive" the conversation and would "sub
 > **Interviewer**: "Not sure what you mean."  
 > **Candidate**: "That means that the library would track view hierarchy lifecycle events to decide when to stop loading and free resources. For example, you should interrupt image loading when the target view becomes detached from the view hierarchy."  
 > **Interviewer**: "Yes, it's a good feature."  
-
-_TBD_: Low Data Mode (iOS) and Data Saver mode (Android)
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
@@ -87,9 +86,6 @@ ImageKey:
 > **Interviewer**: "Should this component also handle disk cache?"  
 > **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
 
-> **Interviewer**: "Should this component also handle disk cache?"  
-> **Candidate**: "The disk cache only makes sense for the images downloaded over the network. I think the network client can handle it better."  
- 
 > **Interviewer**: "Why do you think so?"  
 > **Candidate**: "Most of the modern HTTP clients have built-in disk caching mechanisms that respect `Cache-Control` directives for responses."  
 > **Candidate**: "This way, we only need to specify the cache size and the client can handle content expiration for us."  
@@ -130,6 +126,9 @@ _NOTE: in this exercise, the API description is purposely left platform/language
 
 _NOTE: Android engineers might also want to mention a special [Bitmap](https://developer.android.com/reference/android/graphics/Bitmap) cache to avoid excessive garbage collection with recycled bitmaps. For more information check [BitmapPool](https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/engine/bitmap_recycle/BitmapPool.java) from Glide._
 
+> **Interviewer**: "I'm a little confused by your caching approach - why there's no cache functionality in the Image Loader component?"  
+> **Candidate**: "Mostly due to the [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle): the Image Loader should not know anything about caching - its single purpose is to ~~pass butter~~ load images."  
+> **Candidate**: "However, the HttpClient component handles the disk cache for downloaded images. This is a trade-off between 'clean' design and 'time-to-market'."  
 > **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
 > **Interviewer**: "That's fine - we can leave it out of scope."  
 
@@ -150,10 +149,17 @@ ImageRequest:
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
-_TBD_
+> **Interviewer**: "How would you change your design if you can't use the HttpClient caching?"  
+> **Candidate**: "I would store image metadata in a relational database and store image bytes in the internal cache directory?"  
+
+> **Interviewer**: "Why would you select the internal cache directory? What other options do you have?"  
+> **Candidate**: "The cache directory can be automatically cleaned up when the device disk space runs low. Also, the cached contents won't be backed up with the app."  
+> **Candidate**: "I would prefer an internal storage for privacy reasons and to avoid using extra permissions (Android only)."  
+> **Candidate**: "I don't think if I know a better storage option."  
 
 ## Major Concerns and Trade-Offs
 
+### Low Data Mode (iOS) and Data Saver mode (Android)
 _TBD_
 
 ## Conclusion
