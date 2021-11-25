@@ -129,6 +129,7 @@ _NOTE: Android engineers might also want to mention a special [Bitmap](https://d
 > **Interviewer**: "I'm a little confused by your caching approach - why there's no cache functionality in the Image Loader component?"  
 > **Candidate**: "Mostly due to the [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle): the Image Loader should not know anything about caching - its single purpose is to ~~pass butter~~ load images."  
 > **Candidate**: "However, the HttpClient component handles the disk cache for downloaded images. This is a trade-off between 'clean' design and 'time-to-market'."  
+
 > **Candidate**: "I forgot to mention this but we can also easily add authentication support on the network client level."  
 > **Interviewer**: "That's fine - we can leave it out of scope."  
 
@@ -144,21 +145,24 @@ ImageRequest:
 + into(target: ImageView): ImageRequest // we can overload this to support multiple targets
 ```
 
-> **Candidate**: "We can register lifecycle callbacks with UI-targets (ImageView, Button, etc) for stoping the loading and freeing up resources."  
+> **Candidate**: "We can register lifecycle callbacks with UI-targets (ImageView, Button, etc) for easier control of resources. For example, we can stop loading when the target is detached from the view hierarchy, becomes invisible, or gets recycled as a part of list scrolling."  
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
 > **Interviewer**: "How would you change your design if you can't use the HttpClient caching?"  
 > **Candidate**: "I would store image metadata in a relational database and store image bytes in the internal cache directory?"  
+> **Candidate**: "Also, I would set a disk usage limit for the cache and provide a simple LRU eviction policy."  
 
 > **Interviewer**: "Why would you select the internal cache directory? What other options do you have?"  
 > **Candidate**: "The cache directory can be automatically cleaned up when the device disk space runs low. Also, the cached contents won't be backed up with the app."  
 > **Candidate**: "I would prefer an internal storage for privacy reasons and to avoid using extra permissions (Android only)."  
 > **Candidate**: "I don't think if I know a better storage option."  
 
+_NOTE: It's ok to tell the interviewer that you don't have much experience with the storage options. Better be honest than get caught in a lie._  
+
 > **Interviewer**: "What if you need to store sensitive images?"  
-> **Candidate**: "I would add this as a flag to the `ImageRequest` and encrypt/decrypt corresponding image files using encryption keys from Android Keystore or iOS Keychain."  
+> **Candidate**: "I would support this as a flag in the `ImageRequest` and encrypt/decrypt corresponding files using encryption keys from Android Keystore or iOS Keychain."  
 > **Candidate**: "A **better** option is not to store sensitive images at all."  
 
 ## Major Concerns and Trade-Offs
