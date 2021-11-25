@@ -121,15 +121,22 @@ After a high-level discussion, your interviewer might steer the conversation tow
 - **"Tweet Like" and "Tweet Details" use cases** - provide delegated implementation for "Like" and "Show Details" operations. Injected via DI-graph.
 - **Image Loader** - abstracts image loading from the image loading library. Injected via DI-graph.
 
-## "How much detail should I provide?"
-There's no rule of thumb here. Work closely with the interviewer: ask them if you need to go deeper or move on to the next topic. If you have an in-person/video interview - watch their facial expressions. For example, if you see that the interviewer wants to interrupt you - stop talking and ask if they have any questions. The whole point is to work together - that provides a good signal for you as a team player/collaborator.
-
 ## Providing the "signal"
 The interviewer might be looking for the following signals:
 - The candidate is familiar with most common MVx patterns.
 - The candidate achieves a clear separation between business logic and UI.
 - The candidate is familiar with dependency injection methods.
 - The candidate is capable of designing self-contained isolated modules.
+
+## Frequently Asked Questions
+
+### How much detail should I provide in the deep-dive section?"
+There's no rule of thumb here. Work closely with the interviewer: ask them if you need to go deeper or move on to the next topic. If you have an in-person/video interview - watch their facial expressions. For example, if you see that the interviewer wants to interrupt you - stop talking and ask if they have any questions. The whole point is to work together - that provides a good signal for you as a team player/collaborator.
+
+### Why didn't you mention specific classes (like `RecyclerView`/`UICollectionView`) and vendors (like Room, CoreDate, Realm, etc)?
+- To make the guide stable and platform-agnostic: the libraries and the frameworks are constantly evolving - picking up a specific vendor can only be relevant for a short amount of time. Using an abstraction is more robust since you only concentrate on the functionality it provides without digging to much into the implementation details.
+- Vendor selection is biased and depends on personal experience and current trends.
+- Big tech companies (like FAANG) might not care much about vendors since they build their custom proprietary stacks.
 
 ## API Design
 The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part, or choose something you know best (in case they don't have a strong preference).
@@ -557,6 +564,7 @@ There's a significant amount of randomness during a system design interview. The
 - **The hiring committee** - they make a decision based on the interviewers' report and your resume.
 ### Judging the outcome
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
+
 ## Additional Information
 More System Design exericses [here](https://github.com/weeeBox/mobile-system-design/tree/master/exercises)!
 ### Looking for more content?
