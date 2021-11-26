@@ -581,7 +581,19 @@ You _can influence_ the outcome but you _can't control_ it. Don't let minor setb
 More System Design exericses [here](/exercises)!
 
 ### Junior, Middle, Senior, and Staff level interviews
-_TBD_
+The system design experience would be different depending on the candidate's target level.
+
+#### Junior engineers
+The system design round of junior engineers is optional since it's pretty unlikely they would have experience designing software systems.
+
+#### Middle level engineers
+The middle-level engineering design round might be heavy on the implementation side. The interviewer and the candidate would mostly talk about building a specific component using platform libraries.
+
+#### Senior level engineers
+The senior-level engineering design round could be more high-level compared to the previous levels. The interviewer and the candidate would mostly talk about multiple components and how they communicate with each other. The implementation details could be less important unless the candidate needs to make a decision that drastically affects the application performance. The candidate should also be able to select a technical stack and describe its advantages and trade-offs.
+
+#### Staff level engineers
+The staff-level engineering design round moves away from technical to strategic decisions. The candidate might want to discuss the target audience, available computational and human resources, expected traffic, and deadlines. Instead of thinking in terms of implementation tasks - the candidate should put business needs first. For example, being able to explain how to reduce product time-to-market; how to safely rollout and support features; how to handle OMG situations and large-scale outages. The user privacy topics and their legal implications become extremely important and should be discussed in great detail.
 
 ### Looking for more content?
 I’m thinking about creating an in-depth mobile system design course on top of the free articles. Please, fill out this [form](https://forms.gle/KfvmZhPNPMRBE8Jj9) to express your interest!
