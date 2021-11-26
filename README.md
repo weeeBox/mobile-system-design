@@ -575,7 +575,12 @@ There's a significant amount of randomness during a system design interview. The
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
 
 ## Additional Information
-More System Design exericses [here](https://github.com/weeeBox/mobile-system-design/tree/master/exercises)!
+More System Design exericses [here](/exercises)!
+
+### Junior, Middle, Senior, and Staff level interviews
+_TBD_
+
 ### Looking for more content?
 I’m thinking about creating an in-depth mobile system design course on top of the free articles. Please, fill out this [form](https://forms.gle/KfvmZhPNPMRBE8Jj9) to express your interest!
+
 ## Consider "starring" the repository to help other people discover the guide! Thank you!
