@@ -160,6 +160,8 @@ ImageRequest:
 
 > **Candidate**: "We can register lifecycle callbacks with UI-targets (ImageView, Button, etc) for easier control of resources. For example, we can stop loading when the target is detached from the view hierarchy, becomes invisible, or gets recycled as a part of list scrolling."  
 
+_NOTE: We're not going to discuss the actual implementation here since it greatly depends on the UI framework. Make sure to discuss what mechanisms you would use and how to prevent memory leaks._
+
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
@@ -187,7 +189,7 @@ _TBD_
 _TBD_
 
 ## Conclusion
-- Keep this in mind while preparing for a system design interview:
+Keep this in mind while preparing for a system design interview:
 - Don't try to make it perfect - provide a "signal" instead.
 - Listen to your interviewer and keep track of the time.
 - Try to cover as much ground as possible without digging too much into the implementation details.
