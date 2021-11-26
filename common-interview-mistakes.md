@@ -7,6 +7,11 @@
 - **Study company dev blog** - you can learn a lot about their underlying technical stack and think about potential questions they might ask. For example, there's no need to mention GraphQL at Google interview or Protobuf at Facebook.
 - **Conduct mock interviews with your friends** - time management is crucial: your goal is to cover as much ground as possible in the shortest amount of time. Having some practice also eases up the stress from the actual interivew.
 
+### Rushing towards a solution
+- **Not gathering system requirements** - the interview question may be purposely vague. The candidate is expected to ask more questions to define the task better. For more information see [Gathering Requirements](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
+- **Not asking clarifying questions** - it might be useful to get some information about the target market, the size of the audience, and the dev team details.
+- **Jumping straight to implementation** - it's generally a bad sign if the candidate immediately starts discussing low-level topics. For example, which view classes to use or what UI-architecture pattern to apply. The interviewer might not be interested in implementation details in the first place.
+
 ### Being unresponsive
 _TBD_
 
@@ -14,7 +19,8 @@ _TBD_
 _TBD_
 
 ### Talking too much
-- Long background introduction
+- **Long introduction** - digging deeper into your professional background does not provide much "signal". The interviewer would most likely form an opinion based on the candidate's interview performance and not the summary of their professional experience.
+- **Trying to force an interviewing framework** - the said guide represents a set of recommendations and does not define an official interview protocol for any company. The candidate should follow the interviewer's lead in each particular case.
 - Ignoring the interviewer
 - Repeating yourself
 - Jumping from a topic to a topic
@@ -39,9 +45,6 @@ _TBD_
 
 ### Lying
 - An interviewer might be a domain expert.
-_TBD_
-
-### Rushing towards a solution
 _TBD_
 
 ### Not having good structure in your solution
