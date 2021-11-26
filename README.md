@@ -146,6 +146,7 @@ There's no rule of thumb here. Work closely with the interviewer: ask them if yo
 - To make the guide stable and platform-agnostic: the libraries and the frameworks are constantly evolving - picking up a specific vendor can only be relevant for a short amount of time. Using an abstraction is more robust since you only concentrate on the functionality it provides without digging too much into the implementation details.
 - Vendor selection is biased and depends on personal experience and current trends.
 - Big tech companies (like FAANG) might not care much about vendors since they build their custom proprietary stacks.
+- There are tons of implementation-specific details all over the Internet already.
 
 ## API Design
 The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part, or choose something you know best (in case they don't have a strong preference).
