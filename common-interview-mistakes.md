@@ -18,6 +18,7 @@ _TBD_
 - Ignoring the interviewer
 - Repeating yourself
 - Jumping from a topic to a topic
+- Going too broad with the answers - covering irrelevant things.
 _TBD_
 
 ### Treat the interviewer as an adversary
