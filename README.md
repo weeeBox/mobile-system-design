@@ -109,7 +109,9 @@ The interviewer might be looking for the following signals:
 A high-level diagram is by no means necessary - you can take any other approach which seems more appropriate for a specific interview case. However, there are some advantages in starting with a high-level approach:
 - **Time management** - drawing a 30,000 feet view is quick and brings immediate topics for further discussion.
 - **Modularity** - each high-level component can be potentially isolated in a separate module to allow a team of engineers to work on the project simultaneity without stepping on each other toes.
-- **Best practices** - this approach is wildly used for the backend system design and closely resembles the [C4 model for visualising software architecture](https://c4model.com/).
+- **Best practices** - this approach is wildly used for the backend system design and closely resembles the [C4 model for visualising software architecture](https://c4model.com/).  
+
+_Still not sure?_ Ask your interviewer if they want you to draw a high-level diagram or skip it and jump to some concrete components.
 
 ## Deep Dive: Tweet Feed Flow
 After a high-level discussion, your interviewer might steer the conversation towards some specific component of the system. Let's assume it was "Tweet Feed Flow". Things you might want to talk about:
