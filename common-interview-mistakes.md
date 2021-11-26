@@ -94,7 +94,7 @@ _TBD_
 ### Asking meaningless questions
 - "Why did you choose a relational database (ORM) to store structured data that requires complex querying?" - there's little "signal" a candidate can provide here (unless they advocate for text files or user preferences).
 - "Why caching/modularization/testing/etc is necessary?"
-- "Why would you use an industry-standard library instead of a custom implementation?" - this question might make sense when it comes to framework development but could be meaningless when talking about an app.
+- "Why would you use an industry-standard library instead of a custom implementation?" - this question might make sense when it comes to framework development but _could_ be meaningless when talking about an app. See "Chapter 21. Dependency Management" from the "Software Engineering at Google" book.
 
 ### Not moving on when the candidate is stuck
 _TBD_
