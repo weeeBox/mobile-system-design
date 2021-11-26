@@ -98,7 +98,7 @@ ImageKey:
 > **Candidate**: "This part is harder since we can't make any strong assumptions on the memory usage patterns of the host app."  
 > **Candidate**: "A simple heuristics could be allocating a chunk proportional to the max device memory. For example, Google [suggests](https://developer.android.com/topic/performance/graphics/cache-bitmap#memory-cache
 ) `1/8`th."  
-> **Candidate**: "We can also use low-memory callbacks to purge the cache when the memory runs low."  
+> **Candidate**: "We can also use low-memory callbacks to purge the cache when the device runs out of memory."  
 
 > **Interviewer**: "Can you see any drawbacks of using a 3rd party library?"  
 > **Candidate**: "Depending on a 3rd party library is tricky since it can lead to semantic and binary incompatibilities with the host app. On the other hand, it handles lots of complexity for us and encapsulates the experience of many developers who worked on it. I think it's a trade-off between time-to-the-market and code ownership."  
@@ -182,11 +182,20 @@ _NOTE: It's ok to tell the interviewer that you don't have much experience with 
 
 ## Major Concerns and Trade-Offs
 
-### Memory/Disk/CPU/Bandwidth
-_TBD_
+### Balancing Memory/Disk/CPU/Bandwidth usage
+The biggest decision to make is how to properly handle system resources utilization:
+- Using more memory would make the library more responsive but increases the risk of the host app being killed in the background.
+- Using more disk space saves application bandwidth but frequent reads/writes can increase the device temperature and increase the chances for the host app to be uninstalled in low disk space conditions.
+- Using more bandwidth may cost the user money and increase the battery drain.
+
+Since you can't make any assumptions on the specific use-cases - making these parameters configurable might be the preferred approach. If you are not sure what default values to use - learn from the existing applications.
 
 ### Low Data Mode (iOS) and Data Saver mode (Android)
-_TBD_
+We might want to respect the device settings for saving cellular data. Possible options might include:
+- Block image downloading altogether.
+- Introduce the level of priority for each image and only download UI-critical components. See [Quality Of Service](/README.md#quality-of-service) for more information.
+- Provide support for hi-quality and low-quality downloads and only fetch low-quality images.
+- Prefer cached data instead of fetching it from the network.
 
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
