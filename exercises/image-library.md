@@ -1,4 +1,4 @@
-# Mobile System Design Exercise: Image Library [work in progress]
+# Mobile System Design Exercise: Image Library
 The task might be simply defined as "Design Image Library". The definition is purposely vague and requires some clarification.
 
 ## Gathering Requirements
@@ -29,13 +29,17 @@ _NOTE: some interviewers may want you to "drive" the conversation and would "sub
 > **Candidate**: "I would also add a caching support to store downloaded images on the disk to preserve the bandwidth and make it easier to support offline state."  
 > **Interviewer**: "Sounds good."  
 
-> **Candidate**: "It would be good to provide customizable placeholders, loading indicators, and transition animation for UI-targets - but we should probably leave it out of scope."  
-> **Interviewer**: "Let's leave it out of scope."  
-
 > **Candidate**: "We should also provide view lifecycle management for UI-targets."  
 > **Interviewer**: "Not sure what you mean."  
 > **Candidate**: "That means that the library would track view hierarchy lifecycle events to decide when to stop loading and free resources. For example, you should interrupt image loading when the target view becomes detached from the view hierarchy."  
 > **Interviewer**: "Yes, it's a good feature."  
+
+> **Candidate**: "It would be good to provide thumbnails, customizable placeholders, loading indicators, and transition animation for UI-targets - but we should probably leave it out of scope."  
+
+> **Interviewer**: "What do you mean by `thumbnails`?"  
+> **Candidate**: "Many backends provide low-resolution versions of the images along with hi-resolution ones. It's useful for metered connections and slow networks. The image loader will prioritize the thumbnail loading over the high-resolution versions - this way, the host app UI would be able to do the initial rendering much faster."  
+
+> **Interviewer**: "Let's leave it out of scope."  
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
