@@ -85,12 +85,15 @@ _TBD_
 ### Being overly optimistic
 - Suggesting solution
 
-
 ### "Grilling" the candidate
 _TBD_
 
 ### Asking about their owm strong points - not candidate's
 _TBD_
+
+### Asking meaningless questions
+- "Why did you choose a relational database (ORM) to store structured data that requires complex querying?" - there's little "signal" a candidate can provide here (unless they advocate for text files or user preferences).
+- "Why caching/modularization/testing/etc is necessary?"
 
 ### Not moving on when the candidate is stuck
 _TBD_
