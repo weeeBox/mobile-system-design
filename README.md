@@ -10,7 +10,9 @@ Join the ["Mobile System Design"](https://discord.gg/sPXWPe2W8R) Discord server 
 </div>
 
 ## Disclaimer
-The framework was heavily inspired by the similar "Scalable Backend Design" articles. Learning the framework does not guarantee passing the interview. The structure of the interview process depends on the personal style of the interviewer. The dialog is really important - make sure you understand what the interviewer is looking for. Make no assumptions and ask clarifying questions.
+The framework was heavily inspired by the similar "Scalable Backend Design" articles. Learning the framework does not guarantee passing the interview. The structure of the interview process depends on the personal style of the interviewer. The dialog is really important - make sure you understand what the interviewer is looking for. Make no assumptions and ask clarifying questions.  
+
+**This guide does not reflect the interviewing policies from Google (or any other company).**
 
 ## Interview Process (45–60 min)
 - 2–5 min - acquaintances
