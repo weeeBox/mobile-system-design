@@ -13,10 +13,11 @@
 - **Jumping straight to implementation** - it's generally a bad sign if the candidate immediately starts discussing low-level topics. For example, which view classes to use or what UI-architecture pattern to apply. The interviewer might not be interested in implementation details in the first place.
 
 ### Being unresponsive
-_TBD_
+- **Keeping silence** - make sure to talk through your solution and not ask the interviewer to give you a few minutes to think.
+- **Waiting until the interviewer starts asking questions** - it is preferable for the candidate to "drive" the discussion (especially for more senior candidates).
 
 ### Giving up early
-_TBD_
+A single failure might de-rail the candidate and make them give up the whole interview. This is a poor strategy since most of the interviewers are trying to evaluate the candidate's abilities and not only looking for "correct" answers.
 
 ### Talking too much
 - **Long introduction** - digging deeper into your professional background does not provide much "signal". The interviewer would most likely form an opinion based on the candidate's interview performance and not the summary of their professional experience.
