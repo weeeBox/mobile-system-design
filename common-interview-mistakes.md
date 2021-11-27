@@ -36,7 +36,7 @@ Most pronounced for the candidates who learn particular designs on the Internet 
 ### Being toxic
 - **Being opinionated** - holding a strong belief about certain technology and rejecting any alternative approaches.
 - **Interrupting the interviewer** - the interviewer might provide some useful hints or suggest a direction toward the solution. The candidate should let the interviewer finish their thought before bringing up any kind of disagreement.
-- **"Educating" the interviewer** - if the candidate believes that the interviewer is being incorrect - it's better to politely suggest this instead of lecturing them on their ignorance. Spending time on "educating" the interviewer provides no useful "signal" and may raise some red flags.
+- **"Educating" the interviewer** - if the candidate believes that the interviewer is wrong/incorrect - it's better to politely suggest this instead of lecturing them on their ignorance. Spending time on "educating" the interviewer provides no useful "signal" and may raise some red flags.
 - **Being a "pleaser"** - trying to compliment the interviewer hoping for a positive feedback report in return.
 
 ### Not explaining decisions or not suggesting alternatives
