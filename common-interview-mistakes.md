@@ -27,49 +27,41 @@ A single failure might de-rail the candidate and make them give up the whole int
 - **Jumping from a topic to a topic** - frequent context switching might be hard to follow for the interviewer.
 - **Going too broad with the answers** - covering irrelevant things does not provide meaning full "signal" to the interviewer. Try to stick to the original question.
 
-### Treat the interviewer as an adversary
-_TBD_
+### Treating the interviewer as an adversary
+The primary role of the interviewer is to determine if the candidate is fit for the job. If the candidate feels any kind of hostility from the interviewer - it should be reported to the recruiting specialist.
 
 ### Trying to fit a solution into an existing scheme
-_TBD_
+Most pronounced for the candidates who learn particular designs on the Internet and attempt fitting the questions into an unrelated solution.
 
 ### Being toxic
-- Opinionated
-- Interrupting the interviewer
-- "Educating" the interviewer
-- Being a "pleaser"
-_TBD_
+- **Being opinionated** - holding a strong belief about certain technology and rejecting any alternative approaches.
+- **Interrupting the interviewer** - the interviewer might provide some useful hints or suggest a direction toward the solution. The candidate should let the interviewer finish their thought before bringing up any kind of disagreement.
+- **"Educating" the interviewer** - if the candidate believes that the interviewer is being incorrect - it's better to politely suggest this instead of lecturing them on their ignorance. Spending time on "educating" the interviewer provides no useful "signal" and may raise some red flags.
+- **Being a "pleaser"** - trying to compliment the interviewer hoping for a positive feedback report in return.
 
-### Not suggesting alternatives
-_TBD_
+### Not explaining decisions or not suggesting alternatives
+It is a red flag when the candidate offers a concrete solution right away without any prior justification. The interviewer might not be able to understand why the candidate prefers a specific approach without comparing it to possible alternatives.
 
 ### Lying
-- An interviewer might be a domain expert.
-_TBD_
+Making up things and lying about them is risky since there's a chance that the interviewer might be a domain expert in the area of the discussion.
 
-### Not having good structure in your solution
-_TBD_
+### Not having any structure for your solution
+Most pronounced for the candidates who don't prepare for their rounds. Not having a plan for structuring the solution would put additional pressure during the interview.
 
 ### Speaking in terms of specific vendors
-_TBD_
+Using vendor-specific solutions during the interview makes it more about the implementation details and not about architecture design. The candidate may omit all vendor information unless the interviewer explicitly asks about it.
 
 ### Being overly optimistic
-Everything you do would make a negative effect - your goal is to minimize it.
-_TBD_
+Sometimes, the candidate does not take the "unhappy" path into account. For example, running out of memory or disk space.
 
 ### Making assumptions
-It's better to tell that you don't know instead of makind assumptions.
-_TBD_
+It's better to admit that you don't know how things work instead of making assumptions. It's ok to reason about how a certain functionality _could_ be implemented but you need to state your lack of knowledge first.
 
-
-### Ignoring interviewer's hints
-_TBD_
-
-### Not explaining your decisions
-_TBD_
+### Ignoring the interviewer's hints
+The interviewer is there to help you - take a hint!
 
 ## Interviewer
-_Note: Cognitive hiring biases are left out of scope for this guide. You can find lots of information on the Internet._
+_Note: Cognitive hiring biases are left out of scope for this guide. You can [find](https://blog.staffingadvisors.com/5-cognitive-biases-that-get-in-the-way-of-hiring) lots of information on the Internet._
 
 ### Not being prepared
 _TBD_
