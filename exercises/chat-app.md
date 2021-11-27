@@ -21,13 +21,18 @@ _TBD_
 ## High-Level Diagram
 A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams [here](https://github.com/weeeBox/mobile-system-design#high-level-diagram).
 
-![High-level Diagram](/images/exercise-caching-library-high-level-diagram.svg)
+![High-level Diagram](/images/exercise-chat-application-high-level-diagram.svg)
 
 ### Components:
 _TBD_
 
 ## Deep Dive
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
+
+## Deep Dive: Data Model
+![High-level Diagram](/images/exercise-chat-application-data-model.svg)
+
+_NOTE: This diagram loosely follows the entity-relationship diagram notation. The cardinality/ordinality relationships are purposely omitted to save the interview time. A good rule of thumb is to avoid unnecessary drawings all togeher._
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
