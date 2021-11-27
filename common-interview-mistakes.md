@@ -69,6 +69,7 @@ _TBD_
 _TBD_
 
 ## Interviewer
+_Note: Cognitive hiring biases are left out of scope for this guide. You can find lots of information on the Internet._
 
 ### Not being prepared
 _TBD_
@@ -88,6 +89,8 @@ _TBD_
 ### "Grilling" the candidate
 _TBD_
 
+- "Educating" the interviewer
+
 ### Asking about their owm strong points - not candidate's
 _TBD_
 
@@ -95,6 +98,8 @@ _TBD_
 - "Why did you choose a relational database (ORM) to store structured data that requires complex querying?" - there's little "signal" a candidate can provide here (unless they advocate for text files or user preferences).
 - "Why caching/modularization/testing/etc is necessary?"
 - "Why would you use an industry-standard library instead of a custom implementation?" - this question might make sense when it comes to framework development but _could_ be meaningless when talking about an app. See "Chapter 21. Dependency Management" from the "Software Engineering at Google" book.
+
+Everything the interviewer asks should help determine if the candidate is a fit for the job. Any other questions should be left out of scope.
 
 ### Not moving on when the candidate is stuck
 _TBD_
