@@ -23,6 +23,8 @@ A high-level diagram shows all major system components and their interactions (w
 
 ![High-level Diagram](/images/exercise-chat-application-high-level-diagram.svg)
 
+_NOTE: This diagram looks familiar to other cases from the guide. The main reason is the adopted architectural pattern combination MVx + repository + coordinator._
+
 ### Components:
 _TBD_
 
@@ -32,7 +34,7 @@ After a high-level discussion, your interviewer might want to discuss some speci
 ## Deep Dive: Data Model
 ![High-level Diagram](/images/exercise-chat-application-data-model.svg)
 
-_NOTE: This diagram loosely follows the entity-relationship diagram notation. The cardinality/ordinality relationships are purposely omitted to save the interview time. A good rule of thumb is to avoid unnecessary drawings all togeher._
+_NOTE: This diagram loosely follows the entity-relationship diagram notation. The cardinality/ordinality relationships are purposely omitted to save the interview time. A good rule of thumb is to avoid unnecessary drawings altogether._
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
