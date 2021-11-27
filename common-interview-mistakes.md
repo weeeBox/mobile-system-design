@@ -22,11 +22,10 @@ A single failure might de-rail the candidate and make them give up the whole int
 ### Talking too much
 - **Long introduction** - digging deeper into your professional background does not provide much "signal". The interviewer would most likely form an opinion based on the candidate's interview performance and not the summary of their professional experience.
 - **Trying to force an interviewing framework** - the said guide represents a set of recommendations and does not define an official interview protocol for any company. The candidate should follow the interviewer's lead in each particular case.
-- Ignoring the interviewer
-- Repeating yourself
-- Jumping from a topic to a topic
-- Going too broad with the answers - covering irrelevant things.
-_TBD_
+- **Ignoring the interviewer** - it is better to stop talking if the interviewer interrupts you: do not try "to finish the thought" - it is better to move to another topic and not waste time.
+- **Repeating yourself** - talking about the same things again: it does not provide any additional information to the interviewer.
+- **Jumping from a topic to a topic** - frequent context switching might be hard to follow for the interviewer.
+- **Going too broad with the answers** - covering irrelevant things does not provide meaning full "signal" to the interviewer. Try to stick to the original question.
 
 ### Treat the interviewer as an adversary
 _TBD_
