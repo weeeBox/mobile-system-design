@@ -581,7 +581,9 @@ You _can influence_ the outcome but you _can't control_ it. Don't let minor setb
 More System Design exericses [here](/exercises)!
 
 ### Junior, Middle, Senior, and Staff level interviews
-The system design experience would be different depending on the candidate's target level.
+The system design experience would be different depending on the candidate's target level. An approximate engineering level breakdown can be found [here](https://candor.co/articles/tech-careers/google-promotions-the-real-scoop-on-leveling-up).  
+
+_NOTE: There's no clear mapping between years of experience and seniority - some ranges might exist but it largely depends on the candidate's background._
 
 #### Junior engineers
 The system design round of junior engineers is optional since it's pretty unlikely they would have experience designing software systems.
