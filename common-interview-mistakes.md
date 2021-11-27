@@ -82,6 +82,9 @@ _TBD_
 - **Asking narrow sub-domain questions** - a type of questions focusing on specific things the candidate does not need to know to be successful at the job.
 - **Trying to corner the candidate** - asking intentionally tough and tricky questions to make the candidate admit they don't know the answer.
 
+### "Educating" the candidate
+Some interviewers may ask a question and then answer it themselves when the candidate fails to do so. It does not help to evaluate the candidate and wastes the interview time.
+
 ### Asking about their owm strong points - not candidate's
 _TBD_
 
@@ -93,7 +96,7 @@ _TBD_
 Everything the interviewer asks should help determine if the candidate is a fit for the job. Any other questions should be left out of scope.
 
 ### Not moving on when the candidate is stuck
-_TBD_
+Letting the candidate "struggle a little" and allowing long pauses. It's better to give a hint sooner than later or move to the next topic.
 
 ### Forcing the candidate into a solution they have in mind
 _TBD_
