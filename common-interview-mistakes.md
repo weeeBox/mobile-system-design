@@ -1,6 +1,6 @@
 # Common Interview Mistakes
 
-## Candidate
+## As candidate
 
 ### Not being prepared
 - **Study open-source projects** - not every project is perfect but you can still learn lots of useful things from each of them.
@@ -45,7 +45,7 @@ It is a red flag when the candidate offers a concrete solution right away withou
 ### Lying
 Making up things and lying about them is risky since there's a chance that the interviewer might be a domain expert in the area of the discussion.
 
-### Not having any structure for your solution
+### Not having any structure for the solution
 Most pronounced for the candidates who don't prepare for their rounds. Not having a plan for structuring the solution would put additional pressure during the interview.
 
 ### Speaking in terms of specific vendors
@@ -60,7 +60,7 @@ It's better to admit that you don't know how things work instead of making assum
 ### Ignoring the interviewer's hints
 The interviewer is there to help you - take a hint!
 
-## Interviewer
+## As interviewer
 _Note: Cognitive hiring biases are left out of scope for this guide. You can [find](https://blog.staffingadvisors.com/5-cognitive-biases-that-get-in-the-way-of-hiring) lots of information on the Internet._
 
 ### Not being prepared
