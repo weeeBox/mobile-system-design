@@ -4,7 +4,7 @@
 
 ### Not being prepared
 - **Study open-source projects** - not every project is perfect but you still can learn lots of useful things from each of them.
-- **Study company dev blog** - you can learn a lot about their underlying technical stack and think about potential questions they might ask. For example, there's no need to mention GraphQL at Google interview or Protobuf at Facebook.
+- **Study company dev blog** - you can learn a lot about their underlying technical stack and think about potential questions they might ask.
 - **Conduct mock interviews with your friends** - time management is crucial: your goal is to cover as much ground as possible in the shortest amount of time. Having some practice also eases up the stress from the actual interivew.
 
 ### Rushing towards a solution
