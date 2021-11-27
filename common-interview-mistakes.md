@@ -87,9 +87,8 @@ _TBD_
 - Suggesting solution
 
 ### "Grilling" the candidate
-_TBD_
-
-- "Educating" the interviewer
+- **Asking narrow sub-domain questions** - a type of questions focusing on specific things the candidate does not need to know to be successful at the job.
+- **Trying to corner the candidate** - asking intentionally tough and tricky questions to make the candidate admit they don't know the answer.
 
 ### Asking about their owm strong points - not candidate's
 _TBD_
