@@ -21,19 +21,31 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 > **Candidate**: "An app targetted primarily for North America and Europe might have a different set of performance requirements compared to a similar app targetted to developing countries. The users in developed countries usually have more powerful phones compared to their peers in developing countries. The cost of cellular traffic in Europe and North America is much lower than in India."  
 > **Interviewer**: "Let's design an app for North America."  
 
-> **Candidate**: "Should we include messages backup in iCloud / Google Drive?"  
-> **Interviewer**: "No, leave it out of scope."  
+> **Candidate**: "Do we want to support group chats?"  
+> **Interviewer**: "No, let's leave it out of scope."  
+
+> **Candidate**: "Do we need to support sign-up and log-in?"  
+> **Interviewer**: "We can leave it out of scope."  
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
-## Functional requirements
-_TBD_
+### Functional requirements
+- User should be able to see the list of recent chats sorted by date.
+- User should be able to open a 1-on-1 chat, send and receive messages.
+- User should be able to add photo attachments to chat messages.
+- User should be able to receive chat message notifications when the app is not running.
+- User should be able to see chat message status (sending, sent/failed, received) and read receipts.
 
-## Non-functional requirements
-_TBD_
+### Non-functional requirements
+- Offline support (reading chat messages).
+- Secure message storage.
 
-## Out of scope
-_TBD_
+### Out of scope
+- Video and voice attachments.
+- Sign-up and log-in.
+- Group chats.
+
+_NOTE: It is tempting to include additional requirements such as 'last seen`, message replies/forwarding, reactions, etc. Proper time management is crucial during the interview - try keeping everything closer to an MVP and move on to the next section._
 
 ## High-Level Diagram
 A high-level diagram shows all major system components and their interactions (without implementation details). You can learn more about high-level diagrams [here](https://github.com/weeeBox/mobile-system-design#high-level-diagram).
