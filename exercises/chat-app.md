@@ -11,7 +11,7 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 > **Interviewer**: "Why is this important for a mobile app?"  
 > **Candidate**: "We need to make sure that our clients won't accidentally create a DDoS attack on our backend services."  
 
-> **Interviewer**: "In what cases a DDoS 'attack' is possible?"  
+> **Interviewer**: "In what cases a DDoS _attack_ is possible?"  
 > **Candidate**: "The most likely reason is a frequent HTTP-polling that produces large volumes of network traffic."  
 > **Candidate**: "Another reason - not using an exponential backoff while retrying failing requests. Million of clients retrying their requests at the same time can produce an unnecessary load to our backend services."  
 > **Interviewer**: "Got it. Let's say we're expecting to have 1,000,000 monthly active users."  
