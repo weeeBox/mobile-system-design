@@ -227,6 +227,10 @@ Full-duplex communication over a single TCP connection.
   - requires maintaining an active connection - might have poor performance on unstable cellular networks.
   - schemaless - it's hard to check data validity on the client.
   - the number of active connections on a single server is limited to 65k.
+
+Learn more about WebSockets:
+- [WebSocket Tutorial - How WebSockets Work](https://www.youtube.com/watch?v=pNxK8fPKstc)
+
 #### gRPC
 Remote Procedure Call framework which runs on top of HTTP/2. Supports bi-directional streaming using a single physical connection.
 - pros:
