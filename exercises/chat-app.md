@@ -4,8 +4,25 @@ The task might be simply defined as "Design Chat Application". The definition is
 ## Gathering Requirements
 You are expected to ask clarifying questions and narrow down the scope of the task. This should not take more than 5 minutes.
 
-> **Candidate**: ""  
-> **Interviewer**: ""  
+> **Candidate**: "Are we designing a general usage app (like WhatsApp) or something more specific (like an internal chat app for a company)?"  
+> **Interviewer**: "Something like WhatsApp."  
+
+> **Candidate**: "Do we have any information on the number of monthly active users?"  
+> **Interviewer**: "Why is this important for a mobile app?"  
+> **Candidate**: "We need to make sure that our clients won't accidentally create a DDoS attack on our backend services."  
+
+> **Interviewer**: "In what cases a DDoS 'attack' is possible?"  
+> **Candidate**: "The most likely reason is a frequent HTTP-polling that produces large volumes of network traffic."  
+> **Candidate**: "Another reason - not using an exponential backoff while retrying failing requests. Million of clients retrying their requests at the same time can produce an unnecessary load to our backend services."  
+> **Interviewer**: "Got it. Let's say we're expecting to have 1,000,000 monthly active users."  
+
+> **Candidate**: "Do we know anything about our target market and the audience?"  
+> **Interviewer**: "Why do you think this is important?"  
+> **Candidate**: "An app targetted primarily for North America and Europe might have a different set of performance requirements compared to a similar app targetted to developing countries. The users in developed countries usually have more powerful phones compared to their peers in developing countries. The cost of cellular traffic in Europe and North America is much lower than in India."  
+> **Interviewer**: "Let's design an app for North America."  
+
+> **Candidate**: "Should we include messages backup in iCloud / Google Drive?"  
+> **Interviewer**: "No, leave it out of scope."  
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
