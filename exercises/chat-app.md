@@ -33,12 +33,12 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 - User should be able to see the list of recent chats sorted by date.
 - User should be able to open a 1-on-1 chat, send and receive messages.
 - User should be able to add photo attachments to chat messages.
-- User should be able to receive chat message notifications when the app is not running.
 - User should be able to see chat message status (sending, sent/failed, received) and read receipts.
 
 ### Non-functional requirements
 - Offline support (reading chat messages).
 - Secure message storage.
+- Real-time notifications.
 
 ### Out of scope
 - Video and voice attachments.
