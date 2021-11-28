@@ -22,7 +22,12 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 
 > **Candidate**: "Should we limit the number of active simultaneous downloads?"  
 > **Interviewer**: "I don't know - what do you think?"  
-> **Candidate**: "I think, having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources. At the same time, we can't make any assumptions about app-specific use-cases, so the best approach might be selecting a sensible default value (for example, no more than 4 parallel downloads) and letting developers configure it based on their application's need".  
+> **Candidate**: "I think, having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources. At the same time, we can't make any assumptions about app-specific use-cases, so the best approach might be selecting a sensible default value (for example, no more than `4` parallel downloads) and letting developers configure it based on their application's need".  
+
+> **Interviewer**: "Why do you think `4` is a good number for parallel downloads?"  
+> **Candidate**: "It's a tricky question. We can use different heuristics to select the best number. For example, we can limit the size to the number of CPU cores on the device."  
+> **Candidate**: "On the other hand - each downloader would be blocked on the network I/O so we can use a higher number like `16`."  
+> **Candidate**: "It's hard to figure this out for the general case. So `4`-`16` seems reasonable by default. The user may pick a better size depending on the use-case."  
 
 > **Candidate**: "Should we support progress reporting for active downloads?"  
 > **Interviewer**: "Might skip it for now and discuss it if we have time"  
@@ -100,20 +105,19 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 ![Download Dispatcher Diagram](/images/exercise-file-downloader-library-deep-dive-download-dispatcher-diagram.svg)
 
-> **Candidate**: "Download Dispatcher maintains a _concurrent_ dispatch queue with a _limited_ number of active jobs. Each job consists of a download request, a download task, and a state (PENDING, ACTIVE, PAUSED, COMPLETED, FAILED). The active jobs are dispatched by download workers."  
-
-> **Interviewer**: "Why do you need download jobs?"  
-> **Candidate**: "Separation of concerns: a job represents an abstraction layer - the download dispatcher should know nothing about download requests or tasks, and vice versa."  
+> **Candidate**: "Download Dispatcher maintains a _concurrent_ dispatch queue of jobs. Each job consists of a download request, a download task, and a state (PENDING, ACTIVE, PAUSED, COMPLETED, FAILED). The active jobs are dispatched by download workers."  
 
 > **Interviewer**: "Why do you need to maintain a job state?"  
-> **Candidate**: "To keep track of pending, active, and completed jobs: we limit the number of parallel jobs by design. Also to know when the jobs are paused."  
+> **Candidate**: "To keep track of _pending_, _active_, and _completed_ jobs: we limit the number of parallel downloads by design. Also, we need to maintain the `pause` state of the scheduled jobs."  
 
-> **Interviewer**: "What is Download Worker?"  
-> **Candidate**: "A background thread or a background execution task where a job runs."  
+> **Interviewer**: "What's the difference between a `Job` and a `Download Worker`?"  
+> **Candidate**: "A `Job` encapsulates a single downloading request from the user. A `Download Worker` is responsible for actual data transmission from the network."  
+> **Candidate**: "A `Job` is cheap and doesn't do anything. A `Download Worker` is expensive and handles blocking I/O."  
+> **Candidate**: "There might be an unlimited number of jobs and only a handful of workers (limited by the pool size)."  
+> **Candidate**: "There might be _multiple jobs_ for the same URL but only _one worker_ per download. For example, the same video file can be included in multiple playlists. The user can download these playlists in parallel - as a result, there might be different jobs for the same worker."  
+> **Candidate**: "If a single job gets canceled - its worker keeps downloading until done or all the associated jobs are canceled, too." 
 
 ![Download Job Diagram](/images/exercise-file-downloader-library-job-diagram.svg)
-
-> **Candidate**: "Each download worker reads a stream of bytes from the Network Client and stores them in the File Store."  
 
 > **Interviewer**: "Why do you need Init and Complete/Fail operations in the File Store?"  
 > **Candidate**: "This gives you an ability to pre-allocate disk space before downloading a file and perform post-processing/cleanup after a complete download."  
@@ -130,23 +134,19 @@ Some interviewers might ask follow-up questions that might change the original d
 
 <div align="center">
 
-|       name       |  type  | primary |
-|------------------|--------|---------|
-| _ID              | Int    | YES     |
-| url              | String |         |
-| path             | String |         |
-| created_at       | Date   |         |
-| total_bytes      | Int    |         |
-| downloaded_bytes | Int    |         |
-| state            | Int    |         |
+|       name       |  type  |
+|------------------|--------|
+| url              | String |
+| path             | String |
+| created_at       | Date   |
+| total_bytes      | Int    |
+| downloaded_bytes | Int    |
+| state            | Int    |
   
 </div>
 
 > **Interviewer**: "Why won't you store files in the database?"  
-> **Candidate**:
-> - "Small file storage is more efficient using the file system."
-> - "Each file should be converted into a BLOB and must be fully loaded into RAM before being accessed (makes streaming impossible)."
-> - "Many APIs are optimized for reading files directly from the disk."  
+> **Candidate**: "It's easier to access a file on the disk than from the database. We can partially read BLOBs and provide the content as a stream but it might not be sufficient in the general case."  
 
 > **Interviewer**: "How would you handle downloading sensitive information?"  
 > **Candidate**: "We might introduce an "encrypted" File Store implementation and encrypt a fully-received file in post-processing. Not sure if we can do it on the fly - don't have much experience working with encryption libraries."  

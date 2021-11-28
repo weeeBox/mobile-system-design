@@ -1,0 +1,4 @@
+Copyright (c) 2021-present, Alex Lementuev  
+All rights reserved.  
+  
+All material (“content”) is protected by copyright under U.S. Copyright laws and is the property of Alex Lementuev or the party credited as the provider of the content. You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or other notice from copies of the content in the repository. Copying or storing any content except as provided above is expressly prohibited without prior written permission of the owner or the copyright holder identified in the individual content’s copyright notice.

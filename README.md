@@ -10,7 +10,9 @@ Join the ["Mobile System Design"](https://discord.gg/sPXWPe2W8R) Discord server 
 </div>
 
 ## Disclaimer
-The framework was heavily inspired by the similar "Scalable Backend Design" articles. Learning the framework does not guarantee passing the interview. The structure of the interview process depends on the personal style of the interviewer. The dialog is really important - make sure you understand what the interviewer is looking for. Make no assumptions and ask clarifying questions.
+The framework was heavily inspired by the similar "Scalable Backend Design" articles. Learning the framework does not guarantee passing the interview. The structure of the interview process depends on the personal style of the interviewer. The dialog is really important - make sure you understand what the interviewer is looking for. Make no assumptions and ask clarifying questions.  
+
+**This guide does not reflect the interviewing policies from Google (or any other company).**
 
 ## Interview Process (45–60 min)
 - 2–5 min - acquaintances
@@ -49,7 +51,7 @@ Features which will be excluded from the task but would still be important in a 
 - Followers/Retweets.
 - Analytics.
 
-## Providing the "signal"
+### Providing the "signal"
 System design questions are made ambiguous. The interviewer is more interested in seeing your thought process than the actual solution you produce:
 - What assumptions did you make and how did you state them?
 - What features did you choose?
@@ -98,11 +100,20 @@ Organizes flow logic between Tweet Feed and Tweet Details components. Helps deco
 - **App Module**  
 An executable part of the system which "glues" components together.
 
-## Providing the "signal"
+### Providing the "signal"
 The interviewer might be looking for the following signals:
 - The candidate can present the "big picture" without overloading it with unnecessary implementation details.
 - The candidate can identify the major building blocks of the system and how they communicate with each other.
 - The candidate has app modularity in mind and is capable of thinking in the scope of the entire team and not limiting themselves as a single contributor (this might be more important for senior candidates).
+
+### Frequently Asked Questions
+#### Why using a high-level diagram is necessary? Can I skip it altogether or draw a detailed diagram right away?
+A high-level diagram is by no means necessary - you can take any other approach which seems more appropriate for a specific interview case. However, there are some advantages in starting with a high-level approach:
+- **Time management** - drawing a 30,000 feet view is quick and brings immediate topics for further discussion.
+- **Modularity** - each high-level component can be potentially isolated in a separate module to allow a team of engineers to work on the project simultaneity without stepping on each other toes.
+- **Best practices** - this approach is wildly used for the backend system design and closely resembles the [C4 model for visualising software architecture](https://c4model.com/).  
+
+_Still not sure?_ Ask your interviewer if they want you to draw a high-level diagram or skip it and jump to some concrete components.
 
 ## Deep Dive: Tweet Feed Flow
 After a high-level discussion, your interviewer might steer the conversation towards some specific component of the system. Let's assume it was "Tweet Feed Flow". Things you might want to talk about:
@@ -112,7 +123,7 @@ After a high-level discussion, your interviewer might steer the conversation tow
 - **Image Loading**: low-res vs full-res image loading, scrolling performance, etc.
 
 ![Details Diagram](/images/tweet-details.svg)
-## Components
+### Components
 - **Feed API Service** - abstracts Twitter Feed API client: provides the functionality for requesting paginated data from the backend. Injected via DI-graph.
 - **Feed Persistence** - abstract cached paginated data storage. Injected via DI-graph.
 - **Remote Mediator** - triggers fetching the next/prev page of data. Redirects the newly fetched paged response into a persistence layer.
@@ -120,12 +131,24 @@ After a high-level discussion, your interviewer might steer the conversation tow
 - **Pager** - trigger data fetching from the Remote Mediator and exposes an observable stream of paged data to UI.
 - **"Tweet Like" and "Tweet Details" use cases** - provide delegated implementation for "Like" and "Show Details" operations. Injected via DI-graph.
 - **Image Loader** - abstracts image loading from the image loading library. Injected via DI-graph.
-## Providing the "signal"
+
+### Providing the "signal"
 The interviewer might be looking for the following signals:
 - The candidate is familiar with most common MVx patterns.
 - The candidate achieves a clear separation between business logic and UI.
 - The candidate is familiar with dependency injection methods.
 - The candidate is capable of designing self-contained isolated modules.
+
+### Frequently Asked Questions
+
+#### How much detail should I provide in the deep-dive section?"
+There's no rule of thumb here. Work closely with the interviewer: ask them if you need to go deeper or move on to the next topic. If you have an in-person/video interview - watch their facial expressions. For example, if you see that the interviewer wants to interrupt you - stop talking and ask if they have any questions. The whole point is to work together - that provides a good signal for you as a team player/collaborator.
+
+#### Why didn't you mention specific classes (like `RecyclerView`/`UICollectionView`) and vendors (like Room, CoreDate, Realm, etc)?
+- To make the guide stable and platform-agnostic: the libraries and the frameworks are constantly evolving - picking up a specific vendor can only be relevant for a short amount of time. Using an abstraction is more robust since you only concentrate on the functionality it provides without digging too much into the implementation details.
+- Vendor selection is biased and depends on personal experience and current trends.
+- Big tech companies (like FAANG) might not care much about vendors since they build their custom proprietary stacks.
+- There are tons of implementation-specific details all over the Internet already.
 
 ## API Design
 The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part, or choose something you know best (in case they don't have a strong preference).
@@ -204,6 +227,10 @@ Full-duplex communication over a single TCP connection.
   - requires maintaining an active connection - might have poor performance on unstable cellular networks.
   - schemaless - it's hard to check data validity on the client.
   - the number of active connections on a single server is limited to 65k.
+
+Learn more about WebSockets:
+- [WebSocket Tutorial - How WebSockets Work](https://www.youtube.com/watch?v=pNxK8fPKstc)
+
 #### gRPC
 Remote Procedure Call framework which runs on top of HTTP/2. Supports bi-directional streaming using a single physical connection.
 - pros:
@@ -289,7 +316,7 @@ Authorization: Bearer <token>
 Although we left it out of scope, it's still beneficial to mention HTTP authentication. You can include an `Authorization` header and discuss how to properly handle `401 Unauthorized` response scenario. Also, don't forget to talk about Rate-Limiting strategies (`429 Too Many Requests`).  
 Make sure to keep it brief and simple (without unnecessary details): your primary goal during a system design interview is to provide "signal" and not to build a production ready solution.
 
-## Providing the "signal"
+### Providing the "signal"
 The interviewer might be looking for the following signals:
 - The candidate is aware of the challenges related to poor network conditions and expensive traffic.
 - The candidate is familiar with most common protocols for unidirectional and bi-directional communication.
@@ -385,7 +412,7 @@ cursor_prev_id: String # points to the prev cursor page
 
 A possible follow-up question might require you to handle sensitive media data (private accounts, etc). In this case, you can selectively encrypt image files with encryption keys stored in Keystore/KeyChain.
 
-## Providing the "signal"
+### Providing the "signal"
 The interviewer might be looking for the following signals:
 - The candidate is aware of mobile storage types, security, limitations, and compatibility.
 - The candidate is capable of designing a storage solution for most common scenarios.
@@ -409,10 +436,10 @@ Here's a list of concerns to keep in mind while discussing your solution with th
   - Prefer the lowest possible location accuracy. Progressively ask for increased location accuracy if needed.  
   - Provide location access rationale before requesting permissions.  
 - **3rd-Party SDKs Usage**  
-  - 3rd-Party SDKs might cause performance regressions and/or serious outages (example).  
-  - You need to have a way to remotely turn on/off SDKs.  
-  - It's better to introduce a new SDK integration as an A/B test or a staged rollout.  
-
+  - 3rd-Party SDKs might cause performance regressions and/or serious outages ([example](https://www.bugsnag.com/blog/sdks-should-not-crash-apps)).  
+  - Each SDK should be guarded by a feature flag.
+  - A new SDK integration should be introduced as an A/B test or a staged rollout.  
+  - You need to have a "support and upgrade" plan for the 3rd-party SDKs in a long term.
 
 ### Privacy & Security
 - Keep as little of the user's data as possible - don't collect things you won't need.
@@ -553,8 +580,28 @@ There's a significant amount of randomness during a system design interview. The
 - **The hiring committee** - they make a decision based on the interviewers' report and your resume.
 ### Judging the outcome
 You _can influence_ the outcome but you _can't control_ it. Don't let minor setbacks determine your self-worth.
+
 ## Additional Information
-More System Design exericses [here](https://github.com/weeeBox/mobile-system-design/tree/master/exercises)!
+More System Design exericses [here](/exercises)!
+
+### Junior, Middle, Senior, and Staff level interviews
+The system design experience would be different depending on the candidate's target level. An approximate engineering level breakdown can be found [here](https://candor.co/articles/tech-careers/google-promotions-the-real-scoop-on-leveling-up).  
+
+_NOTE: There's no clear mapping between years of experience and seniority - some ranges might exist but it largely depends on the candidate's background._
+
+#### Junior engineers
+The system design round of junior engineers is optional since it's pretty unlikely they would have experience designing software systems.
+
+#### Middle level engineers
+The middle-level engineering design round might be heavy on the implementation side. The interviewer and the candidate would mostly talk about building a specific component using platform libraries.
+
+#### Senior level engineers
+The senior-level engineering design round could be more high-level compared to the previous levels. The interviewer and the candidate would mostly talk about multiple components and how they communicate with each other. The implementation details could be less important unless the candidate needs to make a decision that drastically affects the application performance. The candidate should also be able to select a technical stack and describe its advantages and trade-offs.
+
+#### Staff level engineers
+The staff-level engineering design round moves away from technical to strategic decisions. The candidate might want to discuss the target audience, available computational and human resources, expected traffic, and deadlines. Instead of thinking in terms of implementation tasks - the candidate should put business needs first. For example, being able to explain how to reduce product time-to-market; how to safely rollout and support features; how to handle OMG situations and large-scale outages. The user privacy topics and their legal implications become extremely important and should be discussed in great detail.
+
 ### Looking for more content?
 I’m thinking about creating an in-depth mobile system design course on top of the free articles. Please, fill out this [form](https://forms.gle/KfvmZhPNPMRBE8Jj9) to express your interest!
+
 ## Consider "starring" the repository to help other people discover the guide! Thank you!
