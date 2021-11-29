@@ -63,6 +63,9 @@ After a high-level discussion, your interviewer might want to discuss some speci
 ## Deep Dive: API Service
 _TBD_: Socket connection active only while the app is in the foreground. Disconnected in the background. Push notification to notifiy user about new messages.
 
+### Concerns
+__TBD__: Keeping a persistent connection that must be re-established while moving between cellular towers.
+
 ## Deep Dive: Data Model
 ![High-level Diagram](/images/exercise-chat-application-data-model.svg)
 
