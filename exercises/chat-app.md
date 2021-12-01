@@ -61,6 +61,8 @@ _TBD_
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
 
 ## Deep Dive: API Service
+![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
+
 _TBD_: Socket connection active only while the app is in the foreground. Disconnected in the background. Push notification to notifiy user about new messages.
 
 ### Concerns
