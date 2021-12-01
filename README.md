@@ -591,7 +591,7 @@ You _can influence_ the outcome but you _can't control_ it. Don't let minor setb
 - Having a good interview plan at hand allows both the interviewer and the candidate to concentrate more on the content of the discussion and not organizational aspects of the actual round.
 
 ### Can you go a bit deeper at X?
-This is not necessary since there might be lots of alternative solutions and the guide does not provide the ground truth. The implementation details should depend on the personal experience of the candidate and not from an opinionated approach of some random people from the Internet.
+This is not necessary since there might be lots of alternative solutions and the guide does not provide the ground truth. The implementation details should depend on the personal experience of the candidate and not on an opinionated approach of some random people from the Internet.
 
 ### I'm an interviewer - this ruins the process for all of us: now the candidates just memorize the solutions to cheat during the interview.
 - The system design is much more broad compared to coding rounds. Learning a particular solution is not nearly enough to be successful. The interviewer can slightly tweak the requirements to make it a brand new question. 
