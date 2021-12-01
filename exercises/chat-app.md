@@ -61,6 +61,25 @@ _TBD_
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
 
 ## Deep Dive: API Service
+
+> **Interviewer**: "Can you tell me more about the API Service component?"  
+> **Candidate**: "It's an abstraction for the network communication layer."  
+> **Candidate**: "The idea is to isolate the low-level transport primitives from the rest of the app. This way, we can better support modularity and testability of the project."  
+
+> **Interviewer**: "What protocols would you use for the network communication?"  
+> **Candidate**: "I would split everything into three major components:"  
+
+> **Candidate**: "1) Real-time bi-directional communication layer for sending/receiving chat messages and metadata. WebSockets might be a good choice for transport. Alternatively, we can use HTTP-polling - might be a poor choice since it would generate an excessive amount of backend traffic."  
+> **Candidate**: "We can also use gRPC (bi-directional streaming) or GraphQL (subscriptions), but I don't have enough experience with them so let's stick with WebSockets."  
+
+_NOTE_: It is better not to bring unfamiliar technologies to the discussion. You can mention some of the advantages like schema validation, more efficient transport, etc - but don't go too deep unless you're prepared to discuss implementation-specific details.  
+
+> **Candidate**: "2) Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
+
+_NOTE_: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols).  
+
+> **Candidate**: "3) Cloud Messaging layer to receive push notifications while the app is not active."
+
 ![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
 
 _TBD_: Socket connection active only while the app is in the foreground. Disconnected in the background. Push notification to notifiy user about new messages.
