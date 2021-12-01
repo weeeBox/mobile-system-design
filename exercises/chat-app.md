@@ -72,17 +72,19 @@ After a high-level discussion, your interviewer might want to discuss some speci
 > **Candidate**: "1) Real-time bi-directional communication layer for sending/receiving chat messages and metadata. WebSockets might be a good choice for transport. Alternatively, we can use HTTP-polling - might be a poor choice since it would generate an excessive amount of backend traffic."  
 > **Candidate**: "We can also use gRPC (bi-directional streaming) or GraphQL (subscriptions), but I don't have enough experience with them so let's stick with WebSockets."  
 
-_NOTE_: It is better not to bring unfamiliar technologies to the discussion. You can mention some of the advantages like schema validation, more efficient transport, etc - but don't go too deep unless you're prepared to discuss implementation-specific details.  
+_NOTE: It is better not to bring unfamiliar technologies to the discussion. You can mention some of the advantages like schema validation, more efficient transport, etc - but don't go too deep unless you're prepared to discuss implementation-specific details._  
+
+> **Interviewer**: "How would you keep a socket connection when the app goes to the background?"  
+> **Candidate**: "I don't need to keep it alive while the app is not active - a push notification can be used to notify the user about new messages and bring the app back to the foreground."  
+> **Interviewer**: "Sounds good."  
 
 > **Candidate**: "2) Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
 
-_NOTE_: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols).  
+_NOTE: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols)._  
 
 > **Candidate**: "3) Cloud Messaging layer to receive push notifications while the app is not active."
 
 ![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
-
-_TBD_: Socket connection active only while the app is in the foreground. Disconnected in the background. Push notification to notifiy user about new messages.
 
 ### Concerns
 __TBD__: Keeping a persistent connection that must be re-established while moving between cellular towers.
