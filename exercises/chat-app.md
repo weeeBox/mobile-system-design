@@ -94,8 +94,39 @@ _NOTE: Don't over-complicate your design - aim to cover more ground (unless the 
 
 ![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
 
-### Concerns
-__TBD__: Keeping a persistent connection that must be re-established while moving between cellular towers.
+> **Candidate**: "I would introduce separate interfaces (protocols) to abstract communication between the network layer and the business logic: `ChatLobbyService` (receive the list of chats, create/delete chats) and `ChatRoomService` (receive the message history, send/receive messages, download/upload attachments)."  
+
+> **Interviewer**: "Why do you need to have separate interfaces?"  
+> **Candidate**: "To decouple different modules of the app. For example, the `Chat Lobby` flow can receive the `ChatLobbyService` instance from DI and only use the public API contract without knowing anything about the underlying network module implementation. It also makes development/testing easier since developers can swap real implementation with fake instances and serve predefined data from disk or memory."  
+
+> **Candidate**: "I would also use a `Model Converter` layer to turn network response classes into model classes to hide protocol/implementation details and perform simple data transformations."  
+> **Interviewer**: "Not sure if I'm following - can you elaborate?"  
+
+> **Candidate**: "Imagine that you receive a data frame containing a chat message and deserialize it into an object."  
+
+```
+ChatMessageData:
++ id: String
++ user_id: String
++ text: String
++ status: String
++ created_at: Long
++ attachments: String // comma-separated list
+```
+
+> **Candidate**: "You can turn it into a model class."  
+
+```
+ChatMessage
++ id: String
++ user_id: String
++ text: String
++ status: ChatMessageStatus
++ created_at: Date
++ attachments: [Attachments]
+```
+
+> **Candidate**: "This way the business logic does not need to know about the network layer and the data format of the transport protocols. You can change the networking implementation without affecting the rest of the app."  
 
 ## Deep Dive: Data Model
 ![High-level Diagram](/images/exercise-chat-application-data-model.svg)
