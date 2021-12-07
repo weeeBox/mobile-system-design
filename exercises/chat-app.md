@@ -102,7 +102,7 @@ _NOTE: Don't over-complicate your design - aim to cover more ground (unless the 
 > **Candidate**: "I would also use a `Model Converter` layer to turn network response classes into model classes to hide protocol/implementation details and perform simple data transformations."  
 > **Interviewer**: "Not sure if I'm following - can you elaborate?"  
 
-> **Candidate**: "Imagine that you receive a data frame containing a chat message and deserialize it into an object."  
+> **Candidate**: "Imagine that you received a data frame containing a chat message and deserialized it into an object."  
 
 ```
 ChatMessageData:
@@ -114,15 +114,15 @@ ChatMessageData:
 + attachments: String // comma-separated list
 ```
 
-> **Candidate**: "You can turn it into a model class."  
+> **Candidate**: "You can convert it into a model object."  
 
 ```
 ChatMessage
 + id: String
-+ user_id: String
++ userId: String
 + text: String
 + status: ChatMessageStatus
-+ created_at: Date
++ createdAt: Date
 + attachments: [Attachments]
 ```
 
