@@ -69,14 +69,22 @@ After a high-level discussion, your interviewer might want to discuss some speci
 > **Interviewer**: "What protocols would you use for the network communication?"  
 > **Candidate**: "I would split everything into three major components:"  
 
-> **Candidate**: "1) Real-time bi-directional communication layer for sending/receiving chat messages and metadata. WebSockets might be a good choice for transport. Alternatively, we can use HTTP-polling - might be a poor choice since it would generate an excessive amount of backend traffic."  
+> **Candidate**: "1) Real-time bi-directional communication layer for sending/receiving chat messages and status. We need to decide between connection-based (TCP) and connectionless (UDP) protocols."  
+> **Candidate**: "TCP-based clients establish a virtual connection and provide an ordered delivery guarantee by re-transmitting lost packets. It might be more expensive in terms of battery life (especially on flaky networks where the participants need to frequently repeat handshakes to restore lost connection). Another disadvantage is a 64k limit for the connection count for any given host port and a bigger packet header size compared to UDP.  Some examples of TCP-based protocols: WebSocket (Slack), XMPP (WhatsApp, Zoom, Google Talk), MQTT (IoT, Smart Home, etc)."  
+> **Candidate**: "UDP-based clients are more lightweight and don't require any handshakes. As a result, UDP can't provide an ordered delivery guarantee and has no error checking beyond simple checksums. Some examples of UDP-based protocols: WebRTC (Discord, Google Hangouts, Facebook Messenger) - also works over TCP."  
+
+_NOTE: You can learn more about the differences between TCP and UDP [here](https://www.guru99.com/tcp-vs-udp-understanding-the-difference.html)._
+
+> **Candidate**: "I don't have much experience working with real-time protocols so I would select something I know best - WebSockets. Some disadvantages of this choice - the protocol is schemeless and does not provide automatic reconnection. There are also several [security flaws](https://www.neuralegion.com/blog/websocket-security-top-vulnerabilities). Alternatively, we can use HTTP-polling - might be a poor choice since it would generate an excessive amount of backend traffic."  
 > **Candidate**: "We can also use gRPC (bi-directional streaming) or GraphQL (subscriptions), but I don't have enough experience with them so let's stick with WebSockets."  
 
-_NOTE: It is better not to bring unfamiliar technologies to the discussion. You can mention some of the advantages like schema validation, more efficient transport, etc - but don't go too deep unless you're prepared to discuss implementation-specific details._  
+_NOTE: It is better not to bring unfamiliar technologies to the discussion. You can mention some of their advantages - but don't go too deep unless you're prepared to discuss implementation-specific details._  
 
 > **Interviewer**: "How would you keep a socket connection when the app goes to the background?"  
 > **Candidate**: "I don't need to keep it alive while the app is not active - a push notification can be used to notify the user about new messages and bring the app back to the foreground."  
 > **Interviewer**: "Sounds good."  
+
+_NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a solution for bi-directional communication. But it's also important to remember that the API is not available until iOS 13. Make sure to keep OS version compatibility in mind._  
 
 > **Candidate**: "2) Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
 
