@@ -129,9 +129,40 @@ ChatMessage
 > **Candidate**: "This way the business logic does not need to know about the network layer and the data format of the transport protocols. You can change the networking implementation without affecting the rest of the app."  
 
 ## Deep Dive: Data Model
+
+> **Interviewer**: "How would you organize your data storage?"  
+> **Candidate**: "I would use a relational database (ORM) to store chats, messages, users, and attachments."  
+> **Candidate**: "Other alternatives might be less robust since we're looking for querying support and data integrity."  
+
+_NOTE: Don't waste time describing approaches that obviously won't fit the task at hand (like app preferences, text/binary files, etc)._
+
+> **Candidate**: "I would use a relational database (ORM) and create tables for chats, messages, users, and attachments."  
+
 ![High-level Diagram](/images/exercise-chat-application-data-model.svg)
 
 _NOTE: This diagram loosely follows the entity-relationship diagram notation. The cardinality/ordinality relationships are purposely omitted to save the interview time. A good rule of thumb is to avoid unnecessary drawings altogether._
+
+> **Candidate**: "The `User` table is pretty straightforward: we would store user id, name, and profile picture URL."  
+> **Candidate**: "The `Chat` table would contain the list of active chats: we would store the chat id, the id of the user who sent the last message, and the last message id."  
+> **Candidate**: "The `Message` table would contain all messages from all chats: we would store the message id, the user id, the chat id, the message status (`PENDING`, `SENT`, `READ`, `FAILED`), and a comma-separated list of attachment ids."  
+> **Candidate**: "The `Attachment` table would contain all attachments for all messages from all chats: we would store the attachment id, the image URLs (full-size and the low-res), the cached local versions paths, the chat id, and the attachment status (`UPLOADING`, `DOWNLOADING`, `FAILED`, `READY`)
+
+> **Candidate**: "We can join the `Chat` table with the `Message` table on the `last_message_id` and with the `User` table on the `last_user_id` to get a list of chats. Each row would contain the last message text, the last user name, and their profile picture URL."  
+> **Candidate**: "We can get the list of messages for a specific chat by selecting on the `chat_id` column."  
+
+> **Candidate**: "We can join the `Chat` table with the `Message` table on the `last_message_id` and with the `User` table on the `last_user_id` to get a list of chats. Each row would contain the last message text, the last user name, and their profile picture URL."  
+> **Candidate**: "We can get the list of messages for a specific chat by selecting on the `chat_id` column."  
+
+> **Interviewer**: "What would you use for message and attachment ids?"  
+> **Candidate**: "What do you mean?"  
+
+> **Interviewer**: "Are those local ids or server ids?"  
+> **Candidate**: "My idea is to use client-generated 128-bit UUIDs. We can identify the outgoing messages by `user_id` and the outgoing attachment by empty `url` columns: once an attachment is uploaded - it's undistinguished from a remote attachment."  
+> **Candidate**: "The advantage of such approach is its simplicity and built-in [idempotency](https://stripe.com/docs/idempotency); the disadvantage - clients would generate resource ids - not servers."  
+
+> **Candidate**: "Alternatively, we can maintain separate local and server ids: all local operations would be using local ids while the backend communication would use server ids. We would also need to build a bijection between them."  
+
+_NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/sync-two-id-problem/)._
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
