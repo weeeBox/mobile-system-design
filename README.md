@@ -5,7 +5,7 @@ Join the ["Mobile System Design"](https://discord.gg/AWDNrvqban) Discord server 
 
 <div align="center">
   
-[<img height="60" alt="discord" src="https://user-images.githubusercontent.com/786644/91370247-cf4cea80-e7db-11ea-8330-dc29c0fe8969.png">](https://discord.gg/sPXWPe2W8R)
+[<img height="60" alt="discord" src="https://user-images.githubusercontent.com/786644/91370247-cf4cea80-e7db-11ea-8330-dc29c0fe8969.png">](https://discord.gg/AWDNrvqban)
   
 </div>
 
