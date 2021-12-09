@@ -143,22 +143,32 @@ _NOTE: Don't waste time describing approaches that obviously won't fit the task 
 _NOTE: This diagram loosely follows the entity-relationship diagram notation. The cardinality/ordinality relationships are purposely omitted to save the interview time. A good rule of thumb is to avoid unnecessary drawings altogether._
 
 > **Candidate**: "The `User` table is pretty straightforward: we would store user id, name, and profile picture URL."  
+
 > **Candidate**: "The `Chat` table would contain the list of active chats: we would store the chat id, the id of the user who sent the last message, and the last message id."  
+
 > **Candidate**: "The `Message` table would contain all messages from all chats: we would store the message id, the user id, the chat id, the message status (`PENDING`, `SENT`, `READ`, `FAILED`), and a comma-separated list of attachment ids."  
+
 > **Candidate**: "The `Attachment` table would contain all attachments for all messages from all chats: we would store the attachment id, the image URLs (full-size and the low-res), the cached local versions paths, the chat id, and the attachment status (`UPLOADING`, `DOWNLOADING`, `FAILED`, `READY`)
 
-> **Candidate**: "We can join the `Chat` table with the `Message` table on the `last_message_id` and with the `User` table on the `last_user_id` to get a list of chats. Each row would contain the last message text, the last user name, and their profile picture URL."  
-> **Candidate**: "We can get the list of messages for a specific chat by selecting on the `chat_id` column."  
+> **Candidate**: "We can join the `Chat` table with the `Message` table (on the `last_message_id` column) and with the `User` table (on the `last_user_id` column) to get a list of recent chats. Each result could be represented by the following model class:"  
 
-> **Candidate**: "We can join the `Chat` table with the `Message` table on the `last_message_id` and with the `User` table on the `last_user_id` to get a list of chats. Each row would contain the last message text, the last user name, and their profile picture URL."  
+```
+ChatInfo:
++ chatId: String
++ lastUsername: String
++ lastUserProfileUrl: Url
++ lastMessageText: String
++ lastMessageTimestamp: Date
+```
+
 > **Candidate**: "We can get the list of messages for a specific chat by selecting on the `chat_id` column."  
 
 > **Interviewer**: "What would you use for message and attachment ids?"  
 > **Candidate**: "What do you mean?"  
 
 > **Interviewer**: "Are those local ids or server ids?"  
-> **Candidate**: "My idea is to use client-generated 128-bit UUIDs. We can identify the outgoing messages by `user_id` and the outgoing attachment by empty `url` columns: once an attachment is uploaded - it's undistinguished from a remote attachment."  
-> **Candidate**: "The advantage of such approach is its simplicity and built-in [idempotency](https://stripe.com/docs/idempotency); the disadvantage - clients would generate resource ids - not servers."  
+> **Candidate**: "We can use client-generated 128-bit UUIDs. The outgoing messages can be identified by `user_id` and the outgoing attachment by empty `url` columns: once an attachment is uploaded - it's undistinguished from a remote attachment."  
+> **Candidate**: "The advantage of such approach is its simplicity and built-in [idempotency](https://stripe.com/docs/idempotency); the disadvantage - clients would generate resource ids which is less reliable and less secure compared to the backend generation."  
 
 > **Candidate**: "Alternatively, we can maintain separate local and server ids: all local operations would be using local ids while the backend communication would use server ids. We would also need to build a bijection between them."  
 
