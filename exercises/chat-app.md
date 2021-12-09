@@ -54,8 +54,33 @@ A high-level diagram shows all major system components and their interactions (w
 
 _NOTE: This diagram looks familiar to other cases from the guide. The main reason is the adopted architectural pattern combination MVx + repository + coordinator._
 
-### Components:
-_TBD_
+### Server-side components:
+- **Backend**  
+Represents the whole server-sider infrastructure. Most likely, your interviewer won't be interested in discussing it.
+- **Push Provider**  
+Represents the Mobile Push Provider infrastructure. Receives push payloads from the Backend and delivers them to clients.
+- **CDN (Content Delivery Network)**  
+Responsible for delivering static content to clients.
+
+### Client-side components:
+- **API Service**  
+Abstracts client-server communications from the rest of the system.
+- **Persistence**  
+A single source of truth. The data your system receives gets persisted on the disk and then propagated to other components.
+- **Repository**  
+A mediator component between API Service and Persistence.
+- **Chat Lobby**  
+Represents a set of components responsible for displaying a list of recent chats.
+- **Chat Room**  
+Represents a set of components responsible for displaying a single chat room.
+- **DI Graph**  
+Dependency injection graph. See: [Dependency injection in Android](https://developer.android.com/training/dependency-injection) and [Dependency injection in iOS](https://www.raywenderlich.com/14223279-dependency-injection-tutorial-for-ios-getting-started).
+- **Image Loader**  
+Responsible for loading and caching static images. Usually represented by a 3rd-party library.
+- **Coordinator**  
+Organizes flow logic between Chat Lobby and Chat Room components. Helps decouple components of the system from each other.
+- **App Module**  
+An executable part of the system which "glues" components together.
 
 ## Deep Dive
 After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).  
