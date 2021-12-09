@@ -153,6 +153,8 @@ ChatMessage
 
 > **Candidate**: "This way the business logic does not need to know about the network layer and the data format of the transport protocols. You can change the networking implementation without affecting the rest of the app."  
 
+_NOTE: Make sure to discuss API pagination. Learn more about pagination [here](https://github.com/weeeBox/mobile-system-design/tree/master#pagination)._
+
 ## Deep Dive: Data Model
 
 > **Interviewer**: "How would you organize your data storage?"  
