@@ -175,7 +175,7 @@ _NOTE: This diagram loosely follows the entity-relationship diagram notation. Th
 
 > **Candidate**: "The `Message` table would contain all messages from all chats: we would store the message id, the user id, the chat id, the message status (`PENDING`, `SENT`, `READ`, `FAILED`), and a comma-separated list of attachment ids."  
 
-> **Candidate**: "The `Attachment` table would contain all attachments for all messages from all chats: we would store the attachment id, the image URLs (full-size and the low-res), the cached local versions paths, the chat id, and the attachment status (`UPLOADING`, `DOWNLOADING`, `FAILED`, `READY`)
+> **Candidate**: "The `Attachment` table would contain all attachments for all messages from all chats: we would store the attachment id, the image URLs (full-size and the low-res), the cached local versions paths, the attachment status (`UPLOADING`, `DOWNLOADING`, `FAILED`, `READY`), the total file size and the progress size (uploaded/downloaded bytes).  
 
 > **Candidate**: "We can join the `Chat` table with the `Message` table (on the `last_message_id` column) and with the `User` table (on the `last_user_id` column) to get a list of recent chats. Each result could be represented by the following model class:"  
 
