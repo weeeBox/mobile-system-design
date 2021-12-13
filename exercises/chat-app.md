@@ -201,6 +201,13 @@ ChatInfo:
 
 _NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/sync-two-id-problem/)._
 
+## Deep Dive: Attachments
+
+> **Interviewer**: "How would you handle attachments?"  
+> **Candidate**: "I'll keep the incoming/outgoing attachments metadata in the same table to simplify the message queries - this way we would only need to join on a single table. Alternatively, we can create a separate table for outgoing attachments but this might complicate the overall design."  
+> **Candidate**: "The state of the attachments would be controlled by the `status` column. The `READY` status corresponds to an outgoing attachment that has been successfully uploaded or to an incoming attachment that has been successfully downloaded. Other status values - for handling uploads/downloads/failures."  
+> **Candidate**: "We also need to keep track of uploading/downloading progress to support resumable [uploads](/README.md#resumable-uploads)/[downloads](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)."  
+
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
