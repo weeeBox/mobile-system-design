@@ -208,6 +208,9 @@ _NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/syn
 > **Candidate**: "The state of the attachments would be controlled by the `status` column. The `READY` status corresponds to an outgoing attachment that has been successfully uploaded or to an incoming attachment that has been successfully downloaded. Other status values - for handling uploads/downloads/failures."  
 > **Candidate**: "We also need to keep track of uploading/downloading progress to support resumable [uploads](/README.md#resumable-uploads)/[downloads](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)."  
 
+> **Interviewer**: "How would you distinguish between incoming and outgoing attachments?"  
+> **Candidate**: "We don't need to keep them distinct - only keep track if the attachment needs to be uploaded or uploaded. This can be determined by the `url` column: it will be `NULL` for outgoing attachments."  
+
 > **Interviewer**: "What component would download/upload attachments?"  
 > **Candidate**: "The API Service via HTTP client. We would also need a task dispatcher to limit the number of the concurrent network operations."  
 
