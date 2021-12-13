@@ -204,7 +204,18 @@ _NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/syn
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
-_TBD_
+### Timestamps
+> **Interviewer**: "How would you handle timestamps?"  
+> **Candidate**: "This is a tricky question. I would probably use [UTC](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) timestamps (not adjusted to daylight saving and timezones) for messages and just format them to the localized time before displaying."   
+
+> **Interviewer**: "Would you use the client or the server time?"  
+> **Candidate**: "I would use the client time for outgoing messages and the server time for incoming. For example, when a user sends a message - the client local UTC time would be applied. When the server receives a message - it would assign the server local UTC time so the other chat participant would see it as a timestamp."  
+> **Interviewer**: "Why won't you use the client time for both cases?"  
+> **Candidate**: "We can't trust the client time: if the device clock reports incorrect time - we can end up with messages from the future."  
+> **Candidate**: "There's still a chance for the wrong message ordering. For example, when the user sends messages while being offline."  
+
+_NOTE: Ensuring a proper message order is a [tricky problem](https://www.addictivetips.com/ios/ios-11-bug-fix-imessages-received-out-of-order): it's pretty unlikely for a candidate to know a solution unless they've been working on chat apps in the past._  
+
 
 ## Major Concerns and Trade-Offs
 _TBD_
