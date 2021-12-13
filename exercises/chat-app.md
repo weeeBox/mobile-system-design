@@ -216,6 +216,16 @@ Some interviewers might ask follow-up questions that might change the original d
 
 _NOTE: Ensuring a proper message order is a [tricky problem](https://www.addictivetips.com/ios/ios-11-bug-fix-imessages-received-out-of-order): it's pretty unlikely for a candidate to know a solution unless they've been working on chat apps in the past._  
 
+### Security & Privacy
+> **Interviewer**: "Where would you store chat messages?"  
+> **Candidate**: "I would need to have a cached copy on the device for offline viewing. We can also store it on the backend but it imposes privacy issues even if we encrypt them."  
+
+> **Interviewer**: "What kind of issues are you talking about?"  
+> **Candidate**: "Even if the messages are encrypted on the backend - the developer still has an access to encryption keys so an attacker who has the access to the servers can still compromise user privacy."  
+> **Candidate**: "Additionally, the **user perception** of privacy is as important as the privacy implementation itself. If the developer has the access to the messages - the customers might assume that those messages would be read without any consent."  
+> **Candidate**: "An end-to-end encryption could be used but I don't have any experience with the algorithms for key exchange."  
+
+_NOTE: For more information about messaging privacy check [WhatsApp Encryption Overview](https://scontent.whatsapp.net/v/t39.8562-34/122249142_469857720642275_2152527586907531259_n.pdf/WA_Security_WhitePaper.pdf?ccb=1-5&_nc_sid=2fbf2a&_nc_ohc=TUznIG51RtgAX_Lf8cM&_nc_ht=scontent.whatsapp.net&oh=01_AVz_bi984XEgdXSXsCXBbC5mwFHGq4t2v5CRSJ8UiUHqFg&oe=61BC4F59)._
 
 ## Major Concerns and Trade-Offs
 _TBD_
