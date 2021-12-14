@@ -94,7 +94,9 @@ After a high-level discussion, your interviewer might want to discuss some speci
 > **Interviewer**: "What protocols would you use for the network communication?"  
 > **Candidate**: "I would split everything into three major components:"  
 
-> **Candidate**: "1) Real-time bi-directional communication layer for sending/receiving chat messages and status. We need to decide between connection-based (TCP) and connectionless (UDP) protocols."  
+### 1. Bi-directional Communication Layer
+
+> **Candidate**: "Real-time bi-directional communication layer for sending/receiving chat messages and status. We need to decide between connection-based (TCP) and connectionless (UDP) protocols."  
 > **Candidate**: "TCP-based clients establish a virtual connection and provide an ordered delivery guarantee by re-transmitting lost packets. It might be more expensive in terms of battery life (especially on flaky networks where the participants need to frequently repeat handshakes to restore lost connection). Another disadvantage is a 64k limit for the connection count for any given host port and a bigger packet header size compared to UDP.  Some examples of TCP-based protocols: WebSocket (Slack), XMPP (WhatsApp, Zoom, Google Talk), MQTT (IoT, Smart Home, etc)."  
 > **Candidate**: "UDP-based clients are more lightweight and don't require any handshakes. As a result, UDP can't provide an ordered delivery guarantee and has no error checking beyond simple checksums. Some examples of UDP-based protocols: WebRTC (Discord, Google Hangouts, Facebook Messenger) - also works over TCP."  
 
@@ -111,11 +113,15 @@ _NOTE: It is better not to bring unfamiliar technologies to the discussion. You 
 
 _NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a solution for bi-directional communication. But it's also important to remember that the API is not available until iOS 13. Make sure to keep OS version compatibility in mind._  
 
-> **Candidate**: "2) Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
+### 2. HTTP-based layer
+
+> **Candidate**: "Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
 
 _NOTE: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols)._  
 
-> **Candidate**: "3) Cloud Messaging layer to receive push notifications while the app is not active."
+### 3. Cloud Messaging Layer
+
+> **Candidate**: "Cloud Messaging layer to receive push notifications while the app is not active."
 
 ![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
 
