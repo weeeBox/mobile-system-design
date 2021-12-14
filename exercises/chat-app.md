@@ -218,6 +218,8 @@ _NOTE: For more information on task dispatchers see [this](/exercises/file-downl
 
 > **Candidate**: "We can automatically download incoming attachments on WiFi and ask for user input on cellular networks. The application settings might be provided for better user experience."  
 
+## Deep Dive: Attachments
+
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
 
@@ -243,9 +245,6 @@ _NOTE: Ensuring a proper message order is a [tricky problem](https://www.addicti
 > **Candidate**: "An end-to-end encryption could be used but I don't have any experience with the algorithms for key exchange."  
 
 _NOTE: For more information about messaging privacy check [WhatsApp Encryption Overview](https://scontent.whatsapp.net/v/t39.8562-34/122249142_469857720642275_2152527586907531259_n.pdf/WA_Security_WhitePaper.pdf?ccb=1-5&_nc_sid=2fbf2a&_nc_ohc=TUznIG51RtgAX_Lf8cM&_nc_ht=scontent.whatsapp.net&oh=01_AVz_bi984XEgdXSXsCXBbC5mwFHGq4t2v5CRSJ8UiUHqFg&oe=61BC4F59)._
-
-## Major Concerns and Trade-Offs
-_TBD_
 
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
