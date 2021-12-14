@@ -76,7 +76,9 @@ Represents a set of components responsible for displaying a single chat room.
 - **DI Graph**  
 Dependency injection graph. See: [Dependency injection in Android](https://developer.android.com/training/dependency-injection) and [Dependency injection in iOS](https://www.raywenderlich.com/14223279-dependency-injection-tutorial-for-ios-getting-started).
 - **Image Loader**  
-Responsible for loading and caching static images. Usually represented by a 3rd-party library.
+Responsible for loading images from web/disk into UI elements.
+- **Attachment Provider**  
+Responsible for loading image attachments from the media library and camera into memory.
 - **Coordinator**  
 Organizes flow logic between Chat Lobby and Chat Room components. Helps decouple components of the system from each other.
 - **App Module**  
@@ -97,7 +99,7 @@ After a high-level discussion, your interviewer might want to discuss some speci
 ### 1. Bi-directional Communication Layer
 
 > **Candidate**: "Real-time bi-directional communication layer for sending/receiving chat messages and status. We need to decide between connection-based (TCP) and connectionless (UDP) protocols."  
-> **Candidate**: "TCP-based clients establish a virtual connection and provide an ordered delivery guarantee by re-transmitting lost packets. It might be more expensive in terms of battery life (especially on flaky networks where the participants need to frequently repeat handshakes to restore lost connection). Another disadvantage is a 64k limit for the connection count for any given host port and a bigger packet header size compared to UDP.  Some examples of TCP-based protocols: WebSocket (Slack), XMPP (WhatsApp, Zoom, Google Talk), MQTT (IoT, Smart Home, etc)."  
+> **Candidate**: "TCP-based clients establish a virtual connection and provide an ordered delivery guarantee by re-transmitting lost packets. It might be more expensive in terms of battery life (especially on flaky networks where the participants need to frequently repeat handshakes to restore lost connection). Another disadvantage is a 64k limit for the connection count for any given host port and a bigger packet header size compared to UDP. Some examples of TCP-based protocols: WebSocket (Slack), XMPP (WhatsApp, Zoom, Google Talk), MQTT (IoT, Smart Home, etc)."  
 > **Candidate**: "UDP-based clients are more lightweight and don't require any handshakes. As a result, UDP can't provide an ordered delivery guarantee and has no error checking beyond simple checksums. Some examples of UDP-based protocols: WebRTC (Discord, Google Hangouts, Facebook Messenger) - also works over TCP."  
 
 _NOTE: You can learn more about the differences between TCP and UDP [here](https://www.guru99.com/tcp-vs-udp-understanding-the-difference.html)._
