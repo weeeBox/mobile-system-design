@@ -21,6 +21,9 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 > **Candidate**: "An app targetted primarily for North America and Europe might have a different set of performance requirements compared to a similar app targetted to developing countries. The users in developed countries usually have more powerful phones compared to their peers in developing countries. The cost of cellular traffic in Europe and North America is much lower than in India."  
 > **Interviewer**: "Let's design an app for North America."  
 
+> **Candidate**: "Do we want to be able to edit/delete messages?"  
+> **Interviewer**: "Let's leave it out of scope."  
+
 > **Candidate**: "Do we want to support group chats?"  
 > **Interviewer**: "No, let's leave it out of scope."  
 
@@ -43,6 +46,7 @@ Make sure not to overload the system requirements with unnecessary features. Thi
 ### Out of scope
 - Video and voice attachments.
 - Sign-up and log-in.
+- Editing/Deleting messages.
 - Group chats.
 
 _NOTE: It is tempting to include additional requirements such as 'last seen`, message replies/forwarding, reactions, etc. Proper time management is crucial during the interview - try keeping everything closer to an MVP and move on to the next section._
