@@ -119,15 +119,23 @@ _NOTE: It is better not to bring unfamiliar technologies to the discussion. You 
 
 _NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a solution for bi-directional communication. But it's also important to remember that the API is not available until iOS 13. Make sure to keep OS version compatibility in mind._  
 
+_TODO: Socket Frames_
+
 ### 2. HTTP-based layer
 
 > **Candidate**: "Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
 
 _NOTE: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols)._  
 
+_TODO: API + Pagination_
+
 ### 3. Cloud Messaging Layer
 
 > **Candidate**: "Cloud Messaging layer to receive push notifications while the app is not active."
+
+_TODO: Push payload format_
+
+### Putting it all together
 
 ![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
 
