@@ -108,18 +108,44 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 _NOTE: You can learn more about the differences between TCP and UDP [here](https://www.guru99.com/tcp-vs-udp-understanding-the-difference.html)._
 
-> **Candidate**: "I don't have much experience working with real-time protocols so I would select something I know best - WebSockets. Some disadvantages of this choice - the protocol is schemeless and does not provide automatic reconnection. There are also several [security flaws](https://www.neuralegion.com/blog/websocket-security-top-vulnerabilities). Alternatively, we can use HTTP-polling - might be a poor choice since it would generate an excessive amount of backend traffic."  
-> **Candidate**: "We can also use gRPC (bi-directional streaming) or GraphQL (subscriptions), but I don't have enough experience with them so let's stick with WebSockets."  
+> **Candidate**: "I don't have much experience working with real-time protocols, so I select WebSockets to simplify the design. Some disadvantages of this choice - the protocol is schemeless and does not provide automatic reconnection. There are also several [security flaws](https://www.neuralegion.com/blog/websocket-security-top-vulnerabilities). Alternatively, we can use HTTP-polling - might be a poor choice since it would generate an excessive amount of backend traffic."  
+> **Candidate**: "We can also use gRPC (bi-directional streaming) or GraphQL (subscriptions), but I don't have enough experience with them."  
 
 _NOTE: It is better not to bring unfamiliar technologies to the discussion. You can mention some of their advantages - but don't go too deep unless you're prepared to discuss implementation-specific details._  
+
+> **Interviewer**: "How would you use WebSockets?"  
+> **Candidate**: "I only need them to send and receive real-time chat events. For everything else, we can use HTTP-based protocols."  
+
+> **Interviewer**: "Can you describe the event data format?"  
+> **Candidate**: "Sure, a typical data frame might look like this:"  
+
+```
+{
+  connection_id: String?
+  event_type: "HELLO|MSG_IN|MSG_OUT|MSG_READ|BUY"
+  payload: { ... }
+}
+```
+Events:
+- `HELLO` - initiates a new connection session (bi-directional).
+- `MSG_IN` - incoming message.
+- `MSG_OUT` - outgoing message.
+- `MSG_READ` - message "read" acknowledgement (bi-directional).
+- `BUY` - closes a connection session
+
+> **Interviewer**: "What is a 'bi-directional' event?"  
+> **Candidate**: "That means the same event name could be sent both from the client and the server. For example, the client sends `HELLO` and the server responds with another `HELLO`. Alternatively, we can use prefixes like `CLT_HELLO` and `SRV_HELLO`".  
+
+> **Candidate**: "Another approach could be push-only events: the client uses `POST` or `PUT` HTTP requests to send the data to the server. The server can use WebSocket to push events to clients. The disadvantage of such approach - a client needs to create a new connection every time it needs to send an event."   
+
+> **Interviewer**: "Why do you need a `connection_id`? Where is it coming from?"  
+> **Candidate**: "To differentiate between clients on the backend. A client receives it with the `HELLO` event from the server."  
 
 > **Interviewer**: "How would you keep a socket connection when the app goes to the background?"  
 > **Candidate**: "I don't need to keep it alive while the app is not active - a push notification can be used to notify the user about new messages and bring the app back to the foreground."  
 > **Interviewer**: "Sounds good."  
 
 _NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a solution for bi-directional communication. But it's also important to remember that the API is not available until iOS 13. Make sure to keep OS version compatibility in mind._  
-
-_TODO: Socket Frames_
 
 ### 2. HTTP-based layer
 
