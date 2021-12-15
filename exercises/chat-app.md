@@ -151,9 +151,27 @@ _NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a
 
 > **Candidate**: "Request-response layer for fetching a paginated list of chats or message history. REST protocol could be a good choice since we don't need much of the request customization to bring up GraphQL (and have an extra complexity on the backend side)."  
 
+> **Interviewer**: "Could you briefly describe the API design?"  
+> **Candidate**: "We would need to have a couple of end-points:"  
+- `GET /login` - initiates a new client session and returns a [JSON Web Token](https://jwt.io/introduction/) token for authorizing further requests.
+- `GET /chats?after_id=<X>&limit=<Y>` - receives a paginated list of chats.
+- `GET /chats/<chat_id>/messages?after_id=<X>&limit=<Y>` - receives a paginated list of messages from a specific chat.
+
 _NOTE: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols)._  
 
-_TODO: API + Pagination_
+> **Interviewer**: "Why do you need a JWT?"  
+> **Candidate**: "For client authentication: each request (besides `/login`) should include an authorization header: `Authorization: Bearer <token>`."  
+
+> **Interviewer**: "Can you explain these query params `messages?after_id=<X>&limit=<Y>`?"  
+> **Candidate**: "It's a cursor-based pagination: `before_id` and `after_id`  contain the first/last message id in a current page; `limit` represents the maximum amount of items in a single page. Alternatively, we can use a keyset-pagination (using the timestamp of the last message) but it might not be reliable since we can't trust the client device clock."  
+
+_NOTE: Learn more about pagination [here](https://github.com/weeeBox/mobile-system-design/tree/master#pagination)._
+
+> **Candidate**: "We should also discuss some specific HTTP response codes."  
+- `401 Unauthorized` - the client authorization token is missing or expired: the `login` request must be sent before continuing.
+- `422 Unprocessable Entity` - the client request data is malformed and should not be retried.
+- `429 Too Many Requests` - the client reached the rate-limiting threshold.
+- `500 Internal Server Error` - the client should use exponential back-off to retry a failed request.
 
 ### 3. Cloud Messaging Layer
 
@@ -198,8 +216,6 @@ ChatMessage
 ```
 
 > **Candidate**: "This way the business logic does not need to know about the network layer and the data format of the transport protocols. You can change the networking implementation without affecting the rest of the app."  
-
-_NOTE: Make sure to discuss API pagination. Learn more about pagination [here](https://github.com/weeeBox/mobile-system-design/tree/master#pagination)._
 
 ## Deep Dive: Data Model
 
