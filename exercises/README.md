@@ -10,7 +10,7 @@ The following exercises emulate typical interview scenarios using common system 
 - Design "Analytics Library"
 - Design "A/B Experiment Library"
 - Design "Photo App"
-- Design "Chat App"
+- [Design "Chat App"](/exercises/chat-app.md)
 - Design "Clock App"
 - Design "Recipe App"
 - Design "Photo Editing App"
