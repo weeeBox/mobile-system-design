@@ -163,7 +163,7 @@ _NOTE: Don't over-complicate your design - aim to cover more ground (unless the 
 > **Candidate**: "For client authentication: each request (besides `/login`) should include an authorization header: `Authorization: Bearer <token>`."  
 
 > **Interviewer**: "Can you explain these query params `messages?after_id=<X>&limit=<Y>`?"  
-> **Candidate**: "It's a cursor-based pagination: `before_id` and `after_id`  contain the first/last message id in a current page; `limit` represents the maximum amount of items in a single page. Alternatively, we can use a keyset-pagination (using the timestamp of the last message) but it might not be reliable since we can't trust the client device clock."  
+> **Candidate**: "It's a cursor-based pagination: `before_id` and `after_id`  contain the first/last message id in the current page; `limit` represents the maximum amount of items in a single page. Alternatively, we can use a keyset-pagination (using the timestamp of the last message) but it might not be reliable since we can't trust the client device clock."  
 
 _NOTE: Learn more about pagination [here](https://github.com/weeeBox/mobile-system-design/tree/master#pagination)._
 
@@ -175,11 +175,25 @@ _NOTE: Learn more about pagination [here](https://github.com/weeeBox/mobile-syst
 
 ### 3. Cloud Messaging Layer
 
-> **Candidate**: "Cloud Messaging layer to receive push notifications while the app is not active."
+> **Candidate**: "A typical push payload could look like this:"
+```
+{
+  user_id: String
+  messages: [
+    {
+      user_name: String
+      text: String
+      created_at: String
+    },
+    ...
+  ]
+}
+```
+> **Interviewer**: "Why do we need a `user_id` along with `user_name`?"  
+> **Candidate**: "`user_id` contains the id of the recipient to make sure that nobody else would see the message. Imagine the situation when another user logs in on the same device and receives a push for the previously logged-in user."  
+> **Candidate**: "`user_name` contains a display name of the sender; `text` contains the first 100-120 characters of the message. This way we don't need to make any additional requests and can display a status bar notification right away."    
 
-_TODO: Push payload format_
-
-### Putting it all together
+### API Service Diagram
 
 ![API Service Diagram](/images/exercise-chat-application-api-service-diagram.svg)
 
@@ -279,8 +293,6 @@ _NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/syn
 _NOTE: For more information on task dispatchers see [this](/exercises/file-downloader-library.md#deep-dive-download-dispatcher)._
 
 > **Candidate**: "We can automatically download incoming attachments on WiFi and ask for user input on cellular networks. The application settings might be provided for better user experience."  
-
-## Deep Dive: Attachments
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
