@@ -618,7 +618,12 @@ The senior-level engineering design round could be more high-level compared to t
 #### Staff level engineers
 The staff-level engineering design round moves away from technical to strategic decisions. The candidate might want to discuss the target audience, available computational and human resources, expected traffic, and deadlines. Instead of thinking in terms of implementation tasks - the candidate should put business needs first. For example, being able to explain how to reduce product time-to-market; how to safely rollout and support features; how to handle OMG situations and large-scale outages. The user privacy topics and their legal implications become extremely important and should be discussed in great detail.
 
-### Looking for more content?
-I’m thinking about creating an in-depth mobile system design course on top of the free articles. Please, fill out this [form](https://forms.gle/KfvmZhPNPMRBE8Jj9) to express your interest!
+## Looking for more content?
+### System Design Exercises
+Check out the [collection](/exercises) of mobile system design exercises.
+### Common System Design Interview Mistakes
+Check the guide [here](/common-interview-mistakes.md).
+### Mock Interviews
+Check out the mock interview [archive](https://www.youtube.com/playlist?list=PLaMN-JyH50OYAfxJEpiQTYTD-gxTf7x9d) or [sign-up](https://forms.gle/Cez2R31wqtgp3RsX9) to be a candidate yourself!
 
 ## Consider "starring" the repository to help other people discover the guide! Thank you!
