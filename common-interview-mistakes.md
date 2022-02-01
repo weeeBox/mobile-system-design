@@ -1,11 +1,11 @@
 # Common Interview Mistakes
 
-## As candidate
+## As a candidate
 
 ### Not being prepared
 - **Study open-source projects** - not every project is perfect but you can still learn lots of useful things from each of them.
 - **Study company dev blog** - you can learn a lot about their underlying technical stack and think about potential questions they might ask.
-- **Conduct mock interviews with your friends** - time management is crucial: your goal is to cover as much ground as possible in the shortest amount of time. Having some practice also eases up the stress from the actual interivew.
+- **Conduct mock interviews with your friends** - time management is crucial: your goal is to cover as much ground as possible in the shortest amount of time. Having some practice also eases up the stress from the actual interview.
 
 ### Rushing towards a solution
 - **Not gathering system requirements** - the interview question may be purposely vague. The candidate is expected to ask more questions to define the task better. For more information see [Gathering Requirements](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
@@ -13,7 +13,7 @@
 - **Jumping straight to implementation** - it's generally a bad sign if the candidate immediately starts discussing low-level topics. For example, which view classes to use or what UI-architecture pattern to apply. The interviewer might not be interested in implementation details in the first place.
 
 ### Being unresponsive
-- **Keeping silence** - make sure to talk through your solution and not ask the interviewer to give you a few minutes to think.
+- **Keeping silence** - make sure to talk through your solution.
 - **Waiting until the interviewer starts asking questions** - it is preferable for the candidate to "drive" the discussion (especially for more senior candidates).
 
 ### Giving up early
@@ -60,33 +60,27 @@ It's better to admit that you don't know how things work instead of making assum
 ### Ignoring the interviewer's hints
 The interviewer is there to help you - take a hint!
 
-## As interviewer
+## As an interviewer
 _Note: Cognitive hiring biases are left out of scope for this guide. You can [find](https://blog.staffingadvisors.com/5-cognitive-biases-that-get-in-the-way-of-hiring) lots of information on the Internet._
 
 ### Not being prepared
-_TBD_
+The interviewer should carefully think through the question and figure out possible topics for discussion and follow-up questions. The selected topics should reflect the candidate's strengths and not the interviewer's experience.
 
 ### Being toxic
-_TBD_
-- "Educating" the candidate
-- Acting "superior"
+- **Being a jerk** - treat the candidate with disrespect.
+- **Acting "superior"** - showing your expertise and trying to belittle the candidate.
+- **"Educating" the candidate** - some interviewers may ask a question and then answer it themselves when the candidate fails to do so. It does not help to evaluate the candidate and wastes the interview time.
 
 ### Being unresponsive
-- Checking phone
-- Eating
+- **Not paying full attention** - checking the phone, daydreaming, or responding to emails.
+- **Eating** - no comments.
 
-### Being overly optimistic
-- Suggesting solution
+### Being too engaged
+- **Suggesting solution to the candidate** - pushing a candidate in the "right" direction, giving too many hints.
 
 ### "Grilling" the candidate
 - **Asking narrow sub-domain questions** - a type of questions focusing on specific things the candidate does not need to know to be successful at the job.
 - **Trying to corner the candidate** - asking intentionally tough and tricky questions to make the candidate admit they don't know the answer.
-
-### "Educating" the candidate
-Some interviewers may ask a question and then answer it themselves when the candidate fails to do so. It does not help to evaluate the candidate and wastes the interview time.
-
-### Asking about their owm strong points - not candidate's
-_TBD_
 
 ### Asking meaningless questions
 - "Why did you choose a relational database (ORM) to store structured data that requires complex querying?" - there's little "signal" a candidate can provide here (unless they advocate for text files or user preferences).
@@ -99,7 +93,7 @@ Everything the interviewer asks should help determine if the candidate is a fit 
 Letting the candidate "struggle a little" and allowing long pauses. It's better to give a hint sooner than later or move to the next topic.
 
 ### Forcing the candidate into a solution they have in mind
-_TBD_
+It won't help the candidate to show off their strong side.
 
 ### Digging too much into details (BFS approach)
-_TBD_
+Overly concentrating on a narrow topic and leaving high-level stuff behind.
