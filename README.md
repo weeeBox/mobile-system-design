@@ -575,7 +575,13 @@ There's a significant amount of randomness during a system design interview. The
     - [Uber](https://eng.uber.com/category/articles/mobile/)
     - Instagram: [iOS](https://instagram-engineering.com/tagged/ios), [Android](https://instagram-engineering.com/tagged/android)
     - [Trello](https://tech.trello.com/)
-    - _TBD_
+  	- Meta
+  	  - [Engineering at Meta](https://engineering.fb.com/tag/mobile/)
+  	  - [Meta Tech Podcast](https://open.spotify.com/show/1NlTm7OkZmcrOPfvlqlBMz)    
+    - [Square](https://code.cash.app)
+    - [Dropbox](https://dropbox.tech/mobile)
+    - [Reddit](https://www.redditinc.com/blog/topic/technology)
+    - [Airbnb](https://medium.com/airbnb-engineering/tagged/mobile)
 - **Your resume** - make sure to list all your accomplishments with measurable impact.
 ### Things you cannot control
 - **Your interviewer's attitude** - they might have a bad day or simply dislike you.
