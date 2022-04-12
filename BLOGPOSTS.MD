@@ -2,6 +2,8 @@
 
 Real world examples where companies discuss trade-offs of certain technologies and how they design things to fit their use case. Contains a selection of posts that may be targeted to a platform, but concepts should be relevant to all
 
+[Here](https://github.com/sumodirjo/engineering-blogs) is a big list of company engineering blogs
+
 ## Backend
 
 - Airbnb
@@ -84,3 +86,6 @@ Real world examples where companies discuss trade-offs of certain technologies a
   - [Architecting a Safe, Scalable, and Server-Driven Platform for Driver Preferences with RIBs](https://eng.uber.com/carbon-driver-app-preferences-ribs/)
 - Various - Strategies Discussion
   - [Server-driven UI (or Backend driven UI) strategies](https://github.com/MobileNativeFoundation/discussions/discussions/47)
+
+## Architecture
+- [Martin Fowler](https://martinfowler.com/architecture/)
