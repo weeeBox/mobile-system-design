@@ -582,6 +582,8 @@ There's a significant amount of randomness during a system design interview. The
     - [Dropbox](https://dropbox.tech/mobile)
     - [Reddit](https://www.redditinc.com/blog/topic/technology)
     - [Airbnb](https://medium.com/airbnb-engineering/tagged/mobile)
+    - [Lyft Tech Podcast](https://podcasts.apple.com/us/podcast/lyft-mobile/id1453587931)
+    - [Curated List of Blog Posts](/BLOGPOSTS.MD)
 - **Your resume** - make sure to list all your accomplishments with measurable impact.
 ### Things you cannot control
 - **Your interviewer's attitude** - they might have a bad day or simply dislike you.
