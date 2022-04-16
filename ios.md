@@ -12,7 +12,7 @@
 ## Other Links
 - [Mobile At Scale](https://www.mobileatscale.com/)
 - [Adam Bennett interview preparation](https://github.com/ditn/interviewprep)
-
+- [General iOS Knowledge quizz](https://jasper-foe-e81.notion.site/F-L-A-S-H-C-A-R-D-S-592bc284ccce4b3991aa8044705bf573)
 
 ## Notes from candidates who got an offer at Meta or similar:
 	
