@@ -122,7 +122,7 @@ _NOTE: It is better not to bring unfamiliar technologies to the discussion. You 
 ```
 {
   connection_id: String?
-  event_type: "HELLO|MSG_IN|MSG_OUT|MSG_READ|BUY"
+  event_type: "HELLO|MSG_IN|MSG_OUT|MSG_READ|BYE"
   payload: { ... }
 }
 ```
@@ -131,7 +131,7 @@ Events:
 - `MSG_IN` - incoming message.
 - `MSG_OUT` - outgoing message.
 - `MSG_READ` - message "read" acknowledgement (bi-directional).
-- `BUY` - closes a connection session
+- `BYE` - closes a connection session
 
 > **Interviewer**: "What is a 'bi-directional' event?"  
 > **Candidate**: "That means the same event name could be sent both from the client and the server. For example, the client sends `HELLO` and the server responds with another `HELLO`. Alternatively, we can use prefixes like `CLT_HELLO` and `SRV_HELLO`".  
@@ -285,7 +285,7 @@ _NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/syn
 > **Candidate**: "We also need to keep track of uploading/downloading progress to support resumable [uploads](/README.md#resumable-uploads)/[downloads](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)."  
 
 > **Interviewer**: "How would you distinguish between incoming and outgoing attachments?"  
-> **Candidate**: "We don't need to keep them distinct - only keep track if the attachment needs to be uploaded or uploaded. This can be determined by the `url` column: it will be `NULL` for outgoing attachments."  
+> **Candidate**: "We don't need to keep them distinct - only keep track if the attachment needs to be downloaded or uploaded. This can be determined by the `url` column: it will be `NULL` for outgoing attachments."  
 
 > **Interviewer**: "What component would download/upload attachments?"  
 > **Candidate**: "The API Service via HTTP client. We would also need a task dispatcher to limit the number of the concurrent network operations."  
