@@ -47,6 +47,8 @@ Real world examples where companies discuss trade-offs of certain technologies a
   - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
   - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
   - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
+- Wikimedia
+  - [Designing for offline on Android](https://diff.wikimedia.org/2018/01/04/designing-for-offline-on-android/)
       
 ## Emerging Markets
 - Facebook
