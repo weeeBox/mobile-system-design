@@ -522,6 +522,7 @@ cons:
   - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
   - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
   - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
+- [Wikipedia: Designing for offline on Android](https://diff.wikimedia.org/2018/01/04/designing-for-offline-on-android/)
 ### Caching
 _TBD_
 ### Quality Of Service
