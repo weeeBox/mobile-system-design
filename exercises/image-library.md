@@ -201,6 +201,19 @@ We might want to respect the device settings for saving cellular data. Possible 
 - Provide support for hi-quality and low-quality downloads and only fetch low-quality images.
 - Prefer cached data instead of fetching it from the network.
 
+### Further Learning ( Android )
+- [Nerding out on Okio](https://www.youtube.com/watch?v=Du7YXPAV1M8) 
+
+    Here the need of custom I/O library is explained to handle different challenges of I/O layer dealing with network bytes. This gives us a mental model on how to handle I/O layer in any image loading library. Further [okio](https://github.com/square/okio) has been used in popular image loading libraries like [Picasso](https://square.github.io/picasso/) and [Coil](https://coil-kt.github.io/coil/).
+
+- [Picasso internals by Jake Wharton](https://jakewharton.com/rinsing-the-brush/)
+
+   Here, some of the internals working and pipleline of Picasso is explained. This gives us some overview on how bytes are interpreted for image and what are the challenges that comes while developing image loading libraries. This acts as a complement to the **Nerding out on Okio**, as it explains why [okio](https://github.com/square/okio) was suitable for image loading library to efficiently find image metadata like orientation.
+
+- [Coil image library pipeline](https://www.youtube.com/watch?v=5MpFcTty9pM)
+
+  This talk gives information about different piplelines that may be required in any image loading library. We can further look upon the [coil documentation](https://coil-kt.github.io/coil/), to know how to properly create classes, interfaces required for the different pipelines involved in image loading library.
+
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
 - Don't try to make it perfect - provide a "signal" instead.
