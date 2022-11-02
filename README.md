@@ -162,8 +162,7 @@ We need to provide real-time notifications support as a part of the design. Bell
     - easier to implement compared to a dedicated service.
     - can wake the app in the background.
   - cons:
-    - not 100% reliable.
-    - may take up to a minute to arrive.
+    - there is no guarantee of delivery or promise of specific delivery time.
     - relies on a 3rd-party service.
     - users can opt out easily.
 - **HTTP-polling**  
