@@ -21,6 +21,9 @@ Real world examples where companies discuss trade-offs of certain technologies a
   - [Adopting GraphQL and Apollo in a Legacy Application](https://tech.trello.com/adopting-graphql-and-apollo/)
 - Twitter
   - [Pagination Overview](https://developer.twitter.com/en/docs/twitter-api/pagination)
+- Facebook
+  - [Cursor-based pagination is the most efficient method of paging](https://developers.facebook.com/docs/graph-api/results)
+  - [Is offset pagination dead? Why cursor pagination is taking over](https://uxdesign.cc/why-facebook-says-cursor-pagination-is-the-greatest-d6b98d86b6c0)
 
 ## Build / Platform
 - Airbnb
