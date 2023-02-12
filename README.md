@@ -144,7 +144,7 @@ The interviewer might be looking for the following signals:
 #### How much detail should I provide in the deep-dive section?"
 There's no rule of thumb here. Work closely with the interviewer: ask them if you need to go deeper or move on to the next topic. If you have an in-person/video interview - watch their facial expressions. For example, if you see that the interviewer wants to interrupt you - stop talking and ask if they have any questions. The whole point is to work together - that provides a good signal for you as a team player/collaborator.
 
-#### Why didn't you mention specific classes (like `RecyclerView`/`UICollectionView`) and vendors (like Room, CoreDate, Realm, etc)?
+#### Why didn't you mention specific classes (like `RecyclerView`/`UICollectionView`) and vendors (like Room, Core Data, Realm, etc)?
 - To make the guide stable and platform-agnostic: the libraries and the frameworks are constantly evolving - picking up a specific vendor can only be relevant for a short amount of time. Using an abstraction is more robust since you only concentrate on the functionality it provides without digging too much into the implementation details.
 - Vendor selection is biased and depends on personal experience and current trends.
 - Big tech companies (like FAANG) might not care much about vendors since they build their custom proprietary stacks.
