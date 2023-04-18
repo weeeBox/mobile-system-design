@@ -27,8 +27,8 @@ Your interviewer tells you about themselves and you tell them about yourself. It
 ## Defining The Task
 The interviewer defines the task. For example: _"Design Twitter Feed"_.  Your first step is to figure out the scope of the task:
 - **Client-side only** -  just a client-app: you have the backend and API available.
-- **Client-side + API**  -  likely choice for most interviews: you need to design a client app and API.
-- **Client-side + API + Back-end** -  less likely choice since most mobile engineers would not have a proper backend experience. If the interviewer asks server-side questions - let them know that you're most comfortable with the client-side and don't have hands-on experience with backend infrastructure. It's better to be honest than trying to fake your knowledge. If they still persist - let them know that everything you know comes from books, YouTube videos, and blog posts.
+- **Client-side + API**  -  most likely choice for most interviews: you need to design a client app and API.
+- **Client-side + API + Back-end** -  least likely choice since most mobile engineers would not have a proper backend experience. If the interviewer asks server-side questions - let them know that you're most comfortable with the client-side and don't have hands-on experience with backend infrastructure. It's better to be honest than trying to fake your knowledge. If they still persist - let them know that everything you know comes from books, YouTube videos, and blog posts.
 
 ## Gathering Requirements
 Task requirements can be split into **functional**, **non-functional** and **out of scope**.  We'll define them in the scope of "Design Twitter Feed" task.
@@ -65,12 +65,12 @@ Here are some of the questions you might ask during the task clarification step
 - **Do we need to support Emerging Markets?**  
 Publishing in a developing country brings additional challenges. The app size should be as small as possible due to the widespread use of low-end devices and higher cost of cellular traffic. The app itself should limit the number and the frequency of network requests and heavily rely on caching.
 - **What number of users do we expect?**  
-This seems like an odd question for a mobile engineer but it can be very important: a large number of clients results in a higher back-end load  -  if you don't design your API right , you can easily initiate a DDoS attack on your own servers. Make sure to discuss an Exponential Backoff and API Rate-Limiting with your interviewer.
+This seems like an odd question for a mobile engineer but it can be very important: a large number of clients results in a higher back-end load  -  if you don't design your API right, you can easily initiate a DDoS attack on your own servers. Make sure to discuss an Exponential Backoff and API Rate-Limiting with your interviewer.
 - **How big is the engineering team?**  
 This question might make sense for senior candidates. Building a product with a smaller team (2–4 engineers) is very different from building it with a larger team (20–100 engineers). The major concern is project structure and modularization. You need to design your system in a way that allows multiple people to work on it without stepping on each other's toes.
 
 ## High-Level Diagram
-Once your interviewer is satisfied with the clarification step and your choice for the system requirements  - you should ask if they want to see a high-level diagram. Below is a possible solution for the "Twitter Feed" question.
+Once your interviewer is satisfied with the clarification step and your choice for the system requirements - you should ask if they want to see a high-level diagram. Below is a possible solution for the "Twitter Feed" question.
 ![High-level Diagram](/images/twitter-feed-high-level-diagram.svg)
 
 ### Server-side components:
@@ -110,8 +110,8 @@ The interviewer might be looking for the following signals:
 #### Why using a high-level diagram is necessary? Can I skip it altogether or draw a detailed diagram right away?
 A high-level diagram is by no means necessary - you can take any other approach which seems more appropriate for a specific interview case. However, there are some advantages in starting with a high-level approach:
 - **Time management** - drawing a 30,000 feet view is quick and brings immediate topics for further discussion.
-- **Modularity** - each high-level component can be potentially isolated in a separate module to allow a team of engineers to work on the project simultaneity without stepping on each other toes.
-- **Best practices** - this approach is wildly used for the backend system design and closely resembles the [C4 model for visualising software architecture](https://c4model.com/).  
+- **Modularity** - each high-level component can be potentially isolated in a separate module to allow a team of engineers to work on the project simultaneously without stepping on each other toes.
+- **Best practices** - this approach is wildly used for backend system design and closely resembles the [C4 model for visualising software architecture](https://c4model.com/).  
 
 _Still not sure?_ Ask your interviewer if they want you to draw a high-level diagram or skip it and jump to some concrete components.
 
@@ -607,7 +607,7 @@ This is not necessary since there might be lots of alternative solutions and the
 - Learning some patterns and approaches before the interview might help the candidate to ease the stress and deliver the solution in a more clear and structured way.
 
 ## Additional Information
-More System Design exericses [here](/exercises)!
+More System Design exercises [here](/exercises)!
 
 ### Junior, Middle, Senior, and Staff level interviews
 The system design experience would be different depending on the candidate's target level. An approximate engineering level breakdown can be found [here](https://candor.co/articles/tech-careers/google-promotions-the-real-scoop-on-leveling-up).  
