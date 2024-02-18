@@ -188,11 +188,19 @@ Allows the client to stream events over an HTTP connection without polling.
   - cons:
     - keeps a persistent connection.
 - **Web-Sockets**:  
-Provide a bi-directional communication between client and server.
+Provide a bi-directional communication between client and server, and work over TCP.
   - pros:
     - can transmit both binary and text data.
   - cons:
     - more complex to set-up compared to Polling/SSE.
+    - keeps a persistent connection.
+- **WebRTC**:  
+Provides a peer-to-peer connection, and works over UDP.
+  - pros:
+    - best used for live streaming and video/audio calls.
+    - favors reduced network latency over quality unlike Web-Sockets.
+  - cons:
+    - packets may be lost when internet is slow or unstable.
     - keeps a persistent connection.
 
 The interviewer would expect you to **pick a concrete approach** most suitable for the design task at hand. One possible solution for the "Design Twitter Feed" question could be using a combination of SSE (a primary channel of receiving real-time updates on "likes") with Push Notifications (sent if the client does not have an active connection to the backend).
