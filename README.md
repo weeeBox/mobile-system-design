@@ -156,7 +156,7 @@ At the time of this writing - [Excalidraw](https://excalidraw.com/), [Google Jam
 ## API Design
 The goal is to cover as much ground as possible - you won't have enough time to cover every API call - just ask the interviewer if they are particulary interested in a specific part, or choose something you know best (in case they don't have a strong preference).
 ### Real-time notification
-We need to provide real-time notifications support as a part of the design. Bellow are some of the approaches you can mention during the discussion:
+We need to provide real-time notifications support as a part of the design. Below are some of the approaches you can mention during the discussion:
 - **Push Notifications**:
   - pros:
     - easier to implement compared to a dedicated service.
