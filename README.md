@@ -331,7 +331,7 @@ The interviewer might be looking for the following signals:
 ### Data Storage Options
 Bellow are the most common options for local device data storage:
 - **Key-Value Storage (UserDefaults/SharedPreferences/Property List)**:  
-  Usually, baked by XML or binary files. Allows associating primitive data with string-based keys. Works best for simple, unstructured, non-sensitive data (settings, flags, etc).  
+  Usually, backed by XML or binary files. Allows associating primitive data with string-based keys. Works best for simple, unstructured, non-sensitive data (settings, flags, etc).  
   - pros:
     - easy to use built-in API.
   - cons:
