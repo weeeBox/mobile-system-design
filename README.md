@@ -515,13 +515,13 @@ cons:
 
 #### More Information
 - Offline functionality for Trello’s mobile applications:
-  - [Airplane Mode: Enabling Trello Mobile Offline](https://tech.trello.com/sync-architecture/)
-  - [Syncing Changes](https://tech.trello.com/syncing-changes/)
-  - [Sync Failure Handling](https://tech.trello.com/sync-failure-handling/)
-  - [The Two ID Problem](https://tech.trello.com/sync-two-id-problem/)
-  - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
-  - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
-  - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
+  - [Airplane Mode: Enabling Trello Mobile Offline](https://www.atlassian.com/blog/it-teams/sync-architecture)
+  - [Syncing Changes](https://www.atlassian.com/blog/it-teams/syncing-changes/)
+  - [Sync Failure Handling](https://www.atlassian.com/blog/it-teams/sync-failure-handling/)
+  - [The Two ID Problem](https://www.atlassian.com/blog/it-teams/sync-two-id-problem/)
+  - [Offline Attachments](https://www.atlassian.com/blog/it-teams/sync-offline-attachments/)
+  - [Sync is a Two-Way Street](https://www.atlassian.com/blog/it-teams/sync-downloads/)
+  - [Displaying Sync State](https://www.atlassian.com/blog/it-teams/sync-indicators/)
 ### Caching
 _TBD_
 ### Quality Of Service
