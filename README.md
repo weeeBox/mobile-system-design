@@ -329,33 +329,58 @@ Select an appropriate protocol. REST is suitable for "Design Twitter Feed" due t
 Essential for endpoints returning lists. Prevents excessive network and memory usage.
 
 #### Types of Pagination
-- **Offset Pagination:**
-  - `limit` and `offset` parameters: `GET /feed?offset=100&limit=20`.
-  - Pros:
-    - Easy to implement – parameters passed directly to SQL.
-    - Stateless on the server.
-  - Cons:
-    - Poor performance with large offsets.
-    - Inconsistent when adding new rows (Page Drift).
-- **Keyset Pagination:**
-  - Uses values from the last page: `GET /feed?after=2021-05-25T00:00:00&limit=20`.
-  - Pros:
-    - Translates easily to SQL.
-    - Good performance with large datasets.
-    - Stateless on the server.
-  - Cons:
-    - "Leaky abstraction" – pagination aware of the database.
-    - Only works on naturally ordered fields (timestamps).
-- **Cursor/Seek Pagination:**
-  - Uses stable IDs decoupled from SQL (usually base64 encoded and encrypted): `GET /feed?after_id=t1234xzy&limit=20`.
-  - Pros:
-    - Decouples pagination from SQL.
-    - Consistent ordering when inserting new items.
-  - Cons:
-    - More complex backend.
-    - Does not work well with deletions (invalid IDs).
 
-Choose an approach. Cursor Pagination is suitable for "Design Twitter Feed."
+- **Offset Pagination (also known as Limit-Offset Pagination):**
+  - `limit` and `offset` parameters: `GET /feed?offset=100&limit=20`. The `offset` specifies the index from which to start returning results, and the `limit` specifies the maximum number of results to return.
+  - Pros:
+    - **Easy to implement:** Parameters can be passed directly to a SQL query (e.g., `SELECT * FROM tweets LIMIT 20 OFFSET 100`).
+    - **Stateless on the server:** The server doesn't need to maintain any state about previous requests.
+    - **Simple to understand:** Intuitive for both developers and API consumers.
+  - Cons:
+    - **Poor performance with large offsets:** The database needs to scan through a large number of rows before returning the requested page, leading to increased latency, especially for large tables.
+    - **Inconsistent when adding/deleting rows (Page Drift):** If new items are inserted or deleted before the requested offset, the same item might appear on multiple pages, or items might be skipped entirely. This is also known as the "missing item" or "duplicate item" problem.
+    - **Not suitable for real-time feeds:** Page drift makes it unsuitable for rapidly changing datasets.
+    - **Vulnerable to Parameter Manipulation:** Clients can easily manipulate the offset parameter, potentially accessing unauthorized data or causing performance issues.
+
+- **Keyset Pagination (also known as Seek Method or Time-Based Pagination):**
+  - Uses values from the last item on the previous page to fetch the next set of items: `GET /feed?after=2021-05-25T00:00:00&limit=20`.  Instead of an offset, uses a value from the last item of the previous page (e.g., timestamp, ID) to determine where to start the next page.
+  - Pros:
+    - **Translates easily to SQL:** Can be implemented efficiently using `WHERE` clauses in SQL (e.g., `SELECT * FROM tweets WHERE created_at > '2021-05-25T00:00:00' ORDER BY created_at ASC LIMIT 20`).
+    - **Good performance with large datasets:** Avoids the performance issues of offset pagination, as the database can use an index on the ordering field.
+    - **Stateless on the server:** The server doesn't need to maintain any state about previous requests.
+    - **More resilient to insertions:** Insertions after the "after" value won't cause items to be skipped or duplicated (though insertions *before* will affect the total number of pages).
+  - Cons:
+    - **"Leaky abstraction" – pagination aware of the database:** The API exposes details about the underlying data storage (the ordering field), increasing the risk of breaking changes if the database schema changes.  API consumers need to know *what* field to paginate on.
+    - **Only works on fields with natural ordering (timestamps, IDs, etc.):** Requires a field that can be used to consistently order the results. Doesn't work well if there's no clear ordering.
+    - **Can have issues with ties:** If multiple items have the same value for the ordering field, the pagination might not be consistent (addressed using compound keyset pagination).
+    - **Sensitive to data modifications:** Deletions of items within a page can still cause issues.
+    - **Less flexible for random access:** Difficult to jump to a specific page without iterating through all the preceding pages.
+
+- **Cursor/Seek Pagination (also known as Token-Based Pagination):**
+  - Uses opaque cursors or tokens that encapsulate the pagination state. These cursors are typically base64 encoded and encrypted: `GET /feed?after_id=t1234xzy&limit=20`. The server generates a cursor for the next (or previous) page and returns it in the response. The client then uses this cursor to request the next page.
+  - Pros:
+    - **Decouples pagination from SQL:** The API doesn't expose any details about the underlying data storage or ordering.
+    - **Consistent ordering when inserting/deleting new items:** More robust to data modifications than offset pagination.
+    - **More flexible:** Can support various ordering criteria and complex queries.
+    - **Hides implementation details:** Clients don't need to know which field is being used for sorting/pagination.
+  - Cons:
+    - **More complex backend:** Requires generating and managing cursors, which involves encoding and encrypting the pagination state.  Also requires decoding and validating the cursor on subsequent requests.
+    - **Does not work well if cursors expire or become invalid:** Requires careful management of cursor lifetime and invalidation. Deletions of *all* items between the 'after_id' and the next item can invalidate the cursor.
+    - **Still potentially sensitive to item deletions:** If items are deleted and IDs re-used.
+    - **Less transparent:** Can be harder to debug issues, as the cursor is an opaque token.
+    - **Not easily bookmarkable:**  Cursors might expire, making bookmarking difficult.
+
+- **Page Number Pagination:**
+    - Uses page number and page size parameters: `GET /feed?page=3&pageSize=10`. Similar to offset pagination, but uses page numbers instead of offsets.
+    - Pros:
+        - **Easy for users to understand:** Intuitive for users familiar with traditional pagination.
+        - **Simple to implement (initially):** Can be implemented using offset pagination on the backend.
+    - Cons:
+        - **Inherits all the cons of offset pagination:** Poor performance with large page numbers, page drift issues, etc.
+        - **Not suitable for infinite scrolling:** Doesn't scale well for applications with a large number of pages.
+        - **Not suitable for real-time data:** Page drift issues.
+
+Choose an approach. Cursor Pagination is suitable for "Design Twitter Feed" as it decouples pagination from the underlying data store and can handle insertions/deletions reasonably well. However, consider the complexity of implementation. If the dataset doesn't change frequently and the API is read-heavy, Keyset pagination might be a simpler and more performant alternative. Offset pagination is generally discouraged unless the dataset is small and doesn't change frequently.
 
 Example API request:
 ```
@@ -396,7 +421,7 @@ Authorization: Bearer <token>
 - [Evolving API Pagination at Slack](https://slack.engineering/evolving-api-pagination-at-slack/)
 - [Everything You Need to Know About API Pagination](https://nordicapis.com/everything-you-need-to-know-about-api-pagination/)
 
-Mention HTTP authentication (Authorization header, 401 Unauthorized) and Rate-Limiting (429 Too Many Requests). Keep it brief and simple.
+Mention HTTP authentication (Authorization header, 401 Unauthorized) and Rate-Limiting (429 Too Many Requests). Keep it brief and simple. Also, discuss potential API versioning strategies if the pagination scheme needs to be updated in the future.
 
 ### Providing the "Signal"
 The interviewer assesses:
@@ -405,6 +430,8 @@ The interviewer assesses:
 - Understanding of RESTful API design.
 - Familiarity with authentication and security.
 - Understanding of network error handling and rate-limiting.
+- Understanding of the trade-offs associated with different pagination strategies.
+- Ability to choose a pagination strategy that is appropriate for the specific use case.
 
 ## Data Storage
 ### Data Storage Options
