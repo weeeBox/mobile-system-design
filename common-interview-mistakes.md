@@ -1,99 +1,233 @@
 # Common Interview Mistakes
 
-## As a candidate
+This guide expands on common mistakes made by candidates and interviewers during mobile system design interviews, specifically focusing on iOS and Android platforms. The aim is to provide candidates with a practical understanding of expectations and help them prepare effectively.
 
-### Not being prepared
-- **Study open-source projects** - not every project is perfect but you can still learn lots of useful things from each of them.
-- **Study company dev blog** - you can learn a lot about their underlying technical stack and think about potential questions they might ask.
-- **Conduct mock interviews with your friends** - time management is crucial: your goal is to cover as much ground as possible in the shortest amount of time. Having some practice also eases up the stress from the actual interview.
+## As a Candidate
 
-### Rushing towards a solution
-- **Not gathering system requirements** - the interview question may be purposely vague. The candidate is expected to ask more questions to define the task better. For more information see [Gathering Requirements](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
-- **Not asking clarifying questions** - it might be useful to get some information about the target market, the size of the audience, and the dev team details.
-- **Jumping straight to implementation** - it's generally a bad sign if the candidate immediately starts discussing low-level topics. For example, which view classes to use or what UI-architecture pattern to apply. The interviewer might not be interested in implementation details in the first place.
+### Not Being Prepared
 
-### Being unresponsive
-- **Keeping silence** - make sure to talk through your solution.
-- **Waiting until the interviewer starts asking questions** - it is preferable for the candidate to "drive" the discussion (especially for more senior candidates).
+Preparation is key. Don't just memorize patterns; understand the *why* behind them.
 
-### Giving up early
-A single failure might de-rail the candidate and make them give up the whole interview. This is a poor strategy since most of the interviewers are trying to evaluate the candidate's abilities and not only looking for "correct" answers.
+- **Study Open-Source Projects:**
+    - **Beyond the Code:** Look beyond the UI and try to understand the architectural choices, networking layers, data persistence strategies, and error handling.
+    - **Platform-Specific Patterns:** Pay attention to iOS-specific patterns like `Coordinator` pattern, `Combine` framework, or `SwiftUI` integration with `UIKit`. For Android, focus on `MVVM` with `LiveData`/`Flow`, `Coroutines`, `Jetpack Compose`, and dependency injection frameworks like `Hilt` or `Dagger`.
+    - **Example Resources:**
+        - **iOS:** Look into popular open-source iOS apps or libraries on GitHub (e.g., a well-architected media player or a networking library). Analyze how they handle background tasks, push notifications, or data synchronization.
+        - **Android:** Explore apps like AntennaPod or projects using the Architecture Components. Focus on understanding background processing (WorkManager), UI rendering (RecyclerView optimizations), and data management (Room, Retrofit).
+    - **Focus on Architecture:** Identify common architectures like `MVVM`, `MVP`, `Clean Architecture`, and understand their trade-offs in the context of mobile development.
 
-### Talking too much
-- **Long introduction** - digging deeper into your professional background does not provide much "signal". The interviewer would most likely form an opinion based on the candidate's interview performance and not the summary of their professional experience.
-- **Trying to force an interviewing framework** - the said guide represents a set of recommendations and does not define an official interview protocol for any company. The candidate should follow the interviewer's lead in each particular case.
-- **Ignoring the interviewer** - it is better to stop talking if the interviewer interrupts you: do not try "to finish the thought" - it is better to move to another topic and not waste time.
-- **Repeating yourself** - talking about the same things again: it does not provide any additional information to the interviewer.
-- **Jumping from a topic to a topic** - frequent context switching might be hard to follow for the interviewer.
-- **Going too broad with the answers** - covering irrelevant things does not provide meaning full "signal" to the interviewer. Try to stick to the original question.
+- **Study Company Dev Blog:**
+    - **Tech Stack Insights:** Company blogs often reveal details about their tech stack, chosen architectural patterns, and solutions to specific technical challenges.
+    - **Identify Priorities:** Understand the company's priorities, such as performance optimization, security, or scalability, which might be reflected in their interview questions.
+    - **Specific Technologies:** Look for articles about the specific languages (Swift/Kotlin), frameworks (`UIKit`/`SwiftUI` vs. `Compose`), and libraries they use. If they've written about challenges with certain technologies, that's a *major* hint.
+    - **Example:** If a company's blog discusses their migration from Objective-C to Swift, be prepared to discuss Swift interoperability, memory management, and the benefits of Swift.
 
-### Treating the interviewer as an adversary
-The primary role of the interviewer is to determine if the candidate is fit for the job. If the candidate feels any kind of hostility from the interviewer - it should be reported to the recruiting specialist.
+- **Conduct Mock Interviews with your peers:**
+    - **Realistic Scenarios:**  Simulate real-world scenarios with your friends. This could include designing a chat application, a news feed, or an e-commerce platform. Ensure you cover areas like offline support, data synchronization, and push notifications.
+    - **Platform-Specific Concerns:** In iOS mock interviews, consider questions around memory management (reference cycles), UI responsiveness, background execution limits, and Core Data/Realm integration. For Android, address issues like activity lifecycle management, background services, battery optimization, and handling different screen sizes and densities.
+    - **Time Management:** System design questions can be broad.  Practice timeboxing each part of the discussion (requirements gathering, high-level design, component breakdown, etc.).
+    - **Communication is Key:** The mock interviewer should provide feedback not only on your technical solution but also on your communication skills, clarity, and ability to explain complex concepts.
 
-### Trying to fit a solution into an existing scheme
-Most pronounced for the candidates who learn particular designs on the Internet and attempt fitting the questions into an unrelated solution.
+### Rushing Towards a Solution
 
-### Being toxic
-- **Being opinionated** - holding a strong belief about certain technology and rejecting any alternative approaches.
-- **Interrupting the interviewer** - the interviewer might provide some useful hints or suggest a direction toward the solution. The candidate should let the interviewer finish their thought before bringing up any kind of disagreement.
-- **"Educating" the interviewer** - if the candidate believes that the interviewer is wrong/incorrect - it's better to politely suggest this instead of lecturing them on their ignorance. Spending time on "educating" the interviewer provides no useful "signal" and may raise some red flags.
-- **Being a "pleaser"** - trying to compliment the interviewer hoping for a positive feedback report in return.
+Take a step back and think!
 
-### Not explaining decisions or not suggesting alternatives
-It is a red flag when the candidate offers a concrete solution right away without any prior justification. The interviewer might not be able to understand why the candidate prefers a specific approach without comparing it to possible alternatives.
+- **Not Gathering System Requirements:**
+    - **User Base:**  "How many users will the app support initially? What is the expected growth?"
+    - **Platform:** "Are we targeting only iOS or Android, or both?  What are the minimum supported OS versions?"
+    - **Features:** "Which features are core to the app's functionality? Which are optional or can be deferred?"
+    - **Non-Functional Requirements:**  "What are the key non-functional requirements like performance, security, scalability, and reliability?  Are there any specific privacy concerns?"
+    - **Example:** Don't assume "build a chat app."  Ask about:  Message volume?  Media support? Group chats? End-to-end encryption? Offline access?
+
+- **Not Asking Clarifying Questions:**
+    - **Target Market:** Understand the geographical location, user demographics, and network conditions of your target market. This will influence decisions around data storage, CDN usage, and localization.
+    - **Audience Size:**  "Is this for a small team, a large enterprise, or the general public?" The scale of the audience will impact the architectural decisions around backend infrastructure and scalability.
+    - **Dev Team Details:** "What is the size and expertise of the development team? Are there any specific technology preferences or constraints?" This will affect choices around technology stacks, development tools, and architectural patterns.
+    - **Device Capabilities:** "What is the minimum device capability we want to support? This will determine the memory available, processing power and supported OS features. It is important for memory management and performance optimizations."
+    - **Example:** "What kind of data are we storing? Is it sensitive personal data that requires encryption at rest?"
+
+- **Jumping Straight to Implementation:**
+    - **High-Level Design First:** Start with a high-level overview of the system architecture, outlining the key components, their responsibilities, and how they interact with each other.
+    - **UI Architecture Patterns:** Delay discussing specific view classes or UI architecture patterns (MVC, MVVM, VIPER, MVI) until you've established the overall system design.
+    - **Example:** Instead of immediately discussing `UITableView` or `RecyclerView`, talk about the overall data flow, data models, networking layer, and caching strategy.
+    - **Vendor-Specific Solutions:** Avoid mentioning vendor-specific solutions at this stage. For example, don't say "We'll use Firebase for push notifications" before discussing the overall push notification architecture. Discuss the requirements and different potential approaches for achieving the goal.
+
+### Being Unresponsive
+
+Communicate clearly and constantly.
+
+- **Keeping Silence:**
+    - **Think Aloud:** Verbally articulate your thought process, even if you're unsure of the solution. This allows the interviewer to understand your approach and provide guidance.
+    - **Explain Your Reasoning:** Explain the rationale behind your design decisions, highlighting the trade-offs and alternatives considered.
+    - **Example:** Instead of silently pondering, say, "Okay, I'm thinking about using a message queue for handling background tasks. This would allow us to decouple the UI from the task execution and improve responsiveness. However, it also adds complexity. Let me explain further."
+
+- **Waiting Until the Interviewer Starts Asking Questions:**
+    - **Drive the Discussion:** Take initiative by presenting your solution in a structured manner, covering all key aspects of the design.
+    - **Anticipate Questions:** Anticipate potential questions from the interviewer and proactively address them in your explanation.
+    - **Example:** After presenting the high-level architecture, say, "Now, I'd like to dive into the data synchronization strategy and discuss how we can handle conflicts. This is an area where we need to consider different approaches based on the requirements."
+
+### Giving Up Early
+
+Don't let a single roadblock derail you.
+
+- **Persistence is Key:** System design interviews are challenging. If you encounter a problem, don't give up. Try to identify alternative approaches or break down the problem into smaller, more manageable parts.
+- **Focus on the Process:** Even if you don't arrive at the perfect solution, demonstrate your problem-solving skills, critical thinking, and ability to learn from mistakes.
+
+### Talking Too Much
+
+Be concise and relevant.
+
+- **Long Introduction:**
+    - **Focus on Relevance:** Keep your introduction brief and focus on the experiences that are directly relevant to the role and the interview question.
+    - **Highlight Key Achievements:** Highlight key achievements and projects that demonstrate your expertise in mobile system design, architecture, and development.
+
+- **Trying to Force an Interviewing Framework:**
+    - **Adapt to the Interviewer:** Be flexible and adapt to the interviewer's style and preferences. Don't rigidly adhere to a specific framework if it doesn't align with the flow of the conversation.
+    - **Use as a Guide:** Treat frameworks as a guide, not a strict protocol.
+
+- **Ignoring the Interviewer:**
+    - **Listen Carefully:** Pay close attention to the interviewer's questions, comments, and suggestions. They may be providing valuable hints or guidance.
+    - **Pause for Interruption:** If the interviewer interrupts you, stop talking and listen to what they have to say. Don't try to finish your thought at the expense of their input.
+
+- **Repeating Yourself:**
+    - **Move Forward:** Once you've clearly explained a concept or decision, move on to the next topic. Don't reiterate the same points without adding new information.
+
+- **Jumping from Topic to Topic:**
+    - **Structured Approach:** Maintain a logical flow in your presentation, covering each topic in a clear and organized manner.
+    - **Transition Smoothly:** Use transitional phrases to guide the interviewer through your thought process and indicate when you're moving on to a new topic.
+
+- **Going Too Broad with the Answers:**
+    - **Stay Focused:** Answer the questions directly and avoid tangents that are not relevant to the topic at hand.
+    - **Provide Meaningful Details:** Provide sufficient detail to demonstrate your understanding of the concepts, but avoid getting bogged down in unnecessary minutiae.
+
+### Treating the Interviewer as an Adversary
+
+The interviewer is on your side (or should be!).
+
+- **Collaboration, Not Confrontation:** Remember that the interviewer is trying to assess your skills and potential fit within the team. Treat the interview as a collaborative problem-solving exercise, not an adversarial interrogation.
+
+### Trying to Fit a Solution into an Existing Scheme
+
+Don't force a square peg into a round hole.
+
+- **Tailor Your Approach:** Design your solution based on the specific requirements of the problem, not on pre-conceived notions or existing designs.
+- **Flexibility is Key:** Be flexible and willing to adapt your approach if new information emerges or the interviewer provides feedback.
+
+### Being Toxic
+
+No one wants to work with someone unpleasant.
+
+- **Being Opinionated:**
+    - **Open-Mindedness:** Acknowledge that there are multiple valid approaches to solving a problem and be open to considering alternatives.
+    - **Justify Your Choices:** Provide a rationale for your preferred approach, but avoid dismissing other options out of hand.
+
+- **Interrupting the Interviewer:**
+    - **Respectful Communication:** Allow the interviewer to finish their thought before interjecting with your own opinions or questions.
+
+- **"Educating" the Interviewer:**
+    - **Humility:** Avoid lecturing the interviewer or assuming that you know more than they do.
+    - **Polite Disagreement:** If you disagree with something the interviewer says, express your disagreement politely and respectfully, providing evidence or reasoning to support your point of view.
+
+- **Being a "Pleaser":**
+    - **Authenticity:** Be genuine and authentic in your responses. Don't try to tell the interviewer what you think they want to hear.
+
+### Not Explaining Decisions or Not Suggesting Alternatives
+
+Show your thought process.
+
+- **Provide Justification:** Always explain the reasoning behind your design decisions, highlighting the trade-offs and alternatives considered.
+- **Consider Alternatives:** For each key decision, briefly discuss alternative approaches and explain why you chose the specific solution you did. This shows that you understand the problem space and have considered different options.
 
 ### Lying
-Making up things and lying about them is risky since there's a chance that the interviewer might be a domain expert in the area of the discussion.
 
-### Not having any structure for the solution
-Most pronounced for the candidates who don't prepare for their rounds. Not having a plan for structuring the solution would put additional pressure during the interview.
+Honesty is always the best policy.
 
-### Speaking in terms of specific vendors
-Using vendor-specific solutions during the interview makes it more about the implementation details and not about architecture design. The candidate may omit all vendor information unless the interviewer explicitly asks about it.
+- **Be Truthful:** Never exaggerate your skills or experience. If you don't know the answer to a question, it's better to admit it than to make something up.
+- **Focus on What You Know:** Focus on highlighting your strengths and areas of expertise, rather than trying to cover up your weaknesses.
 
-### Being overly optimistic
-Sometimes, the candidate does not take the "unhappy" path into account. For example, running out of memory or disk space.
+### Not Having Any Structure for the Solution
 
-### Making assumptions
-It's better to admit that you don't know how things work instead of making assumptions. It's ok to reason about how a certain functionality _could_ be implemented but you need to state your lack of knowledge first.
+Organize your thoughts.
 
-### Ignoring the interviewer's hints
-The interviewer is there to help you - take a hint!
+- **Prepare an Outline:** Before the interview, prepare a general outline of the topics you want to cover, such as requirements gathering, high-level design, component breakdown, and trade-offs.
+- **Use a Framework:** Consider using a system design framework as a guide, but be flexible and adapt it to the specific requirements of the problem.
 
-## As an interviewer
-_Note: Cognitive hiring biases are left out of scope for this guide. You can [find](https://blog.staffingadvisors.com/5-cognitive-biases-that-get-in-the-way-of-hiring) lots of information on the Internet._
+### Speaking in Terms of Specific Vendors
 
-### Not being prepared
-The interviewer should carefully think through the question and figure out possible topics for discussion and follow-up questions. The selected topics should reflect the candidate's strengths and not the interviewer's experience.
+Focus on core principles.
 
-### Being toxic
-- **Being a jerk** - treat the candidate with disrespect.
-- **Acting "superior"** - showing your expertise and trying to belittle the candidate.
-- **"Educating" the candidate** - some interviewers may ask a question and then answer it themselves when the candidate fails to do so. It does not help to evaluate the candidate and wastes the interview time.
+- **Abstract Away Implementation Details:** Focus on the underlying concepts and principles of system design, rather than getting bogged down in the specifics of particular vendors or technologies.
+- **Vendor-Agnostic Language:** Use vendor-agnostic language to describe your solutions, focusing on the functionality and behavior of the system.
 
-### Being unresponsive
-- **Not paying full attention** - checking the phone, daydreaming, or responding to emails.
-- **Eating** - no comments.
+### Being Overly Optimistic
 
-### Being too engaged
-- **Suggesting solution to the candidate** - pushing a candidate in the "right" direction, giving too many hints.
+Consider edge cases and failure scenarios.
 
-### "Grilling" the candidate
-- **Asking narrow sub-domain questions** - a type of questions focusing on specific things the candidate does not need to know to be successful at the job.
-- **Trying to corner the candidate** - asking intentionally tough and tricky questions to make the candidate admit they don't know the answer.
+- **Think About Failure:** Consider potential failure scenarios, such as network outages, server errors, or device crashes, and design your system to handle these situations gracefully.
+- **Error Handling:** Discuss error handling strategies, such as retries, fallbacks, and circuit breakers, to ensure the reliability and resilience of the system.
+- **Example:** "What happens if the user loses network connectivity while uploading a large file? How do we handle data inconsistencies if there's a conflict between the local cache and the server?"
 
-### Asking meaningless questions
-- "Why did you choose a relational database (ORM) to store structured data that requires complex querying?" - there's little "signal" a candidate can provide here (unless they advocate for text files or user preferences).
-- "Why caching/modularization/testing/etc is necessary?"
-- "Why would you use an industry-standard library instead of a custom implementation?" - this question might make sense when it comes to framework development but _could_ be meaningless when talking about an app. See "Chapter 21. Dependency Management" from the "Software Engineering at Google" book.
+### Making Assumptions
 
-Everything the interviewer asks should help determine if the candidate is a fit for the job. Any other questions should be left out of scope.
+Don't guess; ask.
 
-### Not moving on when the candidate is stuck
-Letting the candidate "struggle a little" and allowing long pauses. It's better to give a hint sooner than later or move to the next topic.
+- **Clarify Ambiguities:** If you're unsure about something, ask clarifying questions to ensure you understand the requirements and constraints of the problem.
+- **State Your Assumptions:** If you have to make assumptions, explicitly state them and explain why you're making them.
 
-### Forcing the candidate into a solution they have in mind
-It won't help the candidate to show off their strong side.
+### Ignoring the Interviewer's Hints
 
-### Digging too much into details (BFS approach)
-Overly concentrating on a narrow topic and leaving high-level stuff behind.
+The interviewer wants you to succeed.
+
+- **Pay Attention to Clues:** The interviewer may provide hints or suggestions to guide you in the right direction. Pay attention to these clues and use them to refine your solution.
+- **Ask for Clarification:** If you're unsure about a hint, ask the interviewer to clarify it or provide more context.
+
+## As an Interviewer
+
+Your role is to evaluate fairly and help the candidate showcase their abilities.
+
+### Not Being Prepared
+
+- **Well-Defined Questions:** Have a clear understanding of the problem you want the candidate to solve and the key aspects of system design you want to evaluate.
+- **Potential Discussion Topics:** Anticipate potential discussion topics and prepare follow-up questions to probe the candidate's understanding and explore different aspects of the design.
+- **Ideal Solutions:** Have a general idea of the ideal solution and the trade-offs involved, but be open to alternative approaches and creative solutions.
+- **iOS & Android Specifics:** For mobile system design, you *must* understand the OS specific constraints and APIs to realistically assess a candidate.
+
+### Being Toxic
+
+- **Respectful Demeanor:** Treat the candidate with respect and create a positive and supportive environment for them to showcase their skills.
+- **Avoid Belittling:** Avoid making demeaning or condescending remarks, even if the candidate is struggling to answer a question.
+
+### Being Unresponsive
+
+- **Active Listening:** Pay close attention to the candidate's explanations, ask clarifying questions, and provide constructive feedback.
+- **Engagement:** Show genuine interest in the candidate's ideas and demonstrate that you're actively engaged in the conversation.
+
+### Being Too Engaged
+
+- **Let the Candidate Lead:** Allow the candidate to lead the discussion and explore different aspects of the design on their own.
+- **Provide Guidance, Not Solutions:** Provide gentle guidance and hints when the candidate is stuck, but avoid giving away the answer or forcing them into a specific solution.
+
+### "Grilling" the Candidate
+
+- **Relevant Questions:** Focus on asking questions that are directly relevant to the job requirements and assess the candidate's ability to solve real-world problems.
+- **Avoid Gotcha Questions:** Avoid asking obscure or trivial questions that are designed to trip up the candidate.
+
+### Asking Meaningless Questions
+
+- **Evaluate Core Skills:** Focus on questions that assess the candidate's understanding of core system design principles, such as scalability, reliability, and security.
+- **Avoid Redundant Questions:** Avoid asking questions that have obvious answers or don't provide any meaningful insights into the candidate's abilities.
+
+### Not Moving On When the Candidate is Stuck
+
+- **Provide Hints:** If the candidate is stuck on a particular problem, provide a hint or suggestion to help them get unstuck.
+- **Shift Focus:** If the candidate is unable to make progress after several attempts, move on to a different topic to avoid wasting time.
+
+### Forcing the Candidate into a Solution They Have in Mind
+
+- **Open to Alternatives:** Be open to alternative solutions and creative approaches, even if they differ from your own preferred solution.
+- **Evaluate Based on Rationale:** Evaluate the candidate based on the rationale behind their decisions, not just on whether they arrived at the "correct" answer.
+
+### Digging Too Much into Details (BFS Approach)
+
+- **Prioritize High-Level Understanding:** Focus on assessing the candidate's understanding of the overall system architecture and key design principles, rather than getting bogged down in implementation details.
+- **Balance Depth and Breadth:** Strike a balance between exploring specific topics in detail and covering a broad range of topics relevant to the system design.
