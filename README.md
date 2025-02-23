@@ -1008,25 +1008,56 @@ Remember that every interview, regardless of the outcome, is a valuable learning
 **Q: Is it better to focus on a single area of mobile development (e.g., iOS or Android) or have broad knowledge across both platforms?**
 - A: The ideal approach depends on the specific role and the company's needs. Some roles may require deep expertise in a single platform, while others may value broad knowledge across both platforms. Be honest about your skills and experience. If you have broad knowledge, highlight your ability to learn new technologies and adapt to different platforms. If you have deep expertise in a single platform, emphasize your ability to contribute immediately to the team and your willingness to learn about other platforms as needed.
 
-## Additional Information
-More System Design exericses [here](/exercises)!
+## Additional Information and Resources
 
-### Junior, Middle, Senior, and Staff level interviews
-The system design experience would be different depending on the candidate's target level. An approximate engineering level breakdown can be found [here](https://candor.co/articles/tech-careers/google-promotions-the-real-scoop-on-leveling-up).
+Explore these resources to further enhance your preparation:
 
-_NOTE: There's no clear mapping between years of experience and seniority - some ranges might exist but it largely depends on the candidate's background._
+More System Design exercises can be found [here](/exercises)!
 
-#### Junior engineers
-The system design round of junior engineers is optional since it's pretty unlikely they would have experience designing software systems.
+### Level-Specific Expectations in System Design Interviews
 
-#### Middle level engineers
-The middle-level engineering design round might be heavy on the implementation side. The interviewer and the candidate would mostly talk about building a specific component using platform libraries.
+The focus and complexity of system design interviews will vary depending on the target engineering level. The key is to demonstrate skills and thinking appropriate for that level. An approximate engineering level breakdown can be found [here](https://candor.co/articles/tech-careers/google-promotions-the-real-scoop-on-leveling-up) (though leveling structures can differ between companies).
 
-#### Senior level engineers
-The senior-level engineering design round could be more high-level compared to the previous levels. The interviewer and the candidate would mostly talk about multiple components and how they communicate with each other. The implementation details could be less important unless the candidate needs to make a decision that drastically affects the application performance. The candidate should also be able to select a technical stack and describe its advantages and trade-offs.
+*NOTE: Years of experience are only a rough guide and don't directly translate to a specific level. Individual skills, contributions, and impact weigh much more heavily.*
 
-#### Staff level engineers
-The staff-level engineering design round moves away from technical to strategic decisions. The candidate might want to discuss the target audience, available computational and human resources, expected traffic, and deadlines. Instead of thinking in terms of implementation tasks - the candidate should put business needs first. For example, being able to explain how to reduce product time-to-market; how to safely rollout and support features; how to handle OMG situations and large-scale outages. The user privacy topics and their legal implications become extremely important and should be discussed in great detail.
+#### Junior Engineer
+
+*   The system design round is often optional.
+*   Focus is on foundational knowledge, understanding basic concepts, and implementing small, well-defined components.
+*   Expect questions about data structures, algorithms, and basic design patterns.
+*   Limited or no experience with large-scale system design is expected.
+*   Demonstrate a willingness to learn and a capacity for growth.
+
+#### Mid-Level Engineer
+
+*   The system design round emphasizes practical implementation and the application of architectural patterns.
+*   Expect discussions about building specific components using platform-specific libraries and frameworks.
+*   Demonstrate proficiency in coding, testing, and debugging.
+*   Ability to translate high-level requirements into concrete implementation details.
+*   Understand the trade-offs between different implementation approaches.
+
+#### Senior Engineer
+
+*   The system design round shifts to a more high-level perspective.
+*   Focus on system architecture, component interactions, and scalability.
+*   Expect discussions about multiple components, their communication, and overall system behavior.
+*   Implementation details are less critical, unless they significantly impact performance.
+*   Ability to select appropriate technologies and justify the choices.
+*   Understand the trade-offs between different architectural patterns and design choices.
+*   Think about modularity, testability, and maintainability.
+
+#### Staff Engineer
+
+*   The system design round transitions from technical to strategic considerations.
+*   Expect discussions about the target audience, available resources (computational and human), expected traffic, and deadlines.
+*   Prioritize business needs over technical implementation details.
+*   Ability to explain how to reduce time-to-market, safely roll out features, and handle large-scale outages.
+*   Deep understanding of user privacy and its legal implications.
+*   Consider the long-term impact of design decisions.
+*   Focus on building consensus and influencing technical direction.
+*   Expert in scaling systems, choosing the right databases, and understanding networking principles.
+*   Ability to identify and mitigate risks.
+*   Think about cost optimization and resource allocation.
 
 ## Looking for more content?
 ### System Design Exercises
