@@ -972,17 +972,41 @@ Remember that every interview, regardless of the outcome, is a valuable learning
 
 ## Frequently Asked Questions
 
-### How do you know this approach works? Why is this necessary?
-- There's no guarantee that the suggested approach would work well in many cases - the structure of the system design round depends on a personal interviewer style.
-- Having a good interview plan at hand allows both the interviewer and the candidate to concentrate more on the content of the discussion and not organizational aspects of the actual round.
+**Q: How do you know this approach works? Why is this guide necessary?**
+- A: There's no one-size-fits-all approach to system design interviews. The structure of the interview heavily depends on the interviewer's style and the company's specific needs. However, having a structured framework like this helps both the candidate and the interviewer focus on the *content* of the discussion rather than getting bogged down in the organizational aspects of the interview. It provides a common language and a starting point for exploration.
 
-### Can you go a bit deeper at X?
-This is not necessary since there might be lots of alternative solutions and the guide does not provide the ground truth. The implementation details should depend on the personal experience of the candidate and not on an opinionated approach of some random people from the Internet.
+**Q: Can you go a bit deeper into [specific technology/pattern/component]?**
+- A: This guide aims to provide a broad overview of key concepts. It doesn't delve into extreme detail on any specific technology or implementation. The goal is to equip you with a foundational understanding, encouraging you to draw upon your personal experience and expertise to provide concrete solutions during the interview. Remember, the interviewer is assessing your problem-solving skills and your ability to adapt and apply your knowledge.
 
-### I'm an interviewer - this ruins the process for all of us: now the candidates just memorize the solutions to cheat during the interview.
-- The system design is much more broad compared to coding rounds. Learning a particular solution is not nearly enough to be successful. The interviewer can slightly tweak the requirements to make it a brand new question.
-- It's really obvious when the candidate memorized a certain approach instead of relying on experience.
-- Learning some patterns and approaches before the interview might help the candidate to ease the stress and deliver the solution in a more clear and structured way.
+**Q: I'm an interviewer - won't this guide encourage candidates to memorize solutions and "cheat" during the interview?**
+- A: System design is far more nuanced than coding challenges. Memorizing a specific solution is rarely sufficient, as interviewers can easily adapt the problem or introduce new constraints. This guide aims to provide a foundational understanding, but success hinges on a candidate's ability to reason critically, apply their knowledge creatively, and articulate their thought process clearly. It's usually quite apparent when a candidate is relying solely on memorization rather than demonstrating genuine understanding. Exposure to common patterns and approaches can reduce interview anxiety and allow the candidate to showcase their problem-solving skills more effectively.
+
+**Q: What if the interviewer wants to focus on a technology I'm not very familiar with?**
+- A: Be honest about your strengths and weaknesses. If the interviewer veers into an area where your knowledge is limited, acknowledge that and explain your general understanding of the concepts involved. Emphasize your willingness to learn and your ability to quickly acquire new knowledge. Suggest alternative solutions using technologies you are more comfortable with.
+
+**Q: How important is it to draw a diagram? What if I'm not a visual thinker?**
+- A: Visualizing the system architecture through diagrams can be extremely helpful for both you and the interviewer. It provides a clear and concise way to communicate the overall design and the interactions between components. If you're not naturally inclined to draw diagrams, practice beforehand! There are many online tools that can help. However, if you feel a diagram is not the best way to express yourself, communicate clearly why and offer an alternative representation, such as a well-structured verbal explanation.
+
+**Q: How should I handle disagreements with the interviewer?**
+- A: It's perfectly acceptable to have different opinions than the interviewer. However, approach the discussion respectfully and professionally. Clearly articulate your reasoning and be willing to consider alternative viewpoints. Avoid being argumentative or dismissive. If you strongly disagree, you can politely acknowledge the interviewer's perspective while reiterating your own rationale. The goal is to demonstrate your critical thinking skills and your ability to engage in constructive dialogue.
+
+**Q: What if I get stuck and can't think of a solution?**
+- A: Don't panic! It's okay to pause and take a moment to gather your thoughts. Communicate your thought process out loud. Explain what you're considering and what challenges you're facing. Ask clarifying questions to help you better understand the problem. If you're still stuck, ask the interviewer for a hint or guidance. The interviewer is more interested in seeing how you approach a difficult problem than in finding the perfect solution.
+
+**Q: How much detail should I provide when discussing specific components?**
+- A: The level of detail should depend on the interviewer's interest and the time available. Start with a high-level overview and then dive deeper into specific aspects as prompted by the interviewer. Pay attention to their body language and ask if they want you to elaborate or move on to another topic. Don't get bogged down in minute details unless the interviewer specifically requests it.
+
+**Q: How do I choose between different architectural patterns (MVP, MVVM, MVI, etc.)?**
+- A: There's no single "best" architectural pattern. Each pattern has its own advantages and disadvantages, and the best choice depends on the specific requirements of the project. Be prepared to explain the pros and cons of different patterns and justify your choice based on factors such as complexity, testability, and maintainability. Familiarity with common patterns such as MVVM with a unidirectional data flow (like MVI or Redux) is generally favored.
+
+**Q: How can I improve my communication skills for system design interviews?**
+- A: Practice explaining complex technical concepts in a clear and concise manner. Use diagrams and visual aids to illustrate your ideas. Practice active listening and ask clarifying questions to ensure that you understand the interviewer's perspective. Seek feedback from others on your communication style. Record yourself explaining technical concepts and analyze your performance. Focus on being clear, concise, and confident in your communication.
+
+**Q: Should I memorize specific code snippets or API calls for the interview?**
+- A: While having a general understanding of common APIs and libraries is helpful, it's generally not necessary (or advisable) to memorize specific code snippets. The focus should be on demonstrating your understanding of the underlying concepts and your ability to apply them to solve problems. If you need to refer to a specific API or code example, explain why you're using it and what it accomplishes.
+
+**Q: Is it better to focus on a single area of mobile development (e.g., iOS or Android) or have broad knowledge across both platforms?**
+- A: The ideal approach depends on the specific role and the company's needs. Some roles may require deep expertise in a single platform, while others may value broad knowledge across both platforms. Be honest about your skills and experience. If you have broad knowledge, highlight your ability to learn new technologies and adapt to different platforms. If you have deep expertise in a single platform, emphasize your ability to contribute immediately to the team and your willingness to learn about other platforms as needed.
 
 ## Additional Information
 More System Design exericses [here](/exercises)!
