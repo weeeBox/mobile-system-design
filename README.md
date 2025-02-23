@@ -437,90 +437,143 @@ The interviewer assesses:
 ### Data Storage Options
 Local device storage options:
 
-- **Key-Value Storage (UserDefaults/SharedPreferences/Property List):**
-  - Stores primitive data with string keys. Best for simple, unstructured data.
+- **Key-Value Storage (UserDefaults/SharedPreferences/Property List/MMKV):**
+  - Stores primitive data with string keys. Best for simple, unstructured, *non-relational* data. Consider `MMKV` on Android for increased performance.
     - Pros:
-      - Easy to use built-in API.
+      - **Easy to use built-in API:** Simple APIs for storing and retrieving data.
+      - **Fast for simple operations:** Efficient for small amounts of data.
+      - **Low overhead:** Minimal memory footprint.
     - Cons:
-      - Insecure (use EncryptedSharedPreferences on Android, third-party wrappers on iOS).
-      - Not for large data.
-      - No schema or querying.
-      - No data migration.
-      - Poor performance.
-- **Database/ORM (sqlite/Room/Core Data/Realm):**
-  - Relational database. For large, structured data requiring complex queries.
+      - **Insecure:** Data is stored in plain text (use `EncryptedSharedPreferences` on Android, third-party wrappers or `Keychain` on iOS for sensitive data).
+      - **Not for large data:** Performance degrades significantly with large datasets.
+      - **No schema or querying:** Limited querying capabilities.  No data integrity constraints.
+      - **No data migration:** Difficult to manage schema changes.
+      - **Poor performance for complex operations:** Inefficient for complex data structures or operations.
+      - **Not ACID compliant:** No guarantee of atomicity, consistency, isolation, or durability.
+
+- **Database/ORM (SQLite/Room/Core Data/Realm/ObjectBox):**
+  - Relational or object database. For large, structured, *relational* data requiring complex queries, transactions, and data integrity. Consider `Room` on Android for a modern, type-safe SQLite abstraction.
     - Pros:
-      - Object-relational mapping.
-      - Schema and querying.
-      - Data migration.
+      - **Object-relational mapping (ORM):** Simplifies data access and manipulation using object-oriented paradigms.
+      - **Schema and querying:** Supports structured data with defined schemas and powerful querying capabilities using SQL or ORM-specific query languages.
+      - **Data migration:** Provides mechanisms for managing schema changes and data migration.
+      - **ACID properties:** Guarantees atomicity, consistency, isolation, and durability.
+      - **Efficient for complex operations:** Optimized for complex data structures and operations.
     - Cons:
-      - More complex setup.
-      - Insecure (use wrapper libraries).
-      - Bigger memory footprint.
-- **Custom/Binary (DataStore/NSCoding/Codable):**
-  - Low-level storage and loading. For custom data storage pipelines.
+      - **More complex setup:** Requires defining schemas, setting up database connections, and managing ORM configurations.
+      - **Potentially Insecure:** (use SQLCipher or other encryption libraries, properly configured)
+      - **Bigger memory footprint:** Database files can consume significant storage space.
+      - **Performance overhead:** ORM can introduce performance overhead compared to raw SQL queries.
+      - **Steeper learning curve:** Requires familiarity with SQL or ORM concepts.
+
+- **Custom/Binary (DataStore/NSCoding/Codable/Protocol Buffers):**
+  - Low-level storage and loading. For custom data serialization and storage pipelines where you need maximum control over performance and data format.  Consider `Protocol Buffers` for efficient serialization and deserialization.  DataStore on Android provides a performant solution without ORM overhead.
     - Pros:
-      - Highly customizable.
-      - Performant.
+      - **Highly customizable:** Allows fine-grained control over data serialization and storage.
+      - **Performant:** Can be optimized for specific data structures and operations.
+      - **Potentially smaller footprint:** If you carefully control serialization and avoid ORM overhead.
     - Cons:
-      - No schema/migration.
-      - Lots of manual effort.
-- **On-Device Secure Storage (Keystore/Key Chain):**
-  - OS-encrypted storage for keys and key-value data.
+      - **No schema/migration:** Requires manual management of schema changes and data migration.
+      - **Lots of manual effort:** Requires writing custom serialization and deserialization code.
+      - **Increased complexity:** Requires a deep understanding of data structures and serialization techniques.
+      - **Error-prone:** Serialization and deserialization code can be complex and prone to errors.
+      - **Harder to debug:** Binary formats are difficult to inspect and debug without specialized tools.
+
+- **On-Device Secure Storage (Keystore/Key Chain/Android Biometrics):**
+  - Hardware-backed or OS-encrypted storage for sensitive data, encryption keys, certificates, and user credentials.  Use the `Android Biometrics` API for secure authentication with biometric sensors.
     - Pros:
-      - Secure.
+      - **Secure:** Provides hardware-backed or OS-level encryption for sensitive data. Protects against unauthorized access and data breaches.
+      - **Integrates with device security:** Leverages device-level security features such as biometrics and PIN/password authentication.
     - Cons:
-      - Not optimized for general storage.
-      - Encryption/decryption overhead.
-      - No schema/migration.
+      - **Not optimized for general storage:** Designed for storing small amounts of sensitive data such as encryption keys and user credentials.
+      - **Encryption/decryption overhead:** Can introduce performance overhead for encryption and decryption operations.
+      - **No schema/migration:** Limited querying capabilities. Difficult to manage schema changes.
+      - **Complex API:** Can be complex to use correctly.
+      - **Limited storage:** Has restrictions on the amount of storage space available.
+      - **User Dependency:** Reliant on the user configuring a lockscreen.
+
+- **File Storage (Internal/External Storage):**
+  - Storing data as files, suitable for larger unstructured data like images, videos, and documents.
+    - Pros:
+        - Simple to implement.
+        - Suitable for storing large, unstructured data.
+    - Cons:
+        - No schema.
+        - Limited querying capabilities.
+        - Can be slow for random access.
+        - Requires careful management of file paths and permissions.
+
 ### Storage Location
-- **Internal:** Sandboxed and not readable by other apps.
-- **External:** Publicly visible, often not deleted on app deletion.
-- **Media/Scoped:** For media files.
+- **Internal:** Sandboxed, private to the app, and not readable by other apps (with few exceptions). Data is deleted when the app is uninstalled.
+- **External:** Publicly visible and accessible to other apps (subject to permissions). Data persists even after the app is uninstalled. Generally discouraged for sensitive data.
+- **Media/Scoped:** A restricted subset of external storage specifically for media files. Provides enhanced privacy and security compared to traditional external storage. Requires proper permissions and follows specific access patterns.
+
 ### Storage Type
-- **Documents (Automatically Backed Up):** User-generated data, automatically backed up.
-- **Cache:** Regeneratable data, can be deleted to free space.
-- **Temp:** Temporary data, deleted when no longer needed.
+- **Documents (Automatically Backed Up):** User-generated data that cannot be easily re-generated (e.g., user profiles, documents, settings). Automatically backed up to cloud storage (e.g., iCloud, Google Drive) unless explicitly excluded.
+- **Cache:** Regeneratable data that can be downloaded again or recreated (e.g., downloaded images, cached API responses). Can be deleted by the system to free up space. Should not contain critical data.
+- **Temp:** Temporary data that is only used for a short period and should be deleted when no longer needed (e.g., temporary files created during processing). Not backed up and can be deleted by the system at any time.
 
 ### Best Practices
 - Store as little sensitive data as possible.
-- Use encrypted storage for sensitive data.
-- Prevent uncontrolled storage growth. Ensure cache cleanup does not affect functionality.
+- Use encrypted storage for sensitive data (e.g., `EncryptedSharedPreferences`, `Keychain`, or SQLCipher).
+- Prevent uncontrolled storage growth. Implement cache cleanup policies and manage file sizes.
+- Use appropriate storage locations based on data privacy requirements (internal vs. external storage).
+- Consider data backup and restore strategies for user-generated data.
+- Use modern data storage APIs (e.g., `DataStore` on Android) for improved performance and security.
+- Avoid storing secrets or API keys directly in the code or configuration files.
+- Implement proper error handling and logging for data storage operations.
+- Test data storage logic thoroughly to ensure data integrity and prevent data loss.
 
 ### Approach
 Select an approach and discuss pros/cons.
 For "Design Twitter Feed":
 
 #### Feed Pagination Table
-Create a "feed" table:
+Use Room (Android) or CoreData (iOS) for storing paginated feed data. The schema could look like this:
+
+```kotlin
+// Kotlin (Android - Room)
+@Entity(tableName = "feed")
+data class FeedItem(
+    @PrimaryKey val itemId: String,
+    val authorId: String,
+    val title: String,
+    val description: String,
+    val likes: Int,
+    val comments: Int,
+    val attachments: String, // comma separated list of URLs or JSON
+    val createdAt: Date,
+    val cursorNextId: String?,
+    val cursorPrevId: String?
+)
 ```
-item_id:        String
-author_id:      String
-title:          String
-description:    String
-likes:          Int
-comments:       Int
-attachments:    String # comma separated list
-created_at:     Date   # also used for sorting
-cursor_next_id: String # points to the next cursor page
-cursor_prev_id: String # points to the prev cursor page
+
+```swift
+// Swift (iOS - Core Data)
+// Add attributes for: itemID, authorID, title, description, likes, comments, 
+// attachments, createdAt, cursorNextId, cursorPrevId
 ```
-- Limit entries to 500 to control storage size.
-- Flatten attachments into a comma-separated list or create an `attachments` table and join it with the `feed` table on `item_id`.
-- Store next/prev cursor IDs for paged navigation.
+
+- Limit the total number of entries (e.g., 500) to control local storage size. Implement a Least Recently Used (LRU) eviction policy to remove older items.
+- Flatten attachments into a comma-separated list of URLs or store them as JSON within a text field. Alternatively, create a separate `attachments` table and join it with the `feed` table on `itemId` for better normalization.
+- Store `cursorNextId` and `cursorPrevId` with each item to simplify paged navigation. Use nullable types for the cursor IDs.
 
 #### Attachments Storage
-- Store attachments in Internal Cached storage.
-- Use attachment URLs as cache keys.
-- Delete attachments after deleting feed items.
-- Limit cache size to 200-400 MB.
+- Store attachments (images, videos) as files in Internal Cached storage.
+- Use attachment URLs as cache keys. Implement an ImageLoader library like Coil (Android) or Kingfisher (iOS) to manage downloading, caching, and displaying images.
+- Delete attachments when the corresponding feed items are deleted from the `feed` table. Implement a mechanism for deleting orphaned attachments.
+- Limit the cache size (e.g., 200-400 MB) to prevent excessive storage usage. Use an LRU cache eviction policy to remove less frequently used attachments.
 
-For sensitive media data, selectively encrypt images with keys stored in Keystore/KeyChain.
+For sensitive media data (e.g., private accounts), selectively encrypt image files using encryption keys stored in the Keystore/KeyChain. Use Android Biometrics API or Touch ID/Face ID on iOS for user authentication to access the encrypted data.
 
 ### Providing the "Signal"
 The interviewer assesses:
 - Awareness of mobile storage types, security, limitations, and compatibility.
-- Ability to design a storage solution for common scenarios.
+- Ability to design a storage solution for common scenarios, considering performance, security, and scalability.
+- Understanding of data modeling and database design principles.
+- Familiarity with data persistence libraries and frameworks on Android and iOS.
+- Awareness of data encryption and secure storage practices.
+- Understanding of cache management and eviction policies.
 
 ## Additional Topics
 ### Major Concerns For Mobile Development
