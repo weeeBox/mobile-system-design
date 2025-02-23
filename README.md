@@ -166,43 +166,69 @@ Discuss approaches for real-time updates:
 
 - **Push Notifications:**
   - Pros:
-    - Easier to implement.
-    - Can wake the app in the background.
+    - **Easier to implement:** Requires less client-side and server-side engineering effort compared to persistent connections.
+    - **Can wake the app in the background:** Allows delivery of updates even when the app is not actively running (within OS limitations).
+    - **Battery efficient (when used correctly):** The OS manages the connection and delivery, optimizing for battery life.
   - Cons:
-    - Not 100% reliable.
-    - May have delays.
-    - Relies on 3rd-party service.
-    - Users can opt-out.
+    - **Not 100% reliable:** Delivery is not guaranteed due to network conditions, device state, or platform limitations (e.g., Doze mode on Android).
+    - **May have delays:** Delivery latency can vary depending on network conditions and the push notification provider.
+    - **Relies on 3rd-party service:** Dependent on Apple's APNs (iOS) or Google's FCM (Android), introducing a point of failure and potential vendor lock-in.
+    - **Users can opt-out:** Users can disable push notifications at the OS level or within the app.
+    - **Potential for abuse (spam):** Can be easily misused to send irrelevant or excessive notifications, leading to user frustration and app uninstalls.
 - **HTTP-polling:**
-  - Periodic requests for updates.  Can create excessive traffic and backend load.
+  - Periodic requests for updates. Can create excessive traffic and backend load.
     - **Short polling:** Fixed time interval.
       - Pros:
-        - Simple, less expensive (if infrequent).
-        - No persistent connection.
+        - **Simple to implement:** Relatively straightforward client-side and server-side logic.
+        - **No persistent connection:** Avoids the complexities of managing and maintaining persistent connections.
+        - **Compatible with firewalls and proxies:** Less likely to be blocked by restrictive network environments.
+        - **Easy to scale horizontally:** The stateless nature of HTTP makes it easier to distribute load across multiple servers.
+        - **Less expensive (if infrequent):** Lower server resource utilization if the polling interval is large.
+        - **Can be useful for batch updates:** Polling can be used to retrieve multiple updates in a single request.
       - Cons:
-        - Potential for significant delays.
-        - Overhead from TLS handshake and HTTP headers.
+        - **Potential for significant delays:** Notification delivery is limited by the polling interval.
+        - **Overhead from TLS handshake and HTTP headers:** Repeated connections introduce significant overhead, especially for small updates.
+        - **Inefficient bandwidth usage:** The client sends requests even when there are no updates available.
+        - **High server load:** Frequent polling can strain server resources, especially with a large number of clients.
     - **Long polling:**
       - Pros:
-        - Instant notifications.
+        - **Instant notifications (almost):** Server holds the connection open until an update is available, minimizing latency.
       - Cons:
-        - More complex, requires more server resources.
-        - Keeps a persistent connection.
+        - **More complex, requires more server resources:** Requires more sophisticated server-side logic to manage connections and track updates.
+        - **Keeps a persistent connection (sort of):** Although not a *true* persistent connection like WebSockets, it simulates one, and managing timeouts is critical.
+        - **Still introduces some latency:** Dependent on server response time even with updates readily available.
+        - **Susceptible to connection timeouts and interruptions:** Requires robust error handling and reconnection logic.
+        - **Can be more complex to scale:** Requires sticky sessions or other mechanisms to ensure that the client connects to the correct server instance.
 - **Server-Sent Events (SSE):**
   - Stream events over HTTP without polling.
     - Pros:
-      - Real-time updates with a single connection.
+      - **Real-time updates with a single connection:** Establishes a unidirectional (server-to-client) stream for efficient delivery of updates.
+      - **Simpler than WebSockets:** Easier to implement and manage compared to bidirectional communication protocols.
+      - **Standard protocol:** Leverages standard HTTP protocol, making it easier to integrate with existing infrastructure.
+      - **Lower overhead than long polling:** Avoids the overhead of repeatedly establishing and tearing down connections.
+      - **Text-based protocol:** Easier to debug and inspect compared to binary protocols.
     - Cons:
-      - Keeps a persistent connection.
+      - **Keeps a persistent connection:** Requires server resources to maintain the connection.
+      - **Unidirectional:** Only supports server-to-client communication, making it unsuitable for applications that require frequent client-to-server updates.
+      - **Limited browser support (older browsers):** May require polyfills for older browsers.
+      - **Connection limits:** May be subject to connection limits imposed by browsers or proxies.
 - **WebSockets:**
   - Bi-directional communication.
     - Pros:
-      - Can transmit binary and text data.
+      - **Can transmit binary and text data:** Supports both text-based and binary data, enabling a wide range of applications.
+      - **Full-duplex communication:** Enables real-time, bidirectional communication between the client and the server.
+      - **Lower latency than HTTP polling:** Avoids the overhead of repeatedly establishing and tearing down connections.
+      - **Efficient use of bandwidth:** Reduces bandwidth consumption by maintaining a persistent connection.
     - Cons:
-      - More complex to set up.
-      - Keeps a persistent connection.
+      - **More complex to set up:** Requires more complex server-side and client-side logic compared to HTTP-based protocols.
+      - **Keeps a persistent connection:** Requires server resources to maintain the connection.
+      - **More complex to scale:** Requires specialized infrastructure and techniques to handle a large number of concurrent connections.
+      - **Firewall issues:** May be blocked by firewalls or proxies that do not support WebSockets.
+      - **Increased security concerns:** Requires careful attention to security to prevent attacks such as cross-site scripting (XSS) and denial-of-service (DoS).
+      - **Higher battery consumption:** Maintaining a persistent connection can drain battery life on mobile devices.
+      - **Harder to debug compared to HTTP:** Binary messages can be difficult to inspect.
 
-Choose an appropriate approach for the task. For "Design Twitter Feed", a combination of SSE (primary channel for "like" updates) and Push Notifications (for clients without active connections) could be suitable.
+Choose an appropriate approach for the task. For "Design Twitter Feed", a combination of SSE (primary channel for "like" updates and potentially new tweet notifications if scale allows) and Push Notifications (for clients without active connections or less critical updates) could be suitable. Consider WebSockets for features like real-time chat or live video streaming (if in scope).
 
 ### Protocols
 #### REST
