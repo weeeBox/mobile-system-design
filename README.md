@@ -931,36 +931,44 @@ Prefetching can be applied to various types of content, including:
 - [Understanding prefetching and how Facebook uses prefetching](https://www.facebook.com/business/help/1514372351922333)
 
 ## Conclusion
-System design interviews involve randomness. Process varies by company and interviewer.
 
-### Things you can control
-- **Your attitude:** Be friendly, avoid being pushy.
-- **Your preparation:** Practice with mock interviews.
-- **Your knowledge:**
-  - Gain more experience.
-  - Study open-source projects: [iOS](https://github.com/search?q=iOS&type=Repositories), [Android](https://github.com/search?o=desc&q=Android&s=stars&type=Repositories)
-  - Read tech company blogs:
-    - [Uber](https://eng.uber.com/category/articles/mobile/)
-    - Instagram: [iOS](https://instagram-engineering.com/tagged/ios), [Android](https://instagram-engineering.com/tagged/android)
-    - [Trello](https://tech.trello.com/)
-  	- Meta
-  	  - [Engineering at Meta](https://engineering.fb.com/tag/mobile/)
-  	  - [Meta Tech Podcast](https://open.spotify.com/show/1NlTm7OkZmcrOPfvlqlBMz)
-    - [Square](https://code.cash.app)
-    - [Dropbox](https://dropbox.tech/mobile)
-    - [Reddit](https://www.redditinc.com/blog/topic/technology)
-    - [Airbnb](https://medium.com/airbnb-engineering/tagged/mobile)
-    - [Lyft Tech Podcast](https://podcasts.apple.com/us/podcast/lyft-mobile/id1453587931)
-    - [Curated List of Blog Posts](/BLOGPOSTS.MD)
-- **Your resume:** List accomplishments with measurable impact.
+Navigating system design interviews can feel like an overwhelming task. Remember that there's inherent randomness – the process can differ significantly across companies and even between interviewers within the same company. The key is to focus on what you *can* control and learn from what you can't.
 
-### Things you cannot control
-- **Interviewer's attitude.**
-- **Competition.**
-- **Hiring committee decisions.**
+### Things You Can Control:
 
-### Judging the outcome
-You can influence, but not control, the outcome. Don't let setbacks affect your self-worth.
+- **Your Mindset:** Approach each interview with a positive and curious attitude. Be enthusiastic about solving the problem and demonstrate a willingness to learn. Be respectful and collaborative, even under pressure. A good attitude leaves a lasting impression.
+- **Your Preparation:** Thorough preparation is your strongest weapon. Practice mock interviews with peers, mentors, or online services. The more you practice, the more comfortable and confident you'll become.
+- **Your Knowledge Base:** Continuously expand your knowledge of mobile technologies, architectural patterns, and design principles. Stay updated with the latest trends and best practices in iOS and Android development.
+    - Immerse yourself in open-source projects: [iOS](https://github.com/search?q=iOS&type=Repositories), [Android](https://github.com/search?o=desc&q=Android&s=stars&type=Repositories)
+    - Follow tech company engineering blogs to gain insights into real-world challenges and solutions:
+        - [Uber](https://eng.uber.com/category/articles/mobile/)
+        - Instagram: [iOS](https://instagram-engineering.com/tagged/ios), [Android](https://instagram-engineering.com/tagged/android)
+        - [Trello](https://tech.trello.com/)
+        - Meta:
+            - [Engineering at Meta](https://engineering.fb.com/tag/mobile/)
+            - [Meta Tech Podcast](https://open.spotify.com/show/1NlTm7OkZmcrOPfvlqlBMz)
+        - [Square](https://code.cash.app)
+        - [Dropbox](https://dropbox.tech/mobile)
+        - [Reddit](https://www.redditinc.com/blog/topic/technology)
+        - [Airbnb](https://medium.com/airbnb-engineering/tagged/mobile)
+        - [Lyft Tech Podcast](https://podcasts.apple.com/us/podcast/lyft-mobile/id1453587931)
+        - [Curated List of Blog Posts](/BLOGPOSTS.MD)
+- **How you articulate your thought process:** Clearly and concisely explain your reasoning behind design choices, and be prepared to justify your decisions with evidence and trade-offs. Walk the interviewer through your process step-by-step.
+- **Your Resume:** Craft a compelling resume that highlights your accomplishments and demonstrates the impact you've made in your previous roles. Quantify your achievements whenever possible. Tailor your resume to match the specific requirements of the position you're applying for.
+
+### Things Beyond Your Control:
+
+- **The Interviewer's Style and Bias:** You might encounter interviewers with different personalities, preferences, or even unconscious biases. Focus on presenting your best self and don't take any perceived negativity personally.
+- **The Competition:** There might be other highly qualified candidates with more experience or skills. Focus on showcasing your unique strengths and value proposition.
+- **The Hiring Committee's Decision:** The final decision rests with the hiring committee, which considers various factors beyond your control, such as budget constraints, team dynamics, and organizational priorities.
+
+### Embrace the Process, Learn from Every Experience:
+
+Remember that every interview, regardless of the outcome, is a valuable learning opportunity. Analyze your performance, identify areas for improvement, and seek feedback from others. Don't be discouraged by rejections – view them as stepping stones toward your ultimate goal.
+
+**Failure is a part of the process.** Even the most experienced engineers face rejection at some point in their careers. What matters is how you respond to setbacks. Use each experience to refine your skills, expand your knowledge, and strengthen your resolve.
+
+**Keep practicing, keep learning, and keep pushing yourself.** The right opportunity will eventually come your way. Believe in your abilities, and never give up on your dreams. Good luck on your journey!
 
 ## Frequently Asked Questions
 
