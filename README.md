@@ -1,4 +1,4 @@
-# A Comprehensive Guide for Mobile System Design Interviews (iOS & Android)
+# A Simple Framework For Mobile System Design Interviews (iOS & Android)
 
 This guide provides a framework for approaching mobile system design interviews, specifically for iOS and Android roles. The core idea is that interviewers focus on assessing your thought process and communication skills rather than expecting a perfect, production-ready solution within a limited time. By showcasing your strengths, you enhance your overall evaluation as a candidate.
 
