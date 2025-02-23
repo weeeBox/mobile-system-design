@@ -576,100 +576,191 @@ The interviewer assesses:
 - Understanding of cache management and eviction policies.
 
 ## Additional Topics
+
 ### Major Concerns For Mobile Development
 Key concerns to keep in mind:
 
-- **User Data Privacy:** Leaks can damage business reputation.
-- **Security:** Protect against reverse engineering (more important for Android).
-- **Target Platform Changes:** New OS releases may limit functionality and tighten privacy.
-- **Non-reversibility of released products:** Assume releases are final. Use staged rollouts and server-side feature flags.
+- **User Data Privacy:** Leaks can damage business reputation and result in legal penalties. Ensure compliance with privacy regulations such as GDPR and CCPA.
+- **Security:** Protect against reverse engineering (more important for Android), data breaches, and unauthorized access. Implement security best practices such as data encryption, secure authentication, and authorization.
+- **Target Platform Changes:** New OS releases may limit functionality and tighten privacy. Stay up-to-date with platform changes and adapt the app accordingly. Use compatibility layers or conditional compilation to handle differences between OS versions.
+- **Non-reversibility of released products:** Assume releases are final. Use staged rollouts and server-side feature flags to safely deploy new features and minimize the impact of bugs.
 - **Performance/Stability:**
-  - Metered data usage: Cellular data can be expensive.
-  - Bandwidth usage: Constant radio usage drains battery.
-  - CPU usage: High computation drains battery and causes overheating.
-  - Memory Usage: High usage increases the risk of background termination.
-  - Startup Time: Slow startup creates a poor user experience.
-  - Crashers/ANRs: UI freezes and crashes lead to poor app ratings.
+  - Metered data usage: Cellular data can be expensive. Optimize network requests and minimize data transfer. Use data compression techniques.
+  - Bandwidth usage: Constant radio usage drains battery. Batch network requests and use efficient network protocols.
+  - CPU usage: High computation drains battery and causes overheating. Optimize algorithms and use background threads for computationally intensive tasks.
+  - Memory Usage: High usage increases the risk of background termination. Use memory profiling tools to identify and fix memory leaks.
+  - Startup Time: Slow startup creates a poor user experience. Optimize app initialization and lazy-load resources.
+  - Crashers/ANRs: UI freezes and crashes lead to poor app ratings. Implement crash reporting and use error tracking tools to identify and fix bugs.
+- **Battery Consumption:** Minimize battery drain by optimizing network requests, CPU usage, and background processing. Use battery profiling tools to identify and fix battery-related issues.
 - **Geo-Location Usage:**
   - Don't compromise privacy with location services.
   - Prefer the lowest possible accuracy. Request increased accuracy progressively.
-  - Provide a rationale before requesting location permissions.
+  - Provide a rationale before requesting location permissions. Use coarse location when fine location is not required. Obfuscate precise locations if possible.
 - **3rd-Party SDKs Usage:**
-  - SDKs can cause performance regressions and outages.
+  - SDKs can cause performance regressions, security vulnerabilities, and outages.
   - Guard each SDK with a feature flag.
   - Use A/B testing or staged rollout for new SDK integrations.
-  - Have a long-term support and upgrade plan.
+  - Have a long-term support and upgrade plan. Regularly review and update SDKs to address security vulnerabilities and performance issues.
+- **App Responsiveness:** Ensure the app remains responsive to user input even when performing complex tasks. Use background threads and asynchronous operations to avoid blocking the main thread.
+- **Testing on Real Devices:** Test the app on a variety of real devices to ensure compatibility and performance. Use cloud-based device testing services to access a wide range of devices.
+- **Licensing and Legal Compliance:** Comply with all applicable licensing terms and legal regulations, including open source licenses, privacy policies, and data security laws.
 
 ### Privacy & Security
-- Minimize user data collection.
-  - Avoid device IDs (use one-time generated pseudo-anonymous IDs).
-  - Anonymize collected data.
-- Minimize permission usage.
-  - Be prepared for permission denials and respect the user's choice.
-  - Be prepared for auto-reset permissions.
+
+Privacy and security should be a central consideration throughout the entire development lifecycle, not an afterthought.
+
+- **Minimize user data collection:** Only collect data that is absolutely necessary for the functionality of the app.
+  - Avoid device identifiers (use resettable, pseudo-anonymous IDs).  Consider using Instance IDs instead.
+  - Anonymize collected data whenever possible. Aggregate data and remove personally identifiable information (PII).
+  - Explain what data you are collecting, how it is used, and who it is shared with, in easy to understand terms.
+  - Provide users with transparency and control over their data. Allow users to access, modify, and delete their data.
+  - Implement data retention policies to ensure that data is only stored for as long as it is needed.
+- **Minimize permission usage:** Request only the permissions that are necessary for the app's functionality.
+  - Be prepared for permission denials and respect the user's choice. Handle permission denials gracefully and provide alternative functionality if possible.
+  - Be prepared for auto-reset permissions. Implement a mechanism for requesting permissions again if they are auto-reset by the system.
   - Be prepared for app hibernation of unused apps.
-  - Delegate functionality to system apps (Camera, Photo Picker, File Manager).
-- Assume on-device storage is not secure.
-- Assume backend storage is also not secure.
-- Assume platform security/privacy rules will change. Control critical functionality with remote feature flags.
-- User _perception_ of security is crucial. Discuss how you would educate users about data collection, storage, and transmission.
+  - Delegate functionality to system apps (Camera, Photo Picker, File Manager) to reduce the need for permissions.
+- **Secure Data Storage:**
+  - Assume on-device storage is not secure, even when using KeyStore/KeyChain functionality. Implement encryption to protect sensitive data.
+    - Encrypt all sensitive data at rest using strong encryption algorithms.
+    - Store encryption keys securely in the KeyStore/KeyChain or a hardware security module (HSM).
+    - Use secure data storage APIs such as EncryptedSharedPreferences on Android and the Keychain on iOS.
+    - Implement proper access controls to restrict access to sensitive data.
+  - Assume backend storage is also not secure.
+    - Use end-to-end encryption to protect data in transit and at rest. Implement server-side encryption to protect data stored in the backend.
+    - Use secure communication protocols such as HTTPS.
+    - Implement proper authentication and authorization mechanisms to restrict access to backend resources.
+- **Secure Communication:**
+  - Use HTTPS for all network communication.
+  - Validate server certificates to prevent man-in-the-middle attacks.
+  - Implement proper authentication and authorization mechanisms.
+  - Use secure data transfer protocols.
+- **Code Security:**
+  - Protect against reverse engineering by obfuscating the code and using anti-tampering techniques.
+  - Validate user input to prevent injection attacks.
+  - Use secure coding practices to avoid common security vulnerabilities.
+  - Perform regular security audits and penetration testing.
+- **Privacy by Design:**
+    - Implement privacy considerations at every stage of the development process.
+    - Conduct a Data Protection Impact Assessment (DPIA) to identify and mitigate privacy risks.
+    - Use privacy-enhancing technologies (PETs) such as differential privacy and homomorphic encryption.
+- **Regular Security Updates:**
+    - Stay up-to-date with the latest security vulnerabilities and patches.
+    - Regularly update dependencies and third-party libraries.
+    - Implement a security incident response plan.
+- **Privacy Compliance:**
+    - Comply with all applicable privacy regulations, such as GDPR and CCPA.
+    - Obtain user consent before collecting or processing personal data.
+    - Provide users with the right to access, modify, and delete their data.
+    - Implement data breach notification procedures.
+- **Transparency and User Education:**
+  - Assume platform security/privacy rules will change. Control critical functionality with remote feature flags to quickly adapt to new regulations.
+  - User _perception_ of security is crucial. Discuss how you would educate users about data collection, storage, and transmission.
+    - Be transparent about data collection practices.
+    - Provide users with clear and concise information about how their data is used.
+    - Educate users about security threats and best practices.
+    - Implement a user-friendly privacy policy.
 
 #### Cloud vs On-Device
-Choose between running functionality on a device or in the cloud. Especially relevant for On-Device AI.
+
+Choose between running functionality on a device or in the cloud. Especially relevant for On-Device AI, Machine Learning, and complex processing.
 
 **Advantages of running things in a cloud:**
-- Device-independent.
-- Better usage of client system resources.
-- Fast pace of changes.
-- Bigger computational resources.
-- Better security.
-- Easier analytics and offline data analysis.
+- **Device-independent:** Customers are not limited by device capabilities (CPU, GPU, memory). Runs consistently across all devices.
+- **Better usage of client system resources:** Offloads intensive computation, saving device battery and preventing overheating.
+- **Fast pace of changes:** Updates and improvements can be deployed server-side without requiring app updates, enabling rapid iteration. A/B testing and experimentation are easier.
+- **Bigger computational resources:** Access to virtually unlimited compute power, enabling complex tasks such as large-scale data processing and complex AI models.
+- **Better security:** Server-side code is generally more secure than client-side code, as it is not exposed to the user. Easier to protect against reverse engineering and tampering. Secure environments and more sophisticated security tools are usually available.
+- **Easier analytics and offline data analysis:** Centralized data collection enables comprehensive analytics and insights into user behavior and app performance. Easier to perform batch processing and machine learning on aggregated data.
+- **Simplified development:** Can simplify mobile development by offloading complex logic and processing to the cloud. Developers can focus on building the user interface and user experience.
+
+**Disadvantages of running things in a cloud:**
+- **Increased Latency:** Requires network communication, which can introduce latency and negatively impact the user experience. Can be a major problem for real-time or interactive applications.
+- **Network Dependency:** Requires a reliable network connection. Users may not be able to access certain features when they are offline or have a poor network connection.
+- **Cost:** Cloud resources can be expensive, especially for computationally intensive tasks. Need to carefully manage cloud costs and optimize resource utilization.
+- **Security Risks:** Requires careful attention to security to protect data in transit and at rest. Data breaches can have serious consequences.
+- **Compliance Challenges:** May be subject to data privacy regulations such as GDPR and CCPA. Requires careful consideration of data residency and data transfer requirements.
 
 **Advantages of running things on a device:**
-- Better privacy.
-- Real-time functionality.
-- Lower bandwidth usage.
-- Offline functionality.
-- Lower backend usage.
+- **Better privacy:** Data does not leave the user's device, providing enhanced privacy and security. Reduces the risk of data breaches and unauthorized access. No data is transmitted over the network.
+- **Real-time functionality:** Certain operations can run much faster on a user's device, providing a more responsive and interactive user experience. Suitable for applications that require low latency.
+- **Lower bandwidth usage:** Reduces bandwidth consumption by avoiding the need to send data over the network. Can be important for users with limited data plans or poor network connections.
+- **Offline functionality:** Allows users to access certain features even when they are offline. Improves the user experience in areas with poor network coverage.
+- **Lower backend usage:** Reduces the load on the backend servers, potentially saving costs. Distributes the processing load across all client devices. No server costs for computations performed on-device.
+- **Reduced dependency on external services:** Makes the application more resilient to outages or disruptions of external services.
+
+**Disadvantages of running things on a device:**
+- **Device Limitations:** Performance is limited by the device's CPU, GPU, and memory. May not be suitable for computationally intensive tasks or large datasets.
+- **Inconsistent Performance:** Performance can vary significantly depending on the device. Requires careful optimization to ensure consistent performance across a range of devices.
+- **Larger App Size:** Can increase the app size due to the inclusion of machine learning models or other large libraries.
+- **Difficult to Update:** Requires app updates to deploy new features or bug fixes. Can be difficult to ensure that all users are running the latest version of the app.
+- **Security Risks:** Client-side code can be more vulnerable to reverse engineering and tampering. Requires careful attention to security to protect sensitive data.
+- **Battery Consumption:** Can drain battery life, especially for computationally intensive tasks.
 
 **Things you should never run on a device:**
-- New resource creation.
-- Transactions and Payment verification (unless delegated to a 3rd-party SDK).
+- **New "resource" creation (sensitive):** Generating coupons, tickets, promo codes, or other sensitive resources should always be done server-side to prevent fraud.
+- **Transactions and Payment verification:** Never process payment information directly on the device. Delegate to a 3rd-party SDK (e.g., Stripe, Braintree) or redirect the user to a secure payment gateway. Sensitive financial calculations should be performed on the server.
+- **Complex Business Logic or sensitive Algorithms:** Sensitive algorithms, user authentication, or core business rules should be kept on the server for security and control. This protects valuable IP and allows for updates without app releases.
 
 ### Offline and Opportunistic State
 Offline state ensures app usability without a network connection:
+
 - User can like/comment/delete tweets offline.
 - UI updates "opportunistically" assuming requests will be sent when online.
 - App displays cached results.
-- App notifies users about offline state.
-- State changes are batched and sent when online.
+- App notifies users about its Offline State, and any pending actions.
+- State changes are batched and sent when the network goes back online.
 
 #### Request de-duplication
-Ensure retrying requests won't create duplicates on the server (idempotence). Use unique client-side request IDs and server-side de-duplication.
+Ensure retrying requests won't create duplicates on the server (idempotence). Use unique client-side generated request IDs and server-side de-duplication. The server should store a record of processed request IDs for a certain period.
+
+Use the Idempotency-Key HTTP header to ensure a client can safely retry a request without accidentally performing the same operation twice. The client generates a unique key for each request and includes it in the header. If the server receives the same key again, it knows that the request has already been processed and can return the previous response.
+
+Example (Kotlin):
+
+```kotlin
+// Client-side request
+val idempotencyKey = UUID.randomUUID().toString()
+val request = Request.Builder()
+    .url("https://example.com/api/like")
+    .header("Idempotency-Key", idempotencyKey)
+    .post(requestBody)
+    .build()
+```
 
 #### Synching Local and Remote States
-Handle state synchronization across multiple devices.
+Handle state synchronization across multiple devices. Implementing conflict resolution is crucial.
 
-**Local Conflict Resolution:**
+**Local Conflict Resolution (Last Write Wins with Timestamps - often NOT recommended):**
 Local device merges remote state with local state and uploads changes.
 
 Pros:
-- Easy to implement.
+- Easy to implement (but often incorrect).
 
 Cons:
 - Insecure - gives a local device authority over the backend.
-- Fails if multiple devices send updates simultaneously.
+- Fails if multiple devices send updates simultaneously (the last update "wins," potentially losing data).
 - Requires app update for merging logic changes.
+- Can lead to data loss and inconsistencies.
 
-**Remote Conflict Resolution:**
-Local device sends local state to the backend, receives a new state, and overwrites the local state.
+**Remote Conflict Resolution (Recommended):**
+Local device sends its local state to the backend, receives a *complete* new state, and overwrites the local state.
 
 Pros:
 - Moves conflict resolution authority to the backend.
-- Does not require client updates.
+- Does not require client updates for resolution logic.
+- More reliable and consistent data synchronization.
 
 Cons:
 - More complex backend implementation.
+- Potentially overwrites local, un-synced changes on the client, requiring careful UX design to manage.
+
+**Conflict Resolution Strategies (on the server, using Remote Conflict Resolution):**
+
+* **Last Write Wins with Timestamps (Not recommended in most cases):** The server simply accepts the latest update based on the timestamp.  This is the simplest approach, but it can lead to data loss if clocks are not synchronized or if updates are received out of order.
+* **Conflict Detection and Resolution UI:** The server detects a conflict and returns an error to the client, prompting the user to manually resolve the conflict through a UI. This approach provides the most control over conflict resolution but can be cumbersome for the user.
+* **Operational Transformation (OT):** A more sophisticated approach that transforms operations based on the history of changes. This allows for concurrent edits to be merged seamlessly. OT is more complex to implement but provides a better user experience.
+* **Conflict-Free Replicated Data Types (CRDTs):** Data structures that are designed to be merged automatically without conflicts. CRDTs are a good choice for applications where data consistency is critical.
 
 #### More Information
 - Offline functionality for Trello’s mobile applications:
@@ -680,6 +771,7 @@ Cons:
   - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
   - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
   - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
+
 ### Caching
 _TBD_
 ### Quality Of Service
