@@ -250,7 +250,7 @@ Text-based, stateless protocol for CRUD (Create, Read, Update, Delete) operation
   - **Overhead from metadata and headers:** Each request contains contextual metadata and headers, which can add significant overhead, especially for small payloads.
   - **Over-fetching/Under-fetching:** Clients often receive more data than they need (over-fetching) or need to make multiple requests to retrieve all the required data (under-fetching).
 
-Check out [Robust RESTful API Design Principles](api-design-principles.md) for a deeper dive into best practices.
+Check out [Robust RESTful API Design Principles](topics/api-design-principles.md) for a deeper dive into best practices.
 
 #### GraphQL
 A query language for your API and a server-side runtime for executing those queries. Allows clients to request specific data from multiple resources using a single endpoint.
