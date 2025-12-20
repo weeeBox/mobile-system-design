@@ -103,7 +103,7 @@ If the interviewer is satisfied, ask if they want to see a high-level diagram.
 - **Image Loader:** Loads and caches images (Glide/Coil on Android, SDWebImage/Kingfisher on iOS). Check out [Image Loading Best Practices](topics/image-loading-strategies.md).
 - **Coordinator:** Manages navigation and flow logic between Tweet Feed and Tweet Details, decoupling the components. Check out [Navigation Architecture](topics/mobile-navigation-architecture.md).
 - **App Module:**  Executable part of the system that "glues" components together.  Responsible for application lifecycle management.
-- **Analytics Service:** A module responsible for collecting and transmitting analytics data, such as user actions and performance metrics.
+- **Analytics Service:** A module responsible for collecting and transmitting analytics data, such as user actions and performance metrics. Check out [Mobile Analytics Architecture](topics/mobile-analytics-architecture.md).
 
 ### Providing the "Signal"
 The interviewer looks for:
@@ -157,6 +157,17 @@ No strict rule. Work with the interviewer; ask if they want more detail or to mo
 
 #### What drawing tool should I use?
 [Excalidraw](https://excalidraw.com/), [Google Jamboard](https://jamboard.google.com/), and [Google Drawings](https://docs.google.com/drawings) are popular. Some prefer collaborative editors and verbal discussion. Privacy policies may limit tool choices.
+
+## Client Library Design
+If the interview task is to design a **Library** (e.g., Image Loader, Analytics SDK) rather than an App, the focus shifts to the **Public API Design**.
+
+### Providing the "Signal"
+The interviewer assesses:
+- **API Ergonomics:** Do you design interfaces that are intuitive and hard to misuse? (e.g., using `Result` types instead of `Exceptions`).
+- **Stability:** Do you consider thread safety, idempotency, and graceful error handling?
+- **Resource Management:** Do you ensure the library doesn't block the main thread or leak memory (avoiding long-lived references to Contexts/Views)?
+
+Check out [Designing In-App APIs](topics/in-app-api-design.md) for specific patterns (Builder, Singleton, Dependency Injection) and code examples for iOS and Android.
 
 ## API Design
 Cover as much ground as possible. Ask if the interviewer has preferences, or choose an area you know well.
