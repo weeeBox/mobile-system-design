@@ -960,7 +960,7 @@ Navigating system design interviews can feel like an overwhelming task. Remember
     - Follow tech company engineering blogs to gain insights into real-world challenges and solutions:
         - [Uber](https://eng.uber.com/category/articles/mobile/)
         - Instagram: [iOS](https://instagram-engineering.com/tagged/ios), [Android](https://instagram-engineering.com/tagged/android)
-        - [Trello](https://tech.trello.com/)
+        - [Trello](https://www.atlassian.com/blog/atlassian-engineering)
         - Meta:
             - [Engineering at Meta](https://engineering.fb.com/tag/mobile/)
             - [Meta Tech Podcast](https://open.spotify.com/show/1NlTm7OkZmcrOPfvlqlBMz)

@@ -18,7 +18,7 @@ Real world examples where companies discuss trade-offs of certain technologies a
   - [How We Design Our APIs at Slack](https://slack.engineering/how-we-design-our-apis-at-slack/)
   - [Evolving API Pagination at Slack](https://slack.engineering/evolving-api-pagination-at-slack/)
 - Trello
-  - [Adopting GraphQL and Apollo in a Legacy Application](https://tech.trello.com/adopting-graphql-and-apollo/)
+  - [A look at Trello: adopting GraphQL and Apollo in a legacy application](https://www.atlassian.com/blog/atlassian-engineering/a-look-at-trello-adopting-graphql-and-apollo-in-a-legacy-application)
 - Twitter
   - [Pagination Overview](https://developer.twitter.com/en/docs/twitter-api/pagination)
 
@@ -40,13 +40,13 @@ Real world examples where companies discuss trade-offs of certain technologies a
 - Instagram
   - [Building an Open Source, Carefree Android Disk Cache](https://instagram-engineering.com/building-an-open-source-carefree-android-disk-cache-af57aa9b7c7)
 - Trello
-  - [Airplane Mode: Enabling Trello Mobile Offline](https://tech.trello.com/sync-architecture/)
-  - [Syncing Changes](https://tech.trello.com/syncing-changes/)
-  - [Sync Failure Handling](https://tech.trello.com/sync-failure-handling/)
-  - [The Two ID Problem](https://tech.trello.com/sync-two-id-problem/)
-  - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
-  - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
-  - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
+  - [Airplane Mode: Enabling Trello Mobile Offline](https://www.atlassian.com/blog/atlassian-engineering/sync-architecture)
+  - [Syncing Changes](https://blog.danlew.net/2017/02/26/syncing-changes/)
+  - [Sync Failure Handling](https://blog.danlew.net/2017/02/28/sync-failure-handling/)
+  - [The Two ID Problem](https://blog.danlew.net/2017/03/09/the-two-id-problem/)
+  - [Offline Attachments](https://blog.danlew.net/2017/03/14/offline-attachments/)
+  - [Sync is a Two-Way Street](https://blog.danlew.net/2017/03/21/sync-is-a-two-way-street/)
+  - [Displaying Sync State](https://blog.danlew.net/2017/03/30/displaying-sync-state/)
       
 ## Emerging Markets
 - Facebook
