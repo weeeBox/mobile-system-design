@@ -9,7 +9,7 @@ Real world examples where companies discuss trade-offs of certain technologies a
 - Airbnb
   - [How Airbnb is Moving 10x Faster at Scale with GraphQL and Apollo](https://medium.com/airbnb-engineering/how-airbnb-is-moving-10x-faster-at-scale-with-graphql-and-apollo-aa4ec92d69e2)
 - Instacart
-  - [Building Instacart’s view model API — Part 1: Why view model?](https://tech.instacart.com/building-instacarts-view-model-api-part-1-why-view-model-4362f64ffd2a)
+  - [Building Instacart’s view model API  -  Part 1: Why view model?](https://tech.instacart.com/building-instacarts-view-model-api-part-1-why-view-model-4362f64ffd2a)
 - Netflix
   - [It’s All A/Bout Testing: The Netflix Experimentation Platform](https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15)
 
@@ -52,7 +52,7 @@ Real world examples where companies discuss trade-offs of certain technologies a
 - Facebook
   - [How we built Facebook Lite for every Android phone and network](https://engineering.fb.com/2016/03/09/android/how-we-built-facebook-lite-for-every-android-phone-and-network/)
 - Microsoft
-  - [Microsoft Teams — Designing for Emerging Markets — Part 1 (Network Profile)](https://medium.com/microsoft-mobile-engineering/microsoft-teams-designing-for-emerging-markets-part-1-network-profile-2daeaa09f313)
+  - [Microsoft Teams  -  Designing for Emerging Markets  -  Part 1 (Network Profile)](https://medium.com/microsoft-mobile-engineering/microsoft-teams-designing-for-emerging-markets-part-1-network-profile-2daeaa09f313)
 - Spotify
   - [How We Built It: Spotify Lite, One Year Later](https://engineering.atspotify.com/2020/12/how-we-built-it-spotify-lite-one-year-later/)
 - Uber

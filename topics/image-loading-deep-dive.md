@@ -43,10 +43,10 @@ Senior engineers understand that libraries evolve or become obsolete.
 
 *   **The Problem:** Direct implementation (e.g., hardcoding library calls across hundreds of files) creates high coupling. Migrating to a new library would require extensive refactoring.
 *   **The Solution:** Implement an **Abstraction Layer** (Interface).
-    ```typescript
+    ```Kotlin
     // Generic Interface
     interface ImageLoader {
-        loadImage(url: string, target: View)
+        fun loadImage(url: String, target: View)
     }
     ```
 *   **The Benefit:**

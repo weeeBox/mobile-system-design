@@ -5,7 +5,7 @@ In mobile system design interviews, you may be asked to design a **client-side l
 *   "Design an Analytics SDK" (like Segment/Firebase)
 *   "Design a Networking Library" (like Retrofit/Alamofire)
 
-The interviewer is testing your **"API Ergonomics"**—can you design a tool that other developers will love to use and find difficult to break?
+The interviewer is testing your **"API Ergonomics"** - can you design a tool that other developers will love to use and find difficult to break?
 
 ## 1. The Core Philosophy: "Easy to Learn, Hard to Misuse"
 

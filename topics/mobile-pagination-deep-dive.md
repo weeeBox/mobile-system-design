@@ -105,7 +105,7 @@ This is where you differentiate yourself from a backend engineer by focusing on 
 *   **Solution:**
     *   **View Recycling:** Explain the pattern of reusing UI components. As a user scrolls, views that leave the screen are "recycled" and re-bound with new data for entering items. This ensures the memory footprint corresponds to the *screen size*, not the total *list size*.
     *   **Diffing:** Discuss using background threads to calculate the difference between the old and new list states (Insertions, Deletions, Moves). This allows the UI thread to animate only the specific changes, preventing jank.
-    *   **Large Data Sets:** For massive lists (10k+ items), discuss "Windowing"—dropping off-screen pages from the backing data structure to prevent Out-Of-Memory (OOM) errors.
+    *   **Large Data Sets:** For massive lists (10k+ items), discuss "Windowing" - dropping off-screen pages from the backing data structure to prevent Out-Of-Memory (OOM) errors.
 
 ### 3.4 UX Patterns: Skeletons vs. Spinners
 *   **Problem:** How to indicate loading state for the initial page vs. subsequent pages.
@@ -137,7 +137,7 @@ An advanced signal is discussing the abstraction of pagination logic through cli
     *   **Token Management:** The library automatically captures the `next_page_token` from a response and populates the `page_token` in the subsequent request.
     *   **Abstraction:** The developer simply iterates over the results (e.g., using a `for` loop or a stream observer); the library handles the network calls in the background.
 *   **Resource Management:** 
-    *   **Lazy Resolution:** High-quality implementations are "lazy"—they only fetch the next page when the consumer reaches the end of the current buffer, preventing the "greedy" loading of massive datasets.
+    *   **Lazy Resolution:** High-quality implementations are "lazy" - they only fetch the next page when the consumer reaches the end of the current buffer, preventing the "greedy" loading of massive datasets.
 *   **The Signal:** Demonstrates familiarity with high-level architectural patterns (AIP-4233) that reduce human error and improve code maintainability by hiding low-level network plumbing.
 
 ## 4. Common Pitfalls ("Red Flags")
