@@ -100,10 +100,10 @@ If the interviewer is satisfied, ask if they want to see a high-level diagram.
 - **Tweet Feed Flow:** Components responsible for displaying the scrollable tweet list.
 - **Tweet Details Flow:** Components responsible for displaying a single tweet's details.
 - **DI Graph:** Dependency injection graph. Enables loose coupling and testability (Dagger/Hilt on Android, Swinject/Typhoon on iOS).
-- **Image Loader:** Loads and caches images (Glide/Coil on Android, SDWebImage/Kingfisher on iOS). Check out [Image Loading Best Practices](topics/image-loading-strategies.md).
-- **Coordinator:** Manages navigation and flow logic between Tweet Feed and Tweet Details, decoupling the components. Check out [Navigation Architecture](topics/mobile-navigation-architecture.md).
+- **Image Loader:** Loads and caches images (Glide/Coil on Android, SDWebImage/Kingfisher on iOS). Check out [Image Loading Strategies Deep Dive](topics/image-loading-deep-dive.md).
+- **Coordinator:** Manages navigation and flow logic between Tweet Feed and Tweet Details, decoupling the components. Check out [Mobile Navigation Architecture Deep Dive](topics/mobile-navigation-deep-dive.md).
 - **App Module:**  Executable part of the system that "glues" components together.  Responsible for application lifecycle management.
-- **Analytics Service:** A module responsible for collecting and transmitting analytics data, such as user actions and performance metrics. Check out [Mobile Analytics Architecture](topics/mobile-analytics-architecture.md).
+- **Analytics Service:** A module responsible for collecting and transmitting analytics data, such as user actions and performance metrics.
 
 ### Providing the "Signal"
 The interviewer looks for:
@@ -167,7 +167,7 @@ The interviewer assesses:
 - **Stability:** Do you consider thread safety, idempotency, and graceful error handling?
 - **Resource Management:** Do you ensure the library doesn't block the main thread or leak memory (avoiding long-lived references to Contexts/Views)?
 
-Check out [Designing In-App APIs](topics/in-app-api-design.md) for specific patterns (Builder, Singleton, Dependency Injection) and code examples for iOS and Android.
+Check out [In-App API Design & Library Architecture Deep Dive](topics/in-app-api-design-deep-dive.md) for specific patterns (Builder, Singleton, Dependency Injection) and code examples for iOS and Android.
 
 ## API Design
 Cover as much ground as possible. Ask if the interviewer has preferences, or choose an area you know well.
@@ -261,7 +261,7 @@ Text-based, stateless protocol for CRUD (Create, Read, Update, Delete) operation
   - **Overhead from metadata and headers:** Each request contains contextual metadata and headers, which can add significant overhead, especially for small payloads.
   - **Over-fetching/Under-fetching:** Clients often receive more data than they need (over-fetching) or need to make multiple requests to retrieve all the required data (under-fetching).
 
-Check out [Robust RESTful API Design Principles](topics/api-design-principles.md) for a deeper dive into best practices.
+Check out [RESTful API Design Deep Dive](topics/restful-api-design-deep-dive.md) for a deeper dive into best practices.
 
 #### GraphQL
 A query language for your API and a server-side runtime for executing those queries. Allows clients to request specific data from multiple resources using a single endpoint.
@@ -434,7 +434,7 @@ Authorization: Bearer <token>
 - [Evolving API Pagination at Slack](https://slack.engineering/evolving-api-pagination-at-slack/)
 - [Everything You Need to Know About API Pagination](https://nordicapis.com/everything-you-need-to-know-about-api-pagination/)
 
-Check out [Pagination Design Best Practices](topics/mobile-pagination-strategies.md) for more details.
+Check out [Mobile Pagination Strategies & Deep Dive](topics/mobile-pagination-deep-dive.md) for more details.
 
 Mention HTTP authentication (Authorization header, 401 Unauthorized) and Rate-Limiting (429 Too Many Requests). Keep it brief and simple. Also, discuss potential API versioning strategies if the pagination scheme needs to be updated in the future.
 
@@ -726,7 +726,7 @@ Offline state ensures app usability without a network connection:
 - App notifies users about its Offline State, and any pending actions.
 - State changes are batched and sent when the network goes back online.
 
-Check out [Offline-First Architecture](topics/offline-first-architecture.md) for a deep dive into synchronization strategies and conflict resolution.
+Check out [Offline-First Architecture & Data Synchronization Deep Dive](topics/offline-first-architecture-deep-dive.md) for a deep dive into synchronization strategies and conflict resolution.
 
 #### Request de-duplication
 Ensure retrying requests won't create duplicates on the server (idempotence). Use unique client-side generated request IDs and server-side de-duplication. The server should store a record of processed request IDs for a certain period.
@@ -781,13 +781,13 @@ Cons:
 
 #### More Information
 - Offline functionality for Trello’s mobile applications:
-  - [Airplane Mode: Enabling Trello Mobile Offline](https://tech.trello.com/sync-architecture/)
-  - [Syncing Changes](https://tech.trello.com/syncing-changes/)
-  - [Sync Failure Handling](https://tech.trello.com/sync-failure-handling/)
-  - [The Two ID Problem](https://tech.trello.com/sync-two-id-problem/)
-  - [Offline Attachments](https://tech.trello.com/sync-offline-attachments/)
-  - [Sync is a Two-Way Street](https://tech.trello.com/sync-downloads/)
-  - [Displaying Sync State](https://tech.trello.com/sync-indicators/)
+  - [Airplane Mode: Enabling Trello Mobile Offline](https://www.atlassian.com/blog/atlassian-engineering/sync-architecture)
+  - [Syncing Changes](https://blog.danlew.net/2017/02/26/syncing-changes/)
+  - [Sync Failure Handling](https://blog.danlew.net/2017/02/28/sync-failure-handling/)
+  - [The Two ID Problem](https://blog.danlew.net/2017/03/09/the-two-id-problem/)
+  - [Offline Attachments](https://blog.danlew.net/2017/03/14/offline-attachments/)
+  - [Sync is a Two-Way Street](https://blog.danlew.net/2017/03/21/sync-is-a-two-way-street/)
+  - [Displaying Sync State](https://blog.danlew.net/2017/03/30/displaying-sync-state/)
 
 ### Caching
 _TBD_

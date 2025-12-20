@@ -275,7 +275,7 @@ ChatInfo:
 
 > **Candidate**: "Alternatively, we can maintain separate local and server ids: all local operations would be using local ids while the backend communication would use server ids. We would also need to build a bijection between them."  
 
-_NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/sync-two-id-problem/)._
+_NOTE: Learn more about Local and Servier ids [here](https://blog.danlew.net/2017/03/09/the-two-id-problem/)._
 
 ## Deep Dive: Attachments
 

@@ -1,4 +1,4 @@
-# RESTful API Design Deepdive
+# RESTful API Design Deep Dive
 
 This cheatsheet provides a concise list of design principles and mobile-specific optimizations for building robust RESTful APIs. In a system design interview, demonstrating these patterns shows your ability to build scalable systems that thrive under mobile constraints (high latency, limited bandwidth, and flaky reliability).
 

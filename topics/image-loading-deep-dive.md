@@ -1,4 +1,4 @@
-# Mobile System Design Interview: Image Loading Deep Dive
+# Image Loading Strategies Deep Dive
 
 Image loading is a foundational system design topic. While "downloading a file" and "loading an image in a list" may appear similar, their technical constraints and performance requirements are distinct.
 
