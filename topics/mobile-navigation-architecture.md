@@ -76,7 +76,7 @@ A common interview question: *"If a user opens a Deep Link to `app://profile/set
 *   **Uber (RIBs):** ([GitHub](https://github.com/uber/RIBs))
     *   *Concept:* **Router-Interactor-Builder**. They completely decoupled business logic from the view hierarchy.
     *   *Signal:* Shows awareness of architectures needed for "Super Apps" with hundreds of engineers.
-*   **Instagram (Graph):** ([Engineering Blog](https://instagram-engineering.com/))
+*   **Instagram (Graph):** ([Engineering Blog](https://engineering.fb.com/tag/instagram/))
     *   *Concept:* Huge, flat navigation stack managed by a custom `IGNavigationController`.
     *   *Signal:* Sometimes, simple custom stacks beat complex framework solutions for specific performance needs.
 *   **Square (Workflow):** ([GitHub](https://github.com/square/workflow))
