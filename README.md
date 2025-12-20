@@ -715,6 +715,8 @@ Offline state ensures app usability without a network connection:
 - App notifies users about its Offline State, and any pending actions.
 - State changes are batched and sent when the network goes back online.
 
+Check out [Offline-First Architecture](topics/offline-first-architecture.md) for a deep dive into synchronization strategies and conflict resolution.
+
 #### Request de-duplication
 Ensure retrying requests won't create duplicates on the server (idempotence). Use unique client-side generated request IDs and server-side de-duplication. The server should store a record of processed request IDs for a certain period.
 
