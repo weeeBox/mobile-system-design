@@ -1,8 +1,8 @@
-# Mobile System Design Interview: Pagination Deep Dive
+# Pagination Deep Dive
 
-In a system design interview, "How do you handle the feed?" is a guaranteed question for any content-heavy application.
+In a system design interview, "How do you handle the feed?" is a guaranteed question for any content-heavy application. This cheatsheet outlines the strategies and trade-offs you should discuss to demonstrate your understanding of mobile-specific constraints.
 
-**Your Goal:** Demonstrate that you understand **mobile constraints** (network, battery, memory) and can choose the **right architecture** for the specific user experience (Infinite Scroll vs. Page Navigation).
+**Your Goal:** Show that you can choose the **right architecture** for the specific user experience (Infinite Scroll vs. Page Navigation) while considering network, battery, and memory usage.
 
 ## 1. Step 1: Clarify the Use Case
 
