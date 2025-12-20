@@ -320,6 +320,23 @@ _NOTE: Ensuring a proper message order is a [tricky problem](https://www.addicti
 
 _NOTE: For more information about messaging privacy check [WhatsApp Encryption Overview](https://scontent.whatsapp.net/v/t39.8562-34/122249142_469857720642275_2152527586907531259_n.pdf/WA_Security_WhitePaper.pdf?ccb=1-5&_nc_sid=2fbf2a&_nc_ohc=TUznIG51RtgAX_Lf8cM&_nc_ht=scontent.whatsapp.net&oh=01_AVz_bi984XEgdXSXsCXBbC5mwFHGq4t2v5CRSJ8UiUHqFg&oe=61BC4F59)._
 
+## Major Concerns and Trade-Offs
+
+### Connectivity
+- Maintaining a permanent WebSocket connection is expensive in terms of battery life.
+- It also requires a mechanism to restore the connection after network failures.
+- We might want to use a "heartbeat" mechanism to keep the connection alive (ping/pong frames).
+
+### Push Notifications
+- Push notifications are not 100% reliable.
+- We cannot rely on them to deliver critical information (like message delivery status).
+- We should use them only to notify the user about new messages.
+
+### Storage
+- Storing all messages and attachments on the device might quickly consume all available disk space.
+- We need to implement a retention policy to delete old messages/attachments.
+- We can also offload old messages to the cloud and only keep the recent ones on the device.
+
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
 - Don't try to make it perfect - provide a "signal" instead.

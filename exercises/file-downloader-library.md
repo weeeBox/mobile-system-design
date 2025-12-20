@@ -2,7 +2,7 @@
 
 The task is defined as "Design a File Downloader Library." The definition is purposely vague and requires clarification. This guide aims to help you navigate this type of system design question, tailored for both iOS and Android platforms, using modern APIs.
 
-## Gathering Requirements (5 minutes)
+## Gathering Requirements
 
 Clarifying requirements is crucial. Don't jump into the solution before understanding the problem deeply. Here are some example questions and considerations for iOS and Android:
 
@@ -139,9 +139,10 @@ A high-level diagram visualizes the major components and their interactions. You
 - **Network Client** - handles receiving bytes over HTTP.
 - **File Store** - writes file contents to the disk.
 
-## Deep Dive: Download Dispatcher
+## Deep Dive
+After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).
 
-After a high-level discussion, your interviewer might transition to discussing specific system components. Be sure to keep your explanations brief and refrain from overloading them with details. Let your interviewer guide the conversation and prompt you with questions. For more on deep-dive discussions, see [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).
+## Deep Dive: Download Dispatcher
 
 ![Download Dispatcher Diagram](/images/exercise-file-downloader-library-deep-dive-download-dispatcher-diagram.svg)
 
