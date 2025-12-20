@@ -100,7 +100,7 @@ You cannot physically delete a row on the server in a Delta Sync system, because
     1.  Server marks item as `is_deleted = true`.
     2.  Client requests changes since `T`.
     3.  Server sends the "deleted" item.
-    4.  Client sees the flag and removes it from the Local DB.
+    4.  Client sees the flag and removes it from the Local DB (or keeps it hidden if undo is allowed).
 
 ## 3. Handling Local Writes (The "Pending" Queue)
 
@@ -149,7 +149,19 @@ This is the hardest part of offline architecture. What happens if the user edits
     *   **Android:** `WorkManager`. The gold standard. Handles constraints (e.g., "Run only when on WiFi and Charging").
     *   **iOS:** `BGAppRefreshTask` / `BGProcessingTask`. stricter limitations on execution time.
 
-## 6. Summary Checklist for the Interview
+## 8. Real-World Case Studies
+
+*   **Trello:** ([Engineering Blog](https://www.atlassian.com/blog/atlassian-engineering/sync-architecture))
+    *   *Strategy:* A complex "Command Queue" system that replays user actions.
+    *   *Signal:* Demonstrates how to handle "optimistic UI" with potentially thousands of offline edits.
+*   **Linear:** ([Engineering Blog](https://linear.app/now/scaling-the-linear-sync-engine))
+    *   *Strategy:* "Sync Engine" that treats the local database as a cache of the entire dataset.
+    *   *Signal:* Shows how high-performance apps prioritize local-first reads for speed.
+*   **CouchDB / PouchDB:** ([Website](https://pouchdb.com/))
+    *   *Strategy:* Replication protocols built into the database layer.
+    *   *Signal:* Understanding "Replication" vs. "Custom Sync" trade-offs.
+
+## 9. Summary Checklist for the Interview
 
 1.  **Define SSOT:** "I will use the Repository Pattern with a local database as the Single Source of Truth."
 2.  **Define Sync Strategy:** "I will implement Delta Sync using a `last_updated` cursor to minimize bandwidth."
@@ -157,15 +169,15 @@ This is the hardest part of offline architecture. What happens if the user edits
 4.  **Address Conflicts:** "For this use case, [Last Write Wins / User Prompt] is appropriate because..."
 5.  **Mention UX:** "I will use Optimistic Updates to make the app feel responsive."
 
-## 7. Common Pitfalls ("Red Flags")
+## 10. Common Pitfalls ("Red Flags")
 
 *   **"I'll use a boolean `isOffline` flag."** -> Bad code smell. Avoid building separate logic paths. Always write to DB, let the Sync Engine handle the rest.
 *   **In-Memory Queues:** -> Data loss if the app crashes. Always persist pending actions.
 *   **Infinite Retries:** -> Battery drain. Always use Exponential Backoff and jitter.
 *   **Blocking the UI:** -> Database and Network operations must happen on background threads.
 
-## 8. Further Reading
+## 11. Further Reading
 
-*   **Trello:** [Sync Architecture](https://tech.trello.com/sync-architecture/) - Excellent breakdown of a complex sync engine.
-*   **Linear:** [Sync Engine](https://linear.app/blog/scaling-linear-sync-architecture) - How a high-performance app handles real-time sync.
+*   **Trello:** [Sync Architecture](https://www.atlassian.com/blog/atlassian-engineering/sync-architecture) - Excellent breakdown of a complex sync engine.
+*   **Linear:** [Sync Engine](https://linear.app/now/scaling-the-linear-sync-engine) - How a high-performance app handles real-time sync.
 *   **Google:** [Offline-First Guide](https://developer.android.com/topic/architecture/data-layer/offline-first) - Official Android architectural guidance.

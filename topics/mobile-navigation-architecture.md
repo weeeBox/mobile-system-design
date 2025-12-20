@@ -71,14 +71,25 @@ A common interview question: *"If a user opens a Deep Link to `app://profile/set
 *   **Ignoring Process Death:** Failing to save and restore the navigation stack state. If the OS kills the app to save memory, the user must return to the exact same screen hierarchy, not the home screen.
 *   **Stringly-Typed Navigation:** Using raw strings (`"app://detail"`) everywhere without a centralized constant file or builder pattern. This leads to runtime crashes from simple typos.
 
-## 5. Summary Checklist for the Interview
+## 5. Real-World Case Studies
+
+*   **Uber (RIBs):** ([GitHub](https://github.com/uber/RIBs))
+    *   *Concept:* **Router-Interactor-Builder**. They completely decoupled business logic from the view hierarchy.
+    *   *Signal:* Shows awareness of architectures needed for "Super Apps" with hundreds of engineers.
+*   **Instagram (Graph):** ([Engineering Blog](https://instagram-engineering.com/))
+    *   *Concept:* Huge, flat navigation stack managed by a custom `IGNavigationController`.
+    *   *Signal:* Sometimes, simple custom stacks beat complex framework solutions for specific performance needs.
+*   **Square (Workflow):** ([GitHub](https://github.com/square/workflow))
+    *   *Concept:* Modeling navigation as a state machine of business workflows rather than just screen transitions.
+
+## 6. Summary Checklist for the Interview
 
 1.  **Decoupling Strategy:** "I will use a Router pattern (or Coordinators) to ensure Feature A doesn't depend on Feature B."
 2.  **Deep Linking:** "I will treat internal navigation and external deep links uniformly using a centralized URL resolver."
 3.  **Type Safety:** "I will use code generation (like SafeArgs or a custom struct generator) to ensure parameter type safety between decoupled modules."
 4.  **State Restoration:** "I will ensure the Router can serialize the back stack to handle process death."
 
-## 6. Further Reading
+## 7. Further Reading
 *   **Square:** [The blind leading the blind (Coordinators)](https://khanlou.com/2015/01/the-coordinator/)
 *   **Uber:** [RIBs Architecture (Router-Interactor-Builder)](https://github.com/uber/RIBs)
 *   **Android:** [Navigation Component Guide](https://developer.android.com/guide/navigation)

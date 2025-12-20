@@ -114,12 +114,12 @@ Avoid implementing hidden side effects, such as exhaustive automatic retry loops
 
 Mentioning these libraries shows you study the ecosystem.
 
-*   **Retrofit (Android):**
+*   **Retrofit (Android):** ([GitHub](https://github.com/square/retrofit))
     *   *Why it's great:* It uses **Annotations** (`@GET`, `@POST`) to turn an API definition into a declarative Interface. It abstracts away the complexity of parsing and request creation.
-*   **Alamofire (iOS):**
+*   **Alamofire (iOS):** ([GitHub](https://github.com/Alamofire/Alamofire))
     *   *Why it's great:* It uses **Parameter Encoding** and **Response Validation** chaining.
     *   `AF.request(url).validate().responseJSON { ... }`
-*   **Room (Android):**
+*   **Room (Android):** ([Documentation](https://developer.android.com/training/data-storage/room))
     *   *Why it's great:* **Compile-time verification** of SQL queries. It catches "Safety" issues (syntax errors) before the app even runs.
 
 ## 5. Summary Checklist for the Interview

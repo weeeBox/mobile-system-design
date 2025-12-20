@@ -133,7 +133,14 @@ Return consistent, structured errors.
 *   **Leaking Internals:** Returning raw SQL exceptions to the client.
 *   **Missing Pagination:** Returning all records in a single response (`GET /users`). Always paginate lists.
 
-## 8. Summary Checklist for the Interview
+## 8. Real-World Case Studies
+
+*   **Stripe (Idempotency):** Uses `Idempotency-Key` header to safely retry payment creation requests. ([Source](https://stripe.com/docs/api/idempotent_requests))
+    *   *Signal:* Mentioning this shows you understand financial-grade reliability.
+*   **Twitter (Versioning):** Uses distinct API versions (`/1.1/`, `/2/`) to allow radical architectural changes (like moving from Monolith to Microservices) without breaking clients. ([Source](https://developer.twitter.com/en/docs/twitter-api/versioning))
+*   **GraphQL (Facebook):** While REST is standard, mentioning GraphQL for "Mobile-Specific Data Fetching" (solving over-fetching) shows breadth of knowledge. ([Source](https://graphql.org/learn/))
+
+## 9. Summary Checklist for the Interview
 
 1.  **Define Resources:** Identify the nouns (Users, Tweets).
 2.  **Select Methods:** Map actions to HTTP verbs (GET, POST).

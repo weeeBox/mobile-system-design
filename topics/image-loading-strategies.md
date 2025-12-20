@@ -99,7 +99,19 @@ Modern libraries implement complex optimizations. Mentioning these demonstrates 
 *   **Ignoring Request Coalescing:** If multiple widgets request the same URL simultaneously, the system should issue a *single* network call and distribute the result to all listeners.
 *   **Neglecting Priorities:** Visible thumbnails must have higher priority than prefetching images for off-screen content.
 
-## 5. Summary Checklist for the Interview
+## 5. Real-World Case Studies
+
+*   **Glide (Android):** ([GitHub](https://github.com/bumptech/glide))
+    *   *Feature:* Aggressive memory caching and bitmap pooling.
+    *   *Signal:* Mentioning `LruBitmapPool` demonstrates understanding of Android's Garbage Collection struggles.
+*   **Kingfisher (iOS):** ([GitHub](https://github.com/onevcat/Kingfisher))
+    *   *Feature:* `ImageProcessor` pipeline.
+    *   *Signal:* Shows you know how to handle post-processing (rounding corners, blurring) *after* downloading but *before* caching to save CPU on subsequent reads.
+*   **Pinterest App:** ([Engineering Blog](https://medium.com/pinterest-engineering))
+    *   *Strategy:* Uses a "Staggered Grid" with variable aspect ratios.
+    *   *Signal:* Discussing how to pre-calculate layout height based on metadata *before* the image loads prevents UI layout jumps.
+
+## 6. Summary Checklist for the Interview
 
 1.  **Differentiation:** Focus on RAM usage and Frame Rate, not just data transfer.
 2.  **Architecture:** Request Manager -> Memory Cache -> Disk Cache -> Network.
