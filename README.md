@@ -101,7 +101,7 @@ If the interviewer is satisfied, ask if they want to see a high-level diagram.
 - **Tweet Details Flow:** Components responsible for displaying a single tweet's details.
 - **DI Graph:** Dependency injection graph. Enables loose coupling and testability (Dagger/Hilt on Android, Swinject/Typhoon on iOS).
 - **Image Loader:** Loads and caches images (Glide/Coil on Android, SDWebImage/Kingfisher on iOS). Check out [Image Loading Best Practices](topics/image-loading-strategies.md).
-- **Coordinator:** Manages navigation and flow logic between Tweet Feed and Tweet Details, decoupling the components.
+- **Coordinator:** Manages navigation and flow logic between Tweet Feed and Tweet Details, decoupling the components. Check out [Navigation Architecture](topics/mobile-navigation-architecture.md).
 - **App Module:**  Executable part of the system that "glues" components together.  Responsible for application lifecycle management.
 - **Analytics Service:** A module responsible for collecting and transmitting analytics data, such as user actions and performance metrics.
 
