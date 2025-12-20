@@ -423,6 +423,8 @@ Authorization: Bearer <token>
 - [Evolving API Pagination at Slack](https://slack.engineering/evolving-api-pagination-at-slack/)
 - [Everything You Need to Know About API Pagination](https://nordicapis.com/everything-you-need-to-know-about-api-pagination/)
 
+Check out [Pagination Design Best Practices](topics/mobile-pagination-strategies.md) for more details.
+
 Mention HTTP authentication (Authorization header, 401 Unauthorized) and Rate-Limiting (429 Too Many Requests). Keep it brief and simple. Also, discuss potential API versioning strategies if the pagination scheme needs to be updated in the future.
 
 ### Providing the "Signal"
