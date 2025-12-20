@@ -62,14 +62,21 @@ What if the user's token expires while they are 5 screens deep?
     *   If valid -> Proceed.
     *   If invalid -> Redirect to `LoginScreen` (and save `target` to redirect back after success).
 
-## 4. Interview Checklist
+## 4. Common Pitfalls ("Red Flags")
+
+*   **The "God" Activity:** Handling all navigation logic inside `MainActivity` or splitting it across every Fragment.
+*   **Circular Dependencies:** Feature A importing Feature B directly (`import com.app.featureB.DetailFragment`), creating a monolithic build graph.
+*   **Ignoring Process Death:** Failing to save and restore the navigation stack state, causing the user to lose their place after a phone call or low-memory situation.
+*   **Stringly-Typed Navigation:** Using raw strings (`"app://detail"`) everywhere without a centralized constant file or builder pattern, leading to runtime crashes from typos.
+
+## 5. Summary Checklist for the Interview
 
 1.  **Decoupling Strategy:** "I will use a Router pattern (or Coordinators) to ensure Feature A doesn't depend on Feature B."
 2.  **Deep Linking:** "I will treat internal navigation and external deep links uniformly using a centralized URL resolver."
 3.  **Type Safety:** "I will use code generation (like SafeArgs or a custom struct generator) to ensure parameter type safety between decoupled modules."
 4.  **State Restoration:** "I will ensure the Router can serialize the back stack to handle process death."
 
-## 5. Further Reading
+## 6. Further Reading
 *   **Square:** [The blind leading the blind (Coordinators)](https://khanlou.com/2015/01/the-coordinator/)
 *   **Uber:** [RIBs Architecture (Router-Interactor-Builder)](https://github.com/uber/RIBs)
 *   **Android:** [Navigation Component Guide](https://developer.android.com/guide/navigation)

@@ -203,7 +203,7 @@ We might want to respect the device settings for saving cellular data. Possible 
 
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 - Try to cover as much ground as possible without digging too much into the implementation details.
 

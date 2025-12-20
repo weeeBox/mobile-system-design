@@ -1,4 +1,4 @@
-# In-App API Design & Library Architecture
+# In-App API Design & Library Architecture Deep Dive
 
 In mobile system design interviews, you may be asked to design a **client-side library** rather than a full app. Examples include:
 *   "Design an Image Loading Library" (like Glide/Kingfisher)
@@ -12,9 +12,9 @@ The interviewer is testing your **"API Ergonomics"**—can you design a tool tha
 Joshua Bloch (author of *Effective Java*) defined the gold standard for API design. In an interview, explicitly mentioning these two goals provides a strong signal.
 
 ### Discoverability: Is it easy to use?
-The "Hello World" of your library should be a single line of code.
-*   **Zero Config:** Users shouldn't need to configure a cache size, thread pool, or timeout just to make a simple request. Smart defaults are key.
-*   **Fluent Interfaces:** This guides the developer through the configuration process. IDE autocomplete becomes the documentation.
+The "Hello World" of your library should be achievable with a single line of code.
+*   **Zero Configuration:** Users should not be required to manually define cache sizes, thread pools, or timeouts for standard requests. Sensible defaults are essential for a positive developer experience.
+*   **Fluent Interfaces:** Chaining methods guides the developer through configuration, allowing IDE autocomplete to serve as a form of "living documentation."
 
 **Example: Image Loading**
 *   *Bad Design:*
@@ -31,9 +31,9 @@ The "Hello World" of your library should be a single line of code.
     ```
 
 ### Safety: Is it hard to misuse?
-If a developer passes `null` or an invalid combination of parameters, what happens?
-*   **Fail Fast:** Crash immediately (in debug mode) with a clear error message rather than failing silently or showing a blank UI.
-*   **Type Safety:** Use `Enums` or `Sealed Classes` instead of Strings or Integers to restrict inputs to valid values.
+If a developer provides invalid parameters, the library should handle the error gracefully or fail predictably.
+*   **Fail Fast:** In development environments, the library should surface configuration errors immediately with descriptive messages rather than failing silently or causing inconsistent states.
+*   **Type Safety:** Utilize `Enums` or `Sealed Classes` instead of raw Strings or Integers to restrict inputs to valid, compile-time checked values.
 
 **Example: Network Methods**
 *   *Bad Design:* `request("GET", url)` -> Developer can typo "get".
@@ -88,7 +88,7 @@ Your library **must never** block the UI thread.
 
 ---
 
-## 3. Common Mistakes (Red Flags)
+## 3. Common Pitfalls ("Red Flags")
 
 ### The "God Config" Object
 Passing a massive configuration object with 20 optional parameters into a constructor.
@@ -99,17 +99,18 @@ Exposing internal libraries (e.g., exposing `OkHttp` types in your custom networ
 *   **Why it's bad:** If you switch from `OkHttp` to `Cronet` later, you break every app using your library.
 *   **Fix:** Wrap internal objects in your own Domain Models.
 
+### Static Mutable State
+Avoid global variables that control state. It makes testing impossible (tests can't run in parallel) and causes race conditions. Use Dependency Injection instead.
+
+### Swallowing Errors
+Avoid catching exceptions without appropriate handling. At a minimum, errors should be logged or surfaced to the caller to prevent silent failures in production.
+
+### "Magic" Behavior
+Avoid implementing hidden side effects, such as exhaustive automatic retry loops or implicit lazy initialization that may affect the caller's thread. These behaviors can mask underlying performance issues and lead to unpredictable execution states. Favor deterministic logic that requires explicit configuration for resource-intensive or state-altering operations.
+
 ---
 
-## 4. Things to Avoid
-
-*   **Static Mutable State:** Avoid global variables that control state. It makes testing impossible (tests can't run in parallel) and causes race conditions. Use Dependency Injection instead.
-*   **Swallowing Errors:** Never catch an exception and do nothing. At minimum, log it. Ideally, expose it to the caller.
-*   **"Magic" Behavior:** Don't do unexpected things like automatically retrying 10 times without telling the developer, or implicitly initializing on the first call. Be explicit.
-
----
-
-## 5. Real-World Case Studies (For "Signal")
+## 4. Real-World Case Studies (For "Signal")
 
 Mentioning these libraries shows you study the ecosystem.
 
@@ -121,7 +122,7 @@ Mentioning these libraries shows you study the ecosystem.
 *   **Room (Android):**
     *   *Why it's great:* **Compile-time verification** of SQL queries. It catches "Safety" issues (syntax errors) before the app even runs.
 
-## 6. Interview Checklist
+## 5. Summary Checklist for the Interview
 
 1.  **Define the Interface:** Write the code you *wish* you could write as a developer using your library. (Read-Eval-Print Loop approach).
 2.  **Choose the Scope:** Singleton (Global) vs. Instance (Scoped).

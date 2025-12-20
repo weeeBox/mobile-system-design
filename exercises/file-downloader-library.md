@@ -4,7 +4,7 @@ The task is defined as "Design a File Downloader Library." The definition is pur
 
 ## Gathering Requirements
 
-Clarifying requirements is crucial. Don't jump into the solution before understanding the problem deeply. Here are some example questions and considerations for iOS and Android:
+Clarifying requirements is crucial. Avoid proceeding to the solution before establishing a deep understanding of the problem. Here are some example questions and considerations for iOS and Android:
 
 > **Candidate**: "Are we designing a part of an application or a general-purpose library?"  
 > **Interviewer**: "A general-purpose library."
@@ -267,7 +267,7 @@ Might run in a separate process while the app is suspended. Best for long-runnin
 ## Conclusion
 
 - Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 
 Try to cover as much ground as possible without digging too much into the implementation details.

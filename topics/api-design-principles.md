@@ -16,7 +16,7 @@ REST APIs are based on resources (nouns), not actions (verbs).
     *   `GET /users` (List all users)
 *   **Do Use Hierarchy:** Use nesting to indicate relationships, but avoid deep nesting.
     *   **Good:** `GET /users/123/orders`
-    *   **Don't:** `GET /users/123/orders/456/items/789` (Too deep; prefer `GET /orders/456/items`).
+    *   **Avoid:** `GET /users/123/orders/456/items/789` (Too deep; prefer `GET /orders/456/items`).
 *   **The Signal:** Shows you understand standard REST architectural patterns and can design intuitive, predictable interfaces.
 
 ## 2. HTTP Semantics (The Protocol Layer)
@@ -33,7 +33,7 @@ Use standard HTTP methods and status codes for their intended purpose.
 | **DELETE** | Delete | Unsafe | Yes | Remove a resource. |
 
 ### 2.2 Standard HTTP Status Codes
-**Don't** invent your own error codes. **Do** use standard status codes to control client flow.
+**Avoid** inventing custom error codes. **Do** use standard status codes to control client flow.
 
 *   **2xx (Success):** `200 OK`, `201 Created` (for POST), `204 No Content` (for DELETE).
 *   **3xx (Redirection):** `301 Moved Permanently`, `304 Not Modified` (Critical for mobile caching).
@@ -98,7 +98,7 @@ Protect your backend from abuse and spikes.
 ### 5.1 API Key Placement
 When using API keys to identify the client application:
 *   **Do Use Headers:** `X-API-Key`. Headers are less likely to be inadvertently logged than URLs.
-*   **Don't Use Query Parameters:** `/resource?api_key=xyz`. URLs are logged in cleartext by proxies.
+*   **Avoid Query Parameters:** `/resource?api_key=xyz`. URLs are logged in cleartext by proxies.
 *   **Mobile Reality:** Treat any key embedded in the app as **public**. Use them for rate limiting, not sensitive permissions.
 
 ### 5.2 Protecting Against Scraping
@@ -123,7 +123,7 @@ Return consistent, structured errors.
 ```
 *   **The Signal:** You prioritize the developer experience (DX). Structured errors allow the mobile app to parse specific issues and show localized, helpful UI messages.
 
-## 7. Common Mistakes to Avoid ("Red Flags")
+## 7. Common Pitfalls ("Red Flags")
 
 *   **Tunneling:** Sending everything via `POST`. (Breaks caching).
 *   **Returning 200 OK for Errors:** Breaks HTTP-aware clients and monitoring tools. Use 4xx/5xx.

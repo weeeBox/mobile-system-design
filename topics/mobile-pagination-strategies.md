@@ -39,7 +39,7 @@ The user experience (UX) dictates the underlying engineering architecture. You c
 Show the interviewer you know how to design a clean, robust API contract.
 
 ### The Request
-**Don't** just say "I send a GET request."
+**Avoid** simply stating that a GET request is sent.
 **Do** specify parameters and explain default safety mechanisms.
 
 ```http
@@ -50,7 +50,7 @@ GET /v1/feed?cursor=dXNlcjpVMEc5V0ZXTjI=&limit=20
 *   **`limit`**:  **Crucial Signal:** Mention that you would enforce a **server-side max limit** (e.g., 100) to prevent a malicious client from crashing the server with excessive data requests.
 
 ### The Response
-**Don't** return a raw array.
+**Avoid** returning a raw array.
 **Do** wrap data in an envelope with metadata.
 
 ```json
@@ -121,7 +121,7 @@ An advanced signal is discussing the abstraction of pagination logic through cli
     *   **Lazy Resolution:** High-quality implementations are "lazy"—they only fetch the next page when the consumer reaches the end of the current buffer, preventing the "greedy" loading of massive datasets.
 *   **The Signal:** Demonstrates familiarity with high-level architectural patterns (AIP-4233) that reduce human error and improve code maintainability by hiding low-level network plumbing.
 
-## 4. Common Pitfalls to Avoid ("Red Flags")
+## 4. Common Pitfalls ("Red Flags")
 
 *   **"I'll just return all the data."** -> Immediate fail. Shows lack of scalability awareness.
 *   **"I'll use `page` parameters for the real-time feed."** -> Shows lack of awareness regarding real-time data shifts (Page Drift).

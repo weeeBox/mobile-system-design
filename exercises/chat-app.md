@@ -157,7 +157,7 @@ _NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a
 - `GET /chats?after_id=<X>&limit=<Y>` - receives a paginated list of chats.
 - `GET /chats/<chat_id>/messages?after_id=<X>&limit=<Y>` - receives a paginated list of messages from a specific chat.
 
-_NOTE: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols)._  
+_NOTE: Avoid over-complicating the design; prioritize covering more ground unless prompted to delve deeper into specific protocols._  
 
 > **Interviewer**: "Why do you need a JWT?"  
 > **Candidate**: "For client authentication: each request (besides `/login`) should include an authorization header: `Authorization: Bearer <token>`."  
@@ -237,7 +237,7 @@ ChatMessage
 > **Candidate**: "I would use a relational database (ORM) to store chats, messages, users, and attachments."  
 > **Candidate**: "Other alternatives might be less robust since we're looking for querying support and data integrity."  
 
-_NOTE: Don't waste time describing approaches that obviously won't fit the task at hand (like app preferences, text/binary files, etc)._
+_NOTE: Avoid spending time on approaches that are clearly unsuitable for the task, such as app preferences or basic text/binary files._
 
 > **Candidate**: "I would use a relational database (ORM) and create tables for chats, messages, users, and attachments."  
 
@@ -339,7 +339,7 @@ _NOTE: For more information about messaging privacy check [WhatsApp Encryption O
 
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 - Try to cover as much ground as possible without digging too much into the implementation details.
 

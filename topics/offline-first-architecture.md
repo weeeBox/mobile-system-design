@@ -149,7 +149,7 @@ This is the hardest part of offline architecture. What happens if the user edits
     *   **Android:** `WorkManager`. The gold standard. Handles constraints (e.g., "Run only when on WiFi and Charging").
     *   **iOS:** `BGAppRefreshTask` / `BGProcessingTask`. stricter limitations on execution time.
 
-## 6. Interview Checklist
+## 6. Summary Checklist for the Interview
 
 1.  **Define SSOT:** "I will use the Repository Pattern with a local database as the Single Source of Truth."
 2.  **Define Sync Strategy:** "I will implement Delta Sync using a `last_updated` cursor to minimize bandwidth."
@@ -157,9 +157,9 @@ This is the hardest part of offline architecture. What happens if the user edits
 4.  **Address Conflicts:** "For this use case, [Last Write Wins / User Prompt] is appropriate because..."
 5.  **Mention UX:** "I will use Optimistic Updates to make the app feel responsive."
 
-## 7. Common Pitfalls to Avoid
+## 7. Common Pitfalls ("Red Flags")
 
-*   **"I'll use a boolean `isOffline` flag."** -> Bad code smell. Don't build separate logic paths. Always write to DB, let the Sync Engine handle the rest.
+*   **"I'll use a boolean `isOffline` flag."** -> Bad code smell. Avoid building separate logic paths. Always write to DB, let the Sync Engine handle the rest.
 *   **In-Memory Queues:** -> Data loss if the app crashes. Always persist pending actions.
 *   **Infinite Retries:** -> Battery drain. Always use Exponential Backoff and jitter.
 *   **Blocking the UI:** -> Database and Network operations must happen on background threads.
