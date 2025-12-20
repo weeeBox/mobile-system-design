@@ -14,18 +14,19 @@ Navigation is one of the most critical and complex aspects of mobile system desi
 
 ## 2. Evolution of Navigation Patterns
 
-### 2.1 Direct Intent/Push (The "Junior" Approach)
-*   **Concept:** `startActivity(new Intent(context, DetailActivity.class))` or `navigationController.push(DetailViewController())`.
-*   **Problem:** Tight coupling. The "Feed" module must compile the "Detail" module. You cannot split them into separate Gradle/Bazel modules easily. Circular dependencies arise quickly (Profile -> Feed -> Profile).
+### 2.1 Direct Coupling (The "Junior" Approach)
+*   **Concept:** Screen A directly imports and instantiates Screen B.
+    *   *Example:* `Navigator.push(new DetailScreen(id))`
+*   **The Problem:** **Tight Coupling.** The "Feed" module must compile the "Detail" module. You cannot split them into separate build modules easily. Circular dependencies arise quickly (Profile -> Feed -> Profile), leading to a monolithic architecture that scales poorly.
 
-### 2.2 The Coordinator Pattern (iOS / Android)
-A dedicated object handles the flow logic, removing it from the UI (Activity/ViewController).
+### 2.2 The Coordinator Pattern
+A dedicated object handles the flow logic, removing it from the UI components.
 *   **How it works:**
-    1.  `FeedViewController` calls `coordinator.showDetail(id)`.
-    2.  `FeedCoordinator` knows how to assemble the `DetailViewController`.
-    3.  `FeedCoordinator` pushes it onto the stack.
-*   **Pros:** Isolates navigation logic. Great for testing.
-*   **Cons:** Coordinators can become "God Objects". Still requires some knowledge of destination classes unless combined with Dependency Injection.
+    1.  `FeedScreen` calls `coordinator.showDetail(id)`.
+    2.  `FeedCoordinator` knows how to assemble the `DetailScreen` and its dependencies.
+    3.  `FeedCoordinator` pushes it onto the navigation stack.
+*   **Pros:** Isolates navigation logic from UI logic. Excellent for unit testing navigation flows.
+*   **Cons:** Coordinators can become "God Objects" if not split properly. Still requires the Coordinator to know about the destination classes unless combined with Dependency Injection.
 
 ### 2.3 The Router / URI-Based Navigation (The "Scalable" Approach)
 Every screen is a URL.
@@ -38,36 +39,37 @@ Every screen is a URL.
 
 ## 3. Deep Dive: Modern Navigation Architecture
 
-### 3.1 The Navigation Graph (Jetpack Navigation)
-*   **Concept:** A centralized XML or Kotlin DSL file defines all possible destinations and paths ("Actions").
-*   **Safe Args:** Uses compile-time code generation to enforce type safety for arguments, fixing the main downside of URIs.
-*   **Nested Graphs:** Allows splitting a massive graph into sub-graphs (e.g., `LoginGraph`, `CheckoutGraph`) for modularization.
+### 3.1 The Declarative Navigation Graph
+*   **Concept:** A centralized file (JSON/XML/DSL) defines all possible destinations and paths ("Actions").
+*   **The Signal:** This treats navigation as a **State Machine**. You define the states (Screens) and transitions (Actions).
+*   **Type Safety:** Modern tools generate code from this graph to ensure type safety for arguments, fixing the main downside of loose URI-based navigation.
+*   **Modularization:** Large graphs can be split into "Nested Graphs" (e.g., `LoginGraph`, `CheckoutGraph`), allowing different teams to own different parts of the navigation flow.
 
 ### 3.2 Feature-Based Navigation (Multi-Module)
-In a modularized app (e.g., `:features:feed` and `:features:settings`), how do they talk?
+In a modularized app where `FeedModule` and `SettingsModule` are separate binaries that don't know about each other, how do they navigate?
 
-**Option A: Interface Injection**
-1.  Define an interface in a common module: `interface FeedNavigator { fun goToSettings() }`.
-2.  Implement it in the main `app` module (which sees everything).
-3.  Inject implementation into `FeedModule`.
+**Option A: Interface Injection (The Clean Architecture Way)**
+1.  Define an interface in a shared core module: `interface FeedNavigator { fun goToSettings() }`.
+2.  `FeedModule` depends on `FeedNavigator`.
+3.  The main `AppModule` (which composes everything) implements `FeedNavigator` and injects it into `FeedModule`.
 
-**Option B: Implicit Intents / Deep Links**
-1.  `FeedModule` fires an implicit Intent or Deep Link.
-2.  The OS or a central Router resolves it.
+**Option B: Implicit Deep Links (The Loose Coupling Way)**
+1.  `FeedModule` asks the Router to navigate to a generic URI: `app://settings`.
+2.  The Router resolves this string to the `SettingsScreen` at runtime.
+3.  *Trade-off:* Loss of compile-time safety (typos in strings cause runtime failures).
 
-### 3.3 Handling Global Flows (Authentication)
-What if the user's token expires while they are 5 screens deep?
-*   **The Interceptor:** The Navigation system should have an interceptor chain.
-    *   `navigate(target)` -> `AuthInterceptor` checks token.
-    *   If valid -> Proceed.
-    *   If invalid -> Redirect to `LoginScreen` (and save `target` to redirect back after success).
+### 3.4 The Back Stack & Deep Linking
+A common interview question: *"If a user opens a Deep Link to `app://profile/settings`, what happens when they press Back?"*
+
+*   **The Wrong Answer:** "The app closes." (This feels broken to the user).
+*   **The Right Answer (Synthetic Back Stack):** The navigation system must recognize that `Settings` belongs to a hierarchy. It should synthesize the parent screens (`Home` -> `Profile` -> `Settings`) onto the back stack so the user navigates "Up" the hierarchy, preserving the expected user flow.
 
 ## 4. Common Pitfalls ("Red Flags")
 
-*   **The "God" Activity:** Handling all navigation logic inside `MainActivity` or splitting it across every Fragment.
-*   **Circular Dependencies:** Feature A importing Feature B directly (`import com.app.featureB.DetailFragment`), creating a monolithic build graph.
-*   **Ignoring Process Death:** Failing to save and restore the navigation stack state, causing the user to lose their place after a phone call or low-memory situation.
-*   **Stringly-Typed Navigation:** Using raw strings (`"app://detail"`) everywhere without a centralized constant file or builder pattern, leading to runtime crashes from typos.
+*   **The "God" Router:** Handling all navigation logic in a single file or class. Split logic into sub-routers or coordinators per feature.
+*   **Circular Dependencies:** Feature A importing Feature B directly, creating a monolithic build graph that prevents parallel compilation.
+*   **Ignoring Process Death:** Failing to save and restore the navigation stack state. If the OS kills the app to save memory, the user must return to the exact same screen hierarchy, not the home screen.
+*   **Stringly-Typed Navigation:** Using raw strings (`"app://detail"`) everywhere without a centralized constant file or builder pattern. This leads to runtime crashes from simple typos.
 
 ## 5. Summary Checklist for the Interview
 
