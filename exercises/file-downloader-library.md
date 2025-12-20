@@ -2,9 +2,9 @@
 
 The task is defined as "Design a File Downloader Library." The definition is purposely vague and requires clarification. This guide aims to help you navigate this type of system design question, tailored for both iOS and Android platforms, using modern APIs.
 
-## Gathering Requirements (5 minutes)
+## Gathering Requirements
 
-Clarifying requirements is crucial. Don't jump into the solution before understanding the problem deeply. Here are some example questions and considerations for iOS and Android:
+Clarifying requirements is crucial. Avoid proceeding to the solution before establishing a deep understanding of the problem. Here are some example questions and considerations for iOS and Android:
 
 > **Candidate**: "Are we designing a part of an application or a general-purpose library?"  
 > **Interviewer**: "A general-purpose library."
@@ -139,9 +139,10 @@ A high-level diagram visualizes the major components and their interactions. You
 - **Network Client** - handles receiving bytes over HTTP.
 - **File Store** - writes file contents to the disk.
 
-## Deep Dive: Download Dispatcher
+## Deep Dive
+After a high-level discussion, your interviewer might want to discuss some specific components of the system. Make sure to keep your explanation brief and don't overload it with details - let your interviewer guide the conversation and ask questions instead. You can learn more about deep-dive discussions [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).
 
-After a high-level discussion, your interviewer might transition to discussing specific system components. Be sure to keep your explanations brief and refrain from overloading them with details. Let your interviewer guide the conversation and prompt you with questions. For more on deep-dive discussions, see [here](https://github.com/weeeBox/mobile-system-design#deep-dive-tweet-feed-flow).
+## Deep Dive: Download Dispatcher
 
 ![Download Dispatcher Diagram](/images/exercise-file-downloader-library-deep-dive-download-dispatcher-diagram.svg)
 
@@ -266,7 +267,7 @@ Might run in a separate process while the app is suspended. Best for long-runnin
 ## Conclusion
 
 - Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 
 Try to cover as much ground as possible without digging too much into the implementation details.

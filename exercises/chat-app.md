@@ -157,7 +157,7 @@ _NOTE: It's tempting for iOS engineers to mention `URLSessionWebSocketTask` as a
 - `GET /chats?after_id=<X>&limit=<Y>` - receives a paginated list of chats.
 - `GET /chats/<chat_id>/messages?after_id=<X>&limit=<Y>` - receives a paginated list of messages from a specific chat.
 
-_NOTE: Don't over-complicate your design - aim to cover more ground (unless the interviewer wants to dig deeper into the protocols)._  
+_NOTE: Avoid over-complicating the design; prioritize covering more ground unless prompted to delve deeper into specific protocols._  
 
 > **Interviewer**: "Why do you need a JWT?"  
 > **Candidate**: "For client authentication: each request (besides `/login`) should include an authorization header: `Authorization: Bearer <token>`."  
@@ -237,7 +237,7 @@ ChatMessage
 > **Candidate**: "I would use a relational database (ORM) to store chats, messages, users, and attachments."  
 > **Candidate**: "Other alternatives might be less robust since we're looking for querying support and data integrity."  
 
-_NOTE: Don't waste time describing approaches that obviously won't fit the task at hand (like app preferences, text/binary files, etc)._
+_NOTE: Avoid spending time on approaches that are clearly unsuitable for the task, such as app preferences or basic text/binary files._
 
 > **Candidate**: "I would use a relational database (ORM) and create tables for chats, messages, users, and attachments."  
 
@@ -275,7 +275,7 @@ ChatInfo:
 
 > **Candidate**: "Alternatively, we can maintain separate local and server ids: all local operations would be using local ids while the backend communication would use server ids. We would also need to build a bijection between them."  
 
-_NOTE: Learn more about Local and Servier ids [here](https://tech.trello.com/sync-two-id-problem/)._
+_NOTE: Learn more about Local and Servier ids [here](https://blog.danlew.net/2017/03/09/the-two-id-problem/)._
 
 ## Deep Dive: Attachments
 
@@ -320,9 +320,26 @@ _NOTE: Ensuring a proper message order is a [tricky problem](https://www.addicti
 
 _NOTE: For more information about messaging privacy check [WhatsApp Encryption Overview](https://scontent.whatsapp.net/v/t39.8562-34/122249142_469857720642275_2152527586907531259_n.pdf/WA_Security_WhitePaper.pdf?ccb=1-5&_nc_sid=2fbf2a&_nc_ohc=TUznIG51RtgAX_Lf8cM&_nc_ht=scontent.whatsapp.net&oh=01_AVz_bi984XEgdXSXsCXBbC5mwFHGq4t2v5CRSJ8UiUHqFg&oe=61BC4F59)._
 
+## Major Concerns and Trade-Offs
+
+### Connectivity
+- Maintaining a permanent WebSocket connection is expensive in terms of battery life.
+- It also requires a mechanism to restore the connection after network failures.
+- We might want to use a "heartbeat" mechanism to keep the connection alive (ping/pong frames).
+
+### Push Notifications
+- Push notifications are not 100% reliable.
+- We cannot rely on them to deliver critical information (like message delivery status).
+- We should use them only to notify the user about new messages.
+
+### Storage
+- Storing all messages and attachments on the device might quickly consume all available disk space.
+- We need to implement a retention policy to delete old messages/attachments.
+- We can also offload old messages to the cloud and only keep the recent ones on the device.
+
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 - Try to cover as much ground as possible without digging too much into the implementation details.
 

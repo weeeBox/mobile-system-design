@@ -42,17 +42,17 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
-## Functional requirements
+### Functional requirements
 - Users should be able to cache and retrieve raw byte data using strings as keys.
 - Users should be able to configure disk and memory usage limits as a part of library initialization.
 - Users should be able to configure the cache eviction policy as a part of library initialization.
 
-## Non-functional requirements
+### Non-functional requirements
 - The cached data should be persistent on the disk.
 - A small subset of items should be kept in memory for quicker access.
 - Once the cache is full - a portion of items should be deleted according to the eviction policy.
 
-## Out of scope
+### Out of scope
 - User-defined eviction policies.
 - Secure item storage.
 - Cross-platform support.
@@ -266,7 +266,7 @@ The biggest decision to make is Dispatcher's worker pool size. Having a larger a
 
 ## Conclusion
 - Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 - Try to cover as much ground as possible without digging too much into the implementation details.
 

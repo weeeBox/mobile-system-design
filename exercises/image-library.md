@@ -43,14 +43,14 @@ _NOTE: some interviewers may want you to "drive" the conversation and would "sub
 
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
-## Functional requirements
+### Functional requirements
 - Users should be able to load images from the network, filesystem, and app resources to UI/non-UI targets.
 
-## Non-functional requirements
+### Non-functional requirements
 - Cache loaded images in memory and on the disk.
 - Image loading respects view hierarchy lifecycle events.
 
-## Out of scope
+### Out of scope
 - Custom image loaders.
 - Image placeholders, loading indicators, transition animations.
 
@@ -203,7 +203,7 @@ We might want to respect the device settings for saving cellular data. Possible 
 
 ## Conclusion
 Keep this in mind while preparing for a system design interview:
-- Don't try to make it perfect - provide a "signal" instead.
+- Prioritize providing a "signal" over achieving perfection.
 - Listen to your interviewer and keep track of the time.
 - Try to cover as much ground as possible without digging too much into the implementation details.
 
