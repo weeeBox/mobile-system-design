@@ -1083,5 +1083,8 @@ Check out the [collection](/exercises) of mobile system design exercises.
 Check the guide [here](/common-interview-mistakes.md).
 ### Mock Interviews
 Check out the mock interview [archive](https://www.youtube.com/playlist?list=PLaMN-JyH50OYAfxJEpiQTYTD-gxTf7x9d) or [sign-up](https://forms.gle/Cez2R31wqtgp3RsX9) to be a candidate yourself!
+### Platform Specific Content
+- [Android](/android.md)
+- [iOS](/ios.md)
 
 ## Consider "starring" the repository to help other people discover the guide! Thank you!
