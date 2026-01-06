@@ -790,162 +790,26 @@ Cons:
   - [Displaying Sync State](https://blog.danlew.net/2017/03/30/displaying-sync-state/)
 
 ### Caching
-_TBD_
+Caching is essential for offline support, reducing network usage, and improving performance. It involves storing data in memory (for immediate access) or on disk (for persistence).
+
+Check out [Caching Strategies Deep Dive](topics/caching-deep-dive.md) for details on strategies (Read-Through, Stale-While-Revalidate), eviction policies, and security.
 ### Quality Of Service (QoS)
 
-Implementing Quality of Service (QoS) for network operations in mobile apps is critical to providing a smooth user experience while conserving device resources, especially battery life. QoS involves prioritizing network requests based on their importance to the user and the app's functionality.
+Implementing Quality of Service (QoS) for network operations is critical for providing a smooth user experience while conserving device resources. It involves prioritizing network requests based on their importance (User-Critical vs Background).
 
-- **Limit Concurrent Network Operations:** Restricting the number of simultaneous network requests is crucial for several reasons. Each active network connection consumes system resources (CPU, memory, radio), impacting performance and battery life. Aim for a limit of 4-10 concurrent operations, adjusting based on device state (battery level, charging status, network connectivity) and app usage patterns. Consider the network bandwidth available.
-- **Adaptive Concurrency:** Monitor network conditions (Wi-Fi vs. cellular, signal strength) and adjust the concurrency limit dynamically. Reduce the limit on cellular networks or when the signal is weak.
-- **Network Request Prioritization:** Assign a QoS class to each network request based on its importance. This allows the app to prioritize essential requests while deferring less critical ones.
-- **QoS Classes and Examples:**
-
-  - **User-Critical (High Priority):** Requests directly impacting the user's immediate experience and require minimal latency.
-
-    - Fetching the next page of data for the Tweet Feed (infinite scrolling).
-    - Requesting Tweet Details (when a user taps on a tweet).
-    - Sending a direct message.
-    - Authentication requests.
-
-  - **UI-Critical (Medium Priority):** Requests contributing to the user interface's responsiveness, but can tolerate slightly higher latency.
-
-    - Fetching low-resolution placeholder images for tweets while scrolling.
-    - Loading thumbnails or previews.
-    - Non-blocking UI updates.
-
-  - **UI-Non-Critical (Low Priority):** Requests enhancing the UI but are not essential for its core functionality. Can be delayed or canceled if necessary.
-
-    - Fetching high-resolution images for tweets on the Feed.
-    - Preloading images for tweets that are not yet visible.
-    - Downloading non-essential resources.
-
-  - **Background (Lowest Priority):** Requests performed in the background without directly impacting the user experience. Can be deferred until the device is idle or charging.
-
-    - Posting "likes" or comments.
-    - Uploading analytics data.
-    - Backing up data.
-    - Syncing data with the server.
-
-- **Priority Queue Scheduling:** Implement a priority queue to manage network requests based on their QoS class. Dispatch requests in the order of their priority, ensuring that user-critical requests are processed first.
-- **Request Suspension and Resumption:** If the maximum number of concurrent operations is reached, suspend lower-priority requests to allow higher-priority requests to proceed. Resume suspended requests when resources become available. Use cancellation tokens to allow for quickly cancelling long-running tasks if needed.
-- **Cancellation Support:** Implement cancellation support for network requests to prevent unnecessary data transfer and resource consumption. Cancel requests when they are no longer needed (e.g., when the user scrolls past a tweet).
-- **Network Request Throttling:** Implement throttling mechanisms to prevent the app from overwhelming the network with too many requests. Use techniques such as exponential backoff and rate limiting.
-- **Device State Awareness:** Consider the device's current state when scheduling network requests. Defer low-priority requests when the device is on battery or has a weak network signal.
-- **Power Management Optimization:** Minimize the number of wake locks held by the app to prevent battery drain. Use the JobScheduler (Android) or BackgroundTasks framework (iOS) to schedule background tasks efficiently.
-- **Network Change Monitoring:** Monitor network connectivity changes and adapt the app's behavior accordingly. Pause or cancel network requests when the device loses connectivity.
-- **Error Handling and Retries:** Implement proper error handling and retry mechanisms for network requests. Use exponential backoff to avoid overwhelming the server with retries.
-- **Testing and Monitoring:** Thoroughly test the app's network behavior under different network conditions and device states. Use network monitoring tools to identify performance bottlenecks and optimize network requests. Implement logging and analytics to track network usage and identify potential issues.
-
-By implementing these QoS techniques, you can significantly improve the performance, responsiveness, and battery life of your mobile app, providing a better experience for your users.
+Check out [Quality of Service Deep Dive](topics/quality-of-service.md) for details on concurrency limits, request prioritization, and power management.
 
 ### Resumable Uploads (Chunked Uploads)
 
-Resumable uploads, also known as chunked uploads, break down a large file upload into smaller, manageable chunks. This technique allows the upload to be paused and resumed without losing progress, making it ideal for situations where network connectivity is unreliable or the upload size is significant. This also allows for more granular error reporting and potentially, faster recovery.
+Resumable uploads break down large files into smaller chunks, allowing the upload to be paused and resumed. This improves reliability on unstable networks.
 
-The resumable upload process typically involves these stages:
-
-- **Upload Initialization:** The client initiates the upload by sending a request to the server, providing metadata about the file (name, size, content type). The server creates a temporary storage location and returns a unique upload ID or URL to the client.
-- **Chunk Bytes Uploading (Appending):** The client divides the file into smaller chunks (e.g., 1MB, 5MB) and uploads each chunk separately to the server using the upload ID or URL. The client sends each chunk with a specific offset indicating its position in the overall file.
-- **Upload Finalization:** Once all chunks have been successfully uploaded, the client sends a finalization request to the server. The server assembles the chunks into the complete file and performs any necessary processing (e.g., validation, transcoding).
-
-![Resumable-Uploads](/images/resumable-uploads.svg)
-
-**Advantages of Resumable Uploads:**
-
-- **Allows you to resume interrupted data transfer operations without restarting from the beginning:** This is the primary advantage, especially crucial for users with unreliable network connections or large file uploads. Saves time, bandwidth, and improves the user experience.
-- **Improved Reliability:** By dividing the upload into smaller chunks, it reduces the impact of network interruptions. If a chunk fails to upload, only that chunk needs to be retransmitted, not the entire file.
-- **Bandwidth Optimization:** Resuming from a specific point avoids resending already transferred data, conserving bandwidth.
-- **Progress Monitoring:** Allows for more accurate and granular progress tracking during the upload process, providing users with better feedback. This also allows for better prioritization of bandwidth within the device.
-- **Parallel Uploading (Potentially):** Some implementations allow for uploading multiple chunks in parallel, further speeding up the upload process (however, this can increase complexity). This requires server-side support for out-of-order chunk arrival and assembly.
-- **Improved Error Handling:** Easier to pinpoint and handle errors at a chunk level rather than the entire upload.
-- **Resource Management:** Can help manage server-side resources more effectively by receiving and processing data in smaller increments.
-- **Suitable for Large Files:** Essential for uploading files exceeding size limits imposed by HTTP servers or mobile operating systems.
-
-**Disadvantages of Resumable Uploads:**
-
-- **An overhead from additional connections and metadata:** Each chunk requires a separate HTTP request, adding overhead to the overall upload process. Requires careful management of HTTP headers.
-- **Increased Complexity:** Implementing resumable uploads requires more complex client-side and server-side logic compared to single-request uploads.
-- **Server-Side Requirements:** Requires server-side support for handling chunked uploads, storing temporary data, and assembling the complete file.
-- **State Management:** Both client and server need to maintain state about the upload process (e.g., upload ID, chunk offsets), which can add complexity.
-- **Error Handling:** Requires robust error handling to deal with network interruptions, server errors, and other potential issues.
-- **Potential for Data Corruption:** If chunks are not assembled correctly, it can lead to data corruption. Requires careful validation and integrity checks.
-- **Storage Requirements:** The server needs temporary storage space to hold the uploaded chunks until the upload is finalized.
-
-**Additional Considerations:**
-
-- **Chunk Size:** The optimal chunk size depends on network conditions, file size, and server capabilities. Experiment with different chunk sizes to find the best balance between performance and overhead.
-- **Encryption:** Encrypt the uploaded chunks to protect sensitive data in transit and at rest.
-- **Concurrency:** Consider the number of concurrent uploads allowed to prevent overwhelming the device or server.
-- **Timeout Handling:** Implement timeouts to handle stalled uploads.
-- **Background Uploads:** If the upload can be interrupted (app closed), consider using background upload tasks with OS-level support (WorkManager/BackgroundTasks)
-- **Idempotency:** Ensure that resuming a failed upload does not result in duplicate data on the server. Use unique identifiers for each chunk.
-
-**Note:** Resumable uploads are most effective with large uploads (videos, archives) on unstable networks. For smaller files (images, texts) and stable networks, a single-request upload should be sufficient. Carefully weigh the benefits and drawbacks before implementing resumable uploads. If targeting a specific cloud storage provider, utilize their SDK which may provide simplified upload mechanisms.
-
-#### More Info:
-- [YouTube: Resumable Uploads](https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol)
-- [Google Photos: Resumable Uploads](https://developers.google.com/photos/library/guides/resumable-uploads)
-- [Google Cloud: Resumable Uploads](https://cloud.google.com/storage/docs/resumable-uploads)
-- [Twitter: Chunked Media Upload](https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/uploading-media/chunked-media-upload)
+Check out [Resumable Uploads Deep Dive](topics/resumable-uploads.md) for the initialization process, chunk appending, and advantages/disadvantages.
 
 ### Prefetching
 
-Prefetching is a technique used to improve application performance by proactively fetching data or resources that are likely to be needed in the future. By loading data in the background before it's explicitly requested, prefetching can significantly reduce latency and enhance the user experience. This creates the illusion of instant loading times and a more responsive application.
+Prefetching proactively fetches data before it is explicitly requested (e.g., preloading the next page of a feed). This reduces latency and improves UX but consumes more resources.
 
-Prefetching can be applied to various types of content, including:
-
-- **Data:** Pre-loading data for upcoming screens or features.
-- **Images:** Caching images likely to be viewed by the user.
-- **Code:** Downloading code modules or assets for features that might be used soon.
-- **Configuration:** Fetching configuration updates in advance.
-
-#### Types of Prefetching:
-
-*   **Predictive Prefetching**: Uses machine learning or heuristics to predict which data or resources the user will need based on their past behavior and patterns.
-*   **Cache-Aware Prefetching**: Takes into account what is already cached and prefetches only what is missing, optimizing bandwidth usage.
-*   **Just-In-Time (JIT) Prefetching**: Preloads resources just before they are needed. E.g. when the user scrolls close to the end of the page (but before making a request), prefetch the next page.
-
-#### Advantages of Prefetching:
-
-- **Improved Performance:** Reduced latency and faster loading times.
-- **Enhanced User Experience:** Smoother and more responsive application.
-- **Increased User Engagement:** Users are more likely to interact with an app that feels fast and fluid.
-- **Hides network latency:** Creates a better user experience, even on slower connections.
-
-#### Disadvantages of Prefetching:
-
-- **Increased Bandwidth Usage:** Unnecessary prefetching can consume bandwidth, especially on metered connections.
-- **Increased Battery Consumption:** Downloading data in the background can drain battery life.
-- **Increased Storage Consumption:** Caching prefetched data can consume device storage.
-- **Potential for Stale Data:** Prefetched data may become stale if it's not updated frequently.
-- **Resource Wastage:** Resources might be fetched that are never actually used, wasting bandwidth and battery.
-- **Complex Implementation:** Requires careful planning and implementation to avoid negative impacts.
-
-#### Considerations for Implementing Prefetching:
-
-- **Network Conditions:** Adapt prefetching behavior based on network connectivity (Wi-Fi vs. cellular). Disable prefetching on metered connections or when the signal is weak.
-- **Device State:** Consider the device's battery level and charging status. Disable prefetching when the battery is low.
-- **User Behavior:** Use analytics to track user behavior and identify patterns. Prefetch content that is most likely to be needed.
-- **Data Staleness:** Implement a mechanism for invalidating and refreshing prefetched data to ensure that it's up-to-date. Use ETags to avoid downloading the same content repeatedly.
-- **Cache Management:** Implement a cache eviction policy to remove less frequently used data and prevent excessive storage consumption. Use Least Recently Used (LRU) or Least Frequently Used (LFU) algorithms.
-- **QoS (Quality of Service):** Prioritize prefetching requests based on their importance. Defer prefetching tasks when user-critical requests are in progress.
-- **User Control:** Provide users with control over prefetching settings. Allow them to disable prefetching or adjust the amount of data that is prefetched.
-- **Testing and Monitoring:** Thoroughly test the app's prefetching behavior under different network conditions and device states. Monitor network usage, battery consumption, and storage consumption to identify potential issues.
-- **Respect User Privacy:** Only prefetch data that is relevant to the user's current activity. Avoid prefetching sensitive or private data without explicit consent.
-
-#### Mitigating Negative Impacts:
-
-- **Use ETags**: Send conditional GET requests with `If-None-Match` to check if the prefetched content has been updated. This avoids downloading the same content repeatedly if it hasn't changed.
-- **Adaptive Prefetching**: Monitor network conditions and device state and adjust prefetching behavior accordingly.
-- **Time-Based Invalidation**: Set a time-to-live (TTL) for prefetched data and invalidate it after a certain period to prevent staleness.
-- **User-Initiated Refresh**: Provide a way for users to manually refresh the data if they suspect it's stale.
-- **Stop on User Action**: If the user performs an action that indicates they no longer need the prefetched content, stop the prefetching process immediately.
-
-#### More Info:
-- [Optimize downloads for efficient network access](https://developer.android.com/training/efficient-downloads/efficient-network-access)
-- [Improving performance with background data prefetching](https://instagram-engineering.com/improving-performance-with-background-data-prefetching-b191acb39898)
-- [Informed mobile prefetching](https://dl.acm.org/doi/10.1145/2307636.2307651)
-- [Understanding prefetching and how Facebook uses prefetching](https://www.facebook.com/business/help/1514372351922333)
+Check out [Prefetching Deep Dive](topics/prefetching.md) for types of prefetching, implementation strategies, and how to mitigate negative impacts.
 
 ## Conclusion
 
@@ -1077,6 +941,8 @@ The focus and complexity of system design interviews will vary depending on the 
 *   Think about cost optimization and resource allocation.
 
 ## Looking for more content?
+### Interview Template
+Use the [TEMPLATE.md](TEMPLATE.md) to structure your notes during mock interviews.
 ### System Design Exercises
 Check out the [collection](/exercises) of mobile system design exercises.
 ### Common System Design Interview Mistakes
