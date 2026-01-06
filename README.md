@@ -156,7 +156,7 @@ No strict rule. Work with the interviewer; ask if they want more detail or to mo
 - Implementation details are widely available online.
 
 #### What drawing tool should I use?
-[Excalidraw](https://excalidraw.com/), [Google Jamboard](https://jamboard.google.com/), and [Google Drawings](https://docs.google.com/drawings) are popular. Some prefer collaborative editors and verbal discussion. Privacy policies may limit tool choices.
+[Excalidraw](https://excalidraw.com/) and [Google Drawings](https://docs.google.com/drawings) are popular choices. Some prefer collaborative editors and verbal discussion. Privacy policies may limit tool choices.
 
 ## Client Library Design
 If the interview task is to design a **Library** (e.g., Image Loader, Analytics SDK) rather than an App, the focus shifts to the **Public API Design**.
@@ -175,127 +175,41 @@ Cover as much ground as possible. Ask if the interviewer has preferences, or cho
 ### Real-time Notifications
 Discuss approaches for real-time updates:
 
-- **Push Notifications:**
-  - Pros:
-    - **Easier to implement:** Requires less client-side and server-side engineering effort compared to persistent connections.
-    - **Can wake the app in the background:** Allows delivery of updates even when the app is not actively running (within OS limitations).
-    - **Battery efficient (when used correctly):** The OS manages the connection and delivery, optimizing for battery life.
-  - Cons:
-    - **Not 100% reliable:** Delivery is not guaranteed due to network conditions, device state, or platform limitations (e.g., Doze mode on Android).
-    - **May have delays:** Delivery latency can vary depending on network conditions and the push notification provider.
-    - **Relies on 3rd-party service:** Dependent on Apple's APNs (iOS) or Google's FCM (Android), introducing a point of failure and potential vendor lock-in.
-    - **Users can opt-out:** Users can disable push notifications at the OS level or within the app.
-    - **Potential for abuse (spam):** Can be easily misused to send irrelevant or excessive notifications, leading to user frustration and app uninstalls.
-- **HTTP-polling:**
-  - Periodic requests for updates. Can create excessive traffic and backend load.
-    - **Short polling:** Fixed time interval.
-      - Pros:
-        - **Simple to implement:** Relatively straightforward client-side and server-side logic.
-        - **No persistent connection:** Avoids the complexities of managing and maintaining persistent connections.
-        - **Compatible with firewalls and proxies:** Less likely to be blocked by restrictive network environments.
-        - **Easy to scale horizontally:** The stateless nature of HTTP makes it easier to distribute load across multiple servers.
-        - **Less expensive (if infrequent):** Lower server resource utilization if the polling interval is large.
-        - **Can be useful for batch updates:** Polling can be used to retrieve multiple updates in a single request.
-      - Cons:
-        - **Potential for significant delays:** Notification delivery is limited by the polling interval.
-        - **Overhead from TLS handshake and HTTP headers:** Repeated connections introduce significant overhead, especially for small updates.
-        - **Inefficient bandwidth usage:** The client sends requests even when there are no updates available.
-        - **High server load:** Frequent polling can strain server resources, especially with a large number of clients.
-    - **Long polling:**
-      - Pros:
-        - **Instant notifications (almost):** Server holds the connection open until an update is available, minimizing latency.
-      - Cons:
-        - **More complex, requires more server resources:** Requires more sophisticated server-side logic to manage connections and track updates.
-        - **Keeps a persistent connection (sort of):** Although not a *true* persistent connection like WebSockets, it simulates one, and managing timeouts is critical.
-        - **Still introduces some latency:** Dependent on server response time even with updates readily available.
-        - **Susceptible to connection timeouts and interruptions:** Requires robust error handling and reconnection logic.
-        - **Can be more complex to scale:** Requires sticky sessions or other mechanisms to ensure that the client connects to the correct server instance.
-- **Server-Sent Events (SSE):**
-  - Stream events over HTTP without polling.
-    - Pros:
-      - **Real-time updates with a single connection:** Establishes a unidirectional (server-to-client) stream for efficient delivery of updates.
-      - **Simpler than WebSockets:** Easier to implement and manage compared to bidirectional communication protocols.
-      - **Standard protocol:** Leverages standard HTTP protocol, making it easier to integrate with existing infrastructure.
-      - **Lower overhead than long polling:** Avoids the overhead of repeatedly establishing and tearing down connections.
-      - **Text-based protocol:** Easier to debug and inspect compared to binary protocols.
-    - Cons:
-      - **Keeps a persistent connection:** Requires server resources to maintain the connection.
-      - **Unidirectional:** Only supports server-to-client communication, making it unsuitable for applications that require frequent client-to-server updates.
-      - **Limited browser support (older browsers):** May require polyfills for older browsers.
-      - **Connection limits:** May be subject to connection limits imposed by browsers or proxies.
-- **WebSockets:**
-  - Bi-directional communication.
-    - Pros:
-      - **Can transmit binary and text data:** Supports both text-based and binary data, enabling a wide range of applications.
-      - **Full-duplex communication:** Enables real-time, bidirectional communication between the client and the server.
-      - **Lower latency than HTTP polling:** Avoids the overhead of repeatedly establishing and tearing down connections.
-      - **Efficient use of bandwidth:** Reduces bandwidth consumption by maintaining a persistent connection.
-    - Cons:
-      - **More complex to set up:** Requires more complex server-side and client-side logic compared to HTTP-based protocols.
-      - **Keeps a persistent connection:** Requires server resources to maintain the connection.
-      - **More complex to scale:** Requires specialized infrastructure and techniques to handle a large number of concurrent connections.
-      - **Firewall issues:** May be blocked by firewalls or proxies that do not support WebSockets.
-      - **Increased security concerns:** Requires careful attention to security to prevent attacks such as cross-site scripting (XSS) and denial-of-service (DoS).
-      - **Higher battery consumption:** Maintaining a persistent connection can drain battery life on mobile devices.
-      - **Harder to debug compared to HTTP:** Binary messages can be difficult to inspect.
+| Approach | Pros | Cons | Use Cases |
+| :--- | :--- | :--- | :--- |
+| **Push Notifications** | <ul><li>**Easier to implement:** Requires less client-side and server-side engineering effort compared to persistent connections.</li><li>**Can wake the app in the background:** Allows delivery of updates even when the app is not actively running (within OS limitations).</li><li>**Battery efficient (when used correctly):** The OS manages the connection and delivery, optimizing for battery life.</li></ul> | <ul><li>**Not 100% reliable:** Delivery is not guaranteed due to network conditions, device state, or platform limitations (e.g., Doze mode on Android).</li><li>**May have delays:** Delivery latency can vary depending on network conditions and the push notification provider.</li><li>**Relies on 3rd-party service:** Dependent on Apple's APNs (iOS) or Google's FCM (Android), introducing a point of failure and potential vendor lock-in.</li></ul> | Breaking news alerts, promotional offers, social media mentions, messaging apps (when app is backgrounded). |
+| **Short Polling** | <ul><li>**Simple to implement:** Relatively straightforward client-side and server-side logic.</li><li>**No persistent connection:** Avoids the complexities of managing and maintaining persistent connections.</li><li>**Compatible with firewalls and proxies:** Less likely to be blocked by restrictive network environments.</li><li>**Easy to scale horizontally:** The stateless nature of HTTP makes it easier to distribute load across multiple servers.</li><li>**Less expensive (if infrequent):** Lower server resource utilization if the polling interval is large.</li><li>**Can be useful for batch updates:** Polling can be used to retrieve multiple updates in a single request.</li></ul> | <ul><li>**Potential for significant delays:** Notification delivery is limited by the polling interval.</li><li>**Overhead from TLS handshake and HTTP headers:** Repeated connections introduce significant overhead, especially for small updates.</li><li>**Inefficient bandwidth usage:** The client sends requests even when there are no updates available.</li><li>**High server load:** Frequent polling can strain server resources, especially with a large number of clients.</li></ul> | Dashboards with low refresh requirements (e.g., status checks every 30s), legacy systems, low-traffic apps. |
+| **Long Polling** | <ul><li>**Instant notifications (almost):** Server holds the connection open until an update is available, minimizing latency.</li></ul> | <ul><li>**More complex, requires more server resources:** Requires more sophisticated server-side logic to manage connections and track updates.</li><li>**Keeps a persistent connection (sort of):** Although not a *true* persistent connection like WebSockets, it simulates one, and managing timeouts is critical.</li><li>**Still introduces some latency:** Dependent on server response time even with updates readily available.</li><li>**Susceptible to connection timeouts and interruptions:** Requires robust error handling and reconnection logic.</li><li>**Can be more complex to scale:** Requires sticky sessions or other mechanisms to ensure that the client connects to the correct server instance.</li></ul> | Web-based chat applications (fallback for WebSockets), simple notification systems where WebSockets are blocked or overkill. |
+| **SSE (Server-Sent Events)** | <ul><li>**Real-time updates with a single connection:** Establishes a unidirectional (server-to-client) stream for efficient delivery of updates.</li><li>**Simpler than WebSockets:** Easier to implement and manage compared to bidirectional communication protocols.</li><li>**Standard protocol:** Leverages standard HTTP protocol, making it easier to integrate with existing infrastructure.</li><li>**Lower overhead than long polling:** Avoids the overhead of repeatedly establishing and tearing down connections.</li><li>**Text-based protocol:** Easier to debug and inspect compared to binary protocols.</li></ul> | <ul><li>**Keeps a persistent connection:** Requires server resources to maintain the connection.</li><li>**Unidirectional:** Only supports server-to-client communication, making it unsuitable for applications that require frequent client-to-server updates.</li><li>**Limited browser support (older browsers):** May require polyfills for older browsers.</li><li>**Connection limits:** May be subject to connection limits imposed by browsers or proxies.</li></ul> | Live sports scores, stock tickers, social media news feeds, status updates. |
+| **WebSockets** | <ul><li>**Can transmit binary and text data:** Supports both text-based and binary data, enabling a wide range of applications.</li><li>**Full-duplex communication:** Enables real-time, bidirectional communication between the client and the server.</li><li>**Lower latency than HTTP polling:** Avoids the overhead of repeatedly establishing and tearing down connections.</li><li>**Efficient use of bandwidth:** Reduces bandwidth consumption by maintaining a persistent connection.</li></ul> | <ul><li>**More complex to set up:** Requires more complex server-side and client-side logic compared to HTTP-based protocols.</li><li>**Keeps a persistent connection:** Requires server resources to maintain the connection.</li><li>**More complex to scale:** Requires specialized infrastructure and techniques to handle a large number of concurrent connections.</li><li>**Firewall issues:** May be blocked by firewalls or proxies that do not support WebSockets.</li><li>**Increased security concerns:** Requires careful attention to security to prevent attacks such as cross-site scripting (XSS) and denial-of-service (DoS).</li><li>**Higher battery consumption:** Maintaining a persistent connection can drain battery life on mobile devices.</li><li>**Harder to debug compared to HTTP:** Binary messages can be difficult to inspect.</li></ul> | Real-time chat, multiplayer games, collaborative editing (e.g., Google Docs), live location tracking. |
 
 Choose an appropriate approach for the task. For "Design Twitter Feed", a combination of SSE (primary channel for "like" updates and potentially new tweet notifications if scale allows) and Push Notifications (for clients without active connections or less critical updates) could be suitable. Consider WebSockets for features like real-time chat or live video streaming (if in scope).
+
 
 ### Protocols
 
 #### REST (Representational State Transfer)
-Text-based, stateless protocol for CRUD (Create, Read, Update, Delete) operations.  Relies heavily on HTTP methods (GET, POST, PUT, DELETE).
+Text-based, stateless protocol for CRUD (Create, Read, Update, Delete) operations. Relies heavily on HTTP methods (GET, POST, PUT, DELETE).
 
-- Pros:
-  - **Easy to learn, understand, and implement:** Widely adopted and well-documented, with numerous libraries and frameworks available.
-  - **Easy to cache using HTTP caching:** Leverages built-in HTTP caching mechanisms (e.g., `Cache-Control` headers) for improved performance. CDNs are very effective with RESTful APIs.
-  - **Loose coupling:** Client and server are independent and can evolve separately as long as the API contract is maintained.
-  - **Stateless:** Each request contains all the information needed for the server to understand and process it, simplifying server-side logic and scalability.
-  - **Widely supported:** Supported by virtually all clients (browsers, mobile apps, etc.) and servers.
-  - **Human-readable:** Text-based messages are easy to debug and inspect.
-
-- Cons:
-  - **Less efficient on mobile due to separate connections:** Each request requires a new TCP connection (although HTTP/2 mitigates this somewhat with connection multiplexing). Still can contribute to battery drain.
-  - **Schemaless:** Difficult to validate data integrity and format on the client without custom validation logic or external schema definitions (e.g., OpenAPI/Swagger).  This also makes refactoring more risky.
-  - **Stateless:** Requires extra functionality to maintain session state, such as cookies or tokens, adding complexity to authentication and authorization.
-  - **Overhead from metadata and headers:** Each request contains contextual metadata and headers, which can add significant overhead, especially for small payloads.
-  - **Over-fetching/Under-fetching:** Clients often receive more data than they need (over-fetching) or need to make multiple requests to retrieve all the required data (under-fetching).
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Easy to learn, understand, and implement:** Widely adopted and well-documented, with numerous libraries and frameworks available.</li><li>**Easy to cache using HTTP caching:** Leverages built-in HTTP caching mechanisms (e.g., `Cache-Control` headers) for improved performance. CDNs are very effective with RESTful APIs.</li><li>**Loose coupling:** Client and server are independent and can evolve separately as long as the API contract is maintained.</li><li>**Stateless:** Each request contains all the information needed for the server to understand and process it, simplifying server-side logic and scalability.</li><li>**Widely supported:** Supported by virtually all clients (browsers, mobile apps, etc.) and servers.</li><li>**Human-readable:** Text-based messages are easy to debug and inspect.</li></ul> | <ul><li>**Less efficient on mobile due to separate connections:** Each request requires a new TCP connection (although HTTP/2 mitigates this somewhat with connection multiplexing). Still can contribute to battery drain.</li><li>**Schemaless:** Difficult to validate data integrity and format on the client without custom validation logic or external schema definitions (e.g., OpenAPI/Swagger). This also makes refactoring more risky.</li><li>**Stateless:** Requires extra functionality to maintain session state, such as cookies or tokens, adding complexity to authentication and authorization.</li><li>**Overhead from metadata and headers:** Each request contains contextual metadata and headers, which can add significant overhead, especially for small payloads.</li><li>**Over-fetching/Under-fetching:** Clients often receive more data than they need (over-fetching) or need to make multiple requests to retrieve all the required data (under-fetching).</li></ul> |
 
 Check out [RESTful API Design Deep Dive](topics/restful-api-design-deep-dive.md) for a deeper dive into best practices.
 
 #### GraphQL
 A query language for your API and a server-side runtime for executing those queries. Allows clients to request specific data from multiple resources using a single endpoint.
 
-- Pros:
-  - **Schema-based, typed queries:** Clients can verify data integrity and format against a well-defined schema, improving developer experience and reducing errors. Enables introspection of the API.
-  - **Highly customizable:** Clients can request only the specific data they need, reducing the amount of HTTP traffic and improving performance.  Eliminates over-fetching.
-  - **Bi-directional communication with GraphQL Subscriptions (WebSocket-based):** Supports real-time updates via WebSockets, enabling features like live feeds and notifications.
-  - **Strong typing:** Allows for compile-time checks, reducing runtime errors.
-  - **Versioning is less critical:** Because clients only request specific data, backend changes are less likely to break existing clients.
-  - **Developer tools:** Excellent tooling for development, including GraphiQL for exploring and testing queries.
-
-- Cons:
-  - **More complex backend:** Requires a more sophisticated server-side implementation compared to REST, including a GraphQL server and resolvers.
-  - **"Leaky abstraction" – tight client-backend coupling:** Clients become tightly coupled to the backend schema, making it harder to evolve the API without breaking existing clients. Can complicate refactoring.
-  - **Query performance depends on the slowest service (for federated data):** The performance of a query is bound to the performance of the slowest service on the backend, especially in a federated architecture where data is spread across multiple services. N+1 problem can occur without careful consideration.
-  - **Complexity with caching:** HTTP caching is more difficult to implement compared to REST, requiring specialized solutions.
-  - **Security considerations:** Requires careful attention to security to prevent malicious queries and unauthorized access.
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Schema-based, typed queries:** Clients can verify data integrity and format against a well-defined schema, improving developer experience and reducing errors. Enables introspection of the API.</li><li>**Highly customizable:** Clients can request only the specific data they need, reducing the amount of HTTP traffic and improving performance. Eliminates over-fetching.</li><li>**Bi-directional communication with GraphQL Subscriptions (WebSocket-based):** Supports real-time updates via WebSockets, enabling features like live feeds and notifications.</li><li>**Strong typing:** Allows for compile-time checks, reducing runtime errors.</li><li>**Versioning is less critical:** Because clients only request specific data, backend changes are less likely to break existing clients.</li><li>**Developer tools:** Excellent tooling for development, including GraphiQL for exploring and testing queries.</li></ul> | <ul><li>**More complex backend:** Requires a more sophisticated server-side implementation compared to REST, including a GraphQL server and resolvers.</li><li>**"Leaky abstraction" – tight client-backend coupling:** Clients become tightly coupled to the backend schema, making it harder to evolve the API without breaking existing clients. Can complicate refactoring.</li><li>**Query performance depends on the slowest service (for federated data):** The performance of a query is bound to the performance of the slowest service on the backend, especially in a federated architecture where data is spread across multiple services. N+1 problem can occur without careful consideration.</li><li>**Complexity with caching:** HTTP caching is more difficult to implement compared to REST, requiring specialized solutions.</li><li>**Security considerations:** Requires careful attention to security to prevent malicious queries and unauthorized access.</li></ul> |
 
 #### WebSocket
 Full-duplex communication over a single TCP connection.
 
-- Pros:
-  - **Real-time, bi-directional communication:** Enables continuous communication between the client and the server, ideal for applications that require low-latency updates.
-  - **Supports text and binary data:** Can transmit both text-based and binary data, making it versatile for various use cases.
-  - **Low latency:** Reduces latency by maintaining a persistent connection, avoiding the overhead of repeatedly establishing and tearing down connections.
-  - **Efficient bandwidth usage:** Reduces bandwidth consumption by only sending data when there are updates.
-
-- Cons:
-  - **Requires maintaining an active connection:** Requires server resources to maintain the connection, potentially leading to scalability challenges.
-  - **Schemaless:** Difficult to validate data integrity and format on the client without custom validation logic. This can also make debugging more difficult.
-  - **Limited number of active connections per server (65k limitation is theoretical and OS-dependent):**  The actual limit depends on the server operating system and hardware, but managing a very high number of concurrent connections can be challenging. Connection pooling and proper resource allocation are crucial.
-  - **More complex to implement than HTTP polling or SSE:** Requires more sophisticated client-side and server-side logic.
-  - **Stateful:** The server needs to maintain state about each client connection, which can complicate scaling and fault tolerance.
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Real-time, bi-directional communication:** Enables continuous communication between the client and the server, ideal for applications that require low-latency updates.</li><li>**Supports text and binary data:** Can transmit both text-based and binary data, making it versatile for various use cases.</li><li>**Low latency:** Reduces latency by maintaining a persistent connection, avoiding the overhead of repeatedly establishing and tearing down connections.</li><li>**Efficient bandwidth usage:** Reduces bandwidth consumption by only sending data when there are updates.</li></ul> | <ul><li>**Requires maintaining an active connection:** Requires server resources to maintain the connection, potentially leading to scalability challenges.</li><li>**Schemaless:** Difficult to validate data integrity and format on the client without custom validation logic. This can also make debugging more difficult.</li><li>**Limited number of active connections per server (65k limitation is theoretical and OS-dependent):** The actual limit depends on the server operating system and hardware, but managing a very high number of concurrent connections can be challenging. Connection pooling and proper resource allocation are crucial.</li><li>**More complex to implement than HTTP polling or SSE:** Requires more sophisticated client-side and server-side logic.</li><li>**Stateful:** The server needs to maintain state about each client connection, which can complicate scaling and fault tolerance.</li></ul> |
 
 Learn more:
 - [WebSocket Tutorial - How WebSockets Work](https://www.youtube.com/watch?v=pNxK8fPKstc)
@@ -303,97 +217,34 @@ Learn more:
 #### gRPC (gRPC Remote Procedure Calls)
 A modern open source high performance Remote Procedure Call (RPC) framework that runs on top of HTTP/2. Supports bi-directional streaming using a single physical connection.
 
-- Pros:
-  - **Lightweight binary messages (smaller than text-based):** Uses Protocol Buffers (Protobuf) for message serialization, resulting in smaller message sizes and improved performance.
-  - **Schema-based:** Built-in code generation with Protobuf, ensuring type safety and reducing errors.
-  - **Supports event-driven architecture:** Provides support for server-side streaming, client-side streaming, and bi-directional streaming, enabling a wide range of use cases.
-  - **Multiple parallel requests:** Leverages HTTP/2 multiplexing to send multiple requests over a single connection.
-  - **High performance:** Optimized for low latency and high throughput.
-  - **Strong typing:** Provides strong typing for both requests and responses, reducing runtime errors.
-  - **Good performance on unreliable networks:** Protocol Buffers are designed to be resilient to data corruption and network disruptions.
-
-- Cons:
-  - **Limited browser support:** Requires gRPC-Web for browser clients, which adds complexity. While support has improved, it's still not as seamless as REST or GraphQL.
-  - **Non-human-readable format:** Binary messages are difficult to debug and inspect without specialized tools.
-  - **Steeper learning curve:** Requires familiarity with Protocol Buffers and gRPC concepts.
-  - **Increased complexity compared to REST:** More complex to set up and configure compared to REST.
-  - **Heavier on client:** The client library required for gRPC is generally larger compared to REST, which may impact app size.
-  - **Not as widely understood as REST:** REST is much more widely understood, and developers are more likely to be familiar with it.
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Lightweight binary messages (smaller than text-based):** Uses Protocol Buffers (Protobuf) for message serialization, resulting in smaller message sizes and improved performance.</li><li>**Schema-based:** Built-in code generation with Protobuf, ensuring type safety and reducing errors.</li><li>**Supports event-driven architecture:** Provides support for server-side streaming, client-side streaming, and bi-directional streaming, enabling a wide range of use cases.</li><li>**Multiple parallel requests:** Leverages HTTP/2 multiplexing to send multiple requests over a single connection.</li><li>**High performance:** Optimized for low latency and high throughput.</li><li>**Strong typing:** Provides strong typing for both requests and responses, reducing runtime errors.</li><li>**Good performance on unreliable networks:** Protocol Buffers are designed to be resilient to data corruption and network disruptions.</li></ul> | <ul><li>**Limited browser support:** Requires gRPC-Web for browser clients, which adds complexity. While support has improved, it's still not as seamless as REST or GraphQL.</li><li>**Non-human-readable format:** Binary messages are difficult to debug and inspect without specialized tools.</li><li>**Steeper learning curve:** Requires familiarity with Protocol Buffers and gRPC concepts.</li><li>**Increased complexity compared to REST:** More complex to set up and configure compared to REST.</li><li>**Heavier on client:** The client library required for gRPC is generally larger compared to REST, which may impact app size.</li><li>**Not as widely understood as REST:** REST is much more widely understood, and developers are more likely to be familiar with it.</li></ul> |
 
 #### MQTT (Message Queuing Telemetry Transport)
 A lightweight, publish-subscribe network protocol that transports messages between devices. Often used for IoT applications but can be suitable for mobile in specific scenarios.
 
-- Pros:
-    - **Lightweight:** Minimal bandwidth usage and low overhead, ideal for constrained networks.
-    - **Publish-Subscribe:** Decouples message producers and consumers.
-    - **Real-time communication:** Low latency and quick message delivery.
-    - **QoS Levels:** Provides different Quality of Service (QoS) levels to ensure message delivery based on importance (at most once, at least once, exactly once).
-
-- Cons:
-    - **Binary protocol:** Difficult to debug and inspect.
-    - **Not as widely used as HTTP-based protocols:** Less mature ecosystem compared to REST, GraphQL, and WebSockets.
-    - **Stateful:** Requires managing client connections and subscriptions.
-    - **Security Considerations:** Requires careful configuration to secure the MQTT broker and client connections.
-    - **Broker Dependency:** Relies on a central MQTT broker for message routing, which can be a single point of failure.
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Lightweight:** Minimal bandwidth usage and low overhead, ideal for constrained networks.</li><li>**Publish-Subscribe:** Decouples message producers and consumers.</li><li>**Real-time communication:** Low latency and quick message delivery.</li><li>**QoS Levels:** Provides different Quality of Service (QoS) levels to ensure message delivery based on importance (at most once, at least once, exactly once).</li></ul> | <ul><li>**Binary protocol:** Difficult to debug and inspect.</li><li>**Not as widely used as HTTP-based protocols:** Less mature ecosystem compared to REST, GraphQL, and WebSockets.</li><li>**Stateful:** Requires managing client connections and subscriptions.</li><li>**Security Considerations:** Requires careful configuration to secure the MQTT broker and client connections.</li><li>**Broker Dependency:** Relies on a central MQTT broker for message routing, which can be a single point of failure.</li></ul> |
 
 Select an appropriate protocol. REST is suitable for "Design Twitter Feed" due to its simplicity for many of the initial tasks, though consider GraphQL for more complex data fetching requirements in the future. For truly real-time scenarios (if in scope), explore WebSockets or SSE. gRPC may be overkill for the initial feature set but beneficial if significant performance improvements are needed with more complex features. Consider MQTT only if you specifically need to interact with IoT devices or have very constrained network conditions.
+
 
 ### Pagination
 Essential for endpoints returning lists. Prevents excessive network and memory usage.
 
 #### Types of Pagination
 
-- **Offset Pagination (also known as Limit-Offset Pagination):**
-  - `limit` and `offset` parameters: `GET /feed?offset=100&limit=20`. The `offset` specifies the index from which to start returning results, and the `limit` specifies the maximum number of results to return.
-  - Pros:
-    - **Easy to implement:** Parameters can be passed directly to a SQL query (e.g., `SELECT * FROM tweets LIMIT 20 OFFSET 100`).
-    - **Stateless on the server:** The server doesn't need to maintain any state about previous requests.
-    - **Simple to understand:** Intuitive for both developers and API consumers.
-  - Cons:
-    - **Poor performance with large offsets:** The database needs to scan through a large number of rows before returning the requested page, leading to increased latency, especially for large tables.
-    - **Inconsistent when adding/deleting rows (Page Drift):** If new items are inserted or deleted before the requested offset, the same item might appear on multiple pages, or items might be skipped entirely. This is also known as the "missing item" or "duplicate item" problem.
-    - **Not suitable for real-time feeds:** Page drift makes it unsuitable for rapidly changing datasets.
-    - **Vulnerable to Parameter Manipulation:** Clients can easily manipulate the offset parameter, potentially accessing unauthorized data or causing performance issues.
-
-- **Keyset Pagination (also known as Seek Method or Time-Based Pagination):**
-  - Uses values from the last item on the previous page to fetch the next set of items: `GET /feed?after=2021-05-25T00:00:00&limit=20`.  Instead of an offset, uses a value from the last item of the previous page (e.g., timestamp, ID) to determine where to start the next page.
-  - Pros:
-    - **Translates easily to SQL:** Can be implemented efficiently using `WHERE` clauses in SQL (e.g., `SELECT * FROM tweets WHERE created_at > '2021-05-25T00:00:00' ORDER BY created_at ASC LIMIT 20`).
-    - **Good performance with large datasets:** Avoids the performance issues of offset pagination, as the database can use an index on the ordering field.
-    - **Stateless on the server:** The server doesn't need to maintain any state about previous requests.
-    - **More resilient to insertions:** Insertions after the "after" value won't cause items to be skipped or duplicated (though insertions *before* will affect the total number of pages).
-  - Cons:
-    - **"Leaky abstraction" – pagination aware of the database:** The API exposes details about the underlying data storage (the ordering field), increasing the risk of breaking changes if the database schema changes.  API consumers need to know *what* field to paginate on.
-    - **Only works on fields with natural ordering (timestamps, IDs, etc.):** Requires a field that can be used to consistently order the results. Doesn't work well if there's no clear ordering.
-    - **Can have issues with ties:** If multiple items have the same value for the ordering field, the pagination might not be consistent (addressed using compound keyset pagination).
-    - **Sensitive to data modifications:** Deletions of items within a page can still cause issues.
-    - **Less flexible for random access:** Difficult to jump to a specific page without iterating through all the preceding pages.
-
-- **Cursor/Seek Pagination (also known as Token-Based Pagination):**
-  - Uses opaque cursors or tokens that encapsulate the pagination state. These cursors are typically base64 encoded and encrypted: `GET /feed?after_id=t1234xzy&limit=20`. The server generates a cursor for the next (or previous) page and returns it in the response. The client then uses this cursor to request the next page.
-  - Pros:
-    - **Decouples pagination from SQL:** The API doesn't expose any details about the underlying data storage or ordering.
-    - **Consistent ordering when inserting/deleting new items:** More robust to data modifications than offset pagination.
-    - **More flexible:** Can support various ordering criteria and complex queries.
-    - **Hides implementation details:** Clients don't need to know which field is being used for sorting/pagination.
-  - Cons:
-    - **More complex backend:** Requires generating and managing cursors, which involves encoding and encrypting the pagination state.  Also requires decoding and validating the cursor on subsequent requests.
-    - **Does not work well if cursors expire or become invalid:** Requires careful management of cursor lifetime and invalidation. Deletions of *all* items between the 'after_id' and the next item can invalidate the cursor.
-    - **Still potentially sensitive to item deletions:** If items are deleted and IDs re-used.
-    - **Less transparent:** Can be harder to debug issues, as the cursor is an opaque token.
-    - **Not easily bookmarkable:**  Cursors might expire, making bookmarking difficult.
-
-- **Page Number Pagination:**
-    - Uses page number and page size parameters: `GET /feed?page=3&pageSize=10`. Similar to offset pagination, but uses page numbers instead of offsets.
-    - Pros:
-        - **Easy for users to understand:** Intuitive for users familiar with traditional pagination.
-        - **Simple to implement (initially):** Can be implemented using offset pagination on the backend.
-    - Cons:
-        - **Inherits all the cons of offset pagination:** Poor performance with large page numbers, page drift issues, etc.
-        - **Not suitable for infinite scrolling:** Doesn't scale well for applications with a large number of pages.
-        - **Not suitable for real-time data:** Page drift issues.
+| Strategy | Pros | Cons |
+| :--- | :--- | :--- |
+| **Offset Pagination** (also known as Limit-Offset Pagination) | <ul><li>**Easy to implement:** Parameters can be passed directly to a SQL query (e.g., `SELECT * FROM tweets LIMIT 20 OFFSET 100`).</li><li>**Stateless on the server:** The server doesn't need to maintain any state about previous requests.</li><li>**Simple to understand:** Intuitive for both developers and API consumers.</li></ul> | <ul><li>**Poor performance with large offsets:** The database needs to scan through a large number of rows before returning the requested page, leading to increased latency, especially for large tables.</li><li>**Inconsistent when adding/deleting rows (Page Drift):** If new items are inserted or deleted before the requested offset, the same item might appear on multiple pages, or items might be skipped entirely. This is also known as the "missing item" or "duplicate item" problem.</li><li>**Not suitable for real-time feeds:** Page drift makes it unsuitable for rapidly changing datasets.</li><li>**Vulnerable to Parameter Manipulation:** Clients can easily manipulate the offset parameter, potentially accessing unauthorized data or causing performance issues.</li></ul> |
+| **Keyset Pagination** (also known as Seek Method or Time-Based Pagination) | <ul><li>**Translates easily to SQL:** Can be implemented efficiently using `WHERE` clauses in SQL (e.g., `SELECT * FROM tweets WHERE created_at > '2021-05-25T00:00:00' ORDER BY created_at ASC LIMIT 20`).</li><li>**Good performance with large datasets:** Avoids the performance issues of offset pagination, as the database can use an index on the ordering field.</li><li>**Stateless on the server:** The server doesn't need to maintain any state about previous requests.</li><li>**More resilient to insertions:** Insertions after the "after" value won't cause items to be skipped or duplicated (though insertions *before* will affect the total number of pages).</li></ul> | <ul><li>**"Leaky abstraction" – pagination aware of the database:** The API exposes details about the underlying data storage (the ordering field), increasing the risk of breaking changes if the database schema changes. API consumers need to know *what* field to paginate on.</li><li>**Only works on fields with natural ordering (timestamps, IDs, etc.):** Requires a field that can be used to consistently order the results. Doesn't work well if there's no clear ordering.</li><li>**Can have issues with ties:** If multiple items have the same value for the ordering field, the pagination might not be consistent (addressed using compound keyset pagination).</li><li>**Sensitive to data modifications:** Deletions of items within a page can still cause issues.</li><li>**Less flexible for random access:** Difficult to jump to a specific page without iterating through all the preceding pages.</li></ul> |
+| **Cursor/Seek Pagination** (also known as Token-Based Pagination) | <ul><li>**Decouples pagination from SQL:** The API doesn't expose any details about the underlying data storage or ordering.</li><li>**Consistent ordering when inserting/deleting new items:** More robust to data modifications than offset pagination.</li><li>**More flexible:** Can support various ordering criteria and complex queries.</li><li>**Hides implementation details:** Clients don't need to know which field is being used for sorting/pagination.</li></ul> | <ul><li>**More complex backend:** Requires generating and managing cursors, which involves encoding and encrypting the pagination state. Also requires decoding and validating the cursor on subsequent requests.</li><li>**Does not work well if cursors expire or become invalid:** Requires careful management of cursor lifetime and invalidation. Deletions of *all* items between the 'after_id' and the next item can invalidate the cursor.</li><li>**Still potentially sensitive to item deletions:** If items are deleted and IDs re-used.</li><li>**Less transparent:** Can be harder to debug issues, as the cursor is an opaque token.</li><li>**Not easily bookmarkable:** Cursors might expire, making bookmarking difficult.</li></ul> |
+| **Page Number Pagination** | <ul><li>**Easy for users to understand:** Intuitive for users familiar with traditional pagination.</li><li>**Simple to implement (initially):** Can be implemented using offset pagination on the backend.</li></ul> | <ul><li>**Inherits all the cons of offset pagination:** Poor performance with large page numbers, page drift issues, etc.</li><li>**Not suitable for infinite scrolling:** Doesn't scale well for applications with a large number of pages.</li><li>**Not suitable for real-time data:** Page drift issues.</li></ul> |
 
 Choose an approach. Cursor Pagination is suitable for "Design Twitter Feed" as it decouples pagination from the underlying data store and can handle insertions/deletions reasonably well. However, consider the complexity of implementation. If the dataset doesn't change frequently and the API is read-heavy, Keyset pagination might be a simpler and more performant alternative. Offset pagination is generally discouraged unless the dataset is small and doesn't change frequently.
+
 
 Example API request:
 ```
@@ -452,71 +303,14 @@ The interviewer assesses:
 ### Data Storage Options
 Local device storage options:
 
-- **Key-Value Storage (UserDefaults/SharedPreferences/Property List/MMKV):**
-  - Stores primitive data with string keys. Best for simple, unstructured, *non-relational* data. Consider `MMKV` on Android for increased performance.
-    - Pros:
-      - **Easy to use built-in API:** Simple APIs for storing and retrieving data.
-      - **Fast for simple operations:** Efficient for small amounts of data.
-      - **Low overhead:** Minimal memory footprint.
-    - Cons:
-      - **Insecure:** Data is stored in plain text (use `EncryptedSharedPreferences` on Android, third-party wrappers or `Keychain` on iOS for sensitive data).
-      - **Not for large data:** Performance degrades significantly with large datasets.
-      - **No schema or querying:** Limited querying capabilities.  No data integrity constraints.
-      - **No data migration:** Difficult to manage schema changes.
-      - **Poor performance for complex operations:** Inefficient for complex data structures or operations.
-      - **Not ACID compliant:** No guarantee of atomicity, consistency, isolation, or durability.
+| Option | Pros | Cons |
+| :--- | :--- | :--- |
+| **Key-Value Storage** (UserDefaults/SharedPreferences/Property List/MMKV) | <ul><li>**Easy to use built-in API:** Simple APIs for storing and retrieving data.</li><li>**Fast for simple operations:** Efficient for small amounts of data.</li><li>**Low overhead:** Minimal memory footprint.</li></ul> | <ul><li>**Insecure:** Data is stored in plain text (use `EncryptedSharedPreferences` on Android, third-party wrappers or `Keychain` on iOS for sensitive data).</li><li>**Not for large data:** Performance degrades significantly with large datasets.</li><li>**No schema or querying:** Limited querying capabilities. No data integrity constraints.</li><li>**No data migration:** Difficult to manage schema changes.</li><li>**Poor performance for complex operations:** Inefficient for complex data structures or operations.</li><li>**Not ACID compliant:** No guarantee of atomicity, consistency, isolation, or durability.</li></ul> |
+| **Database/ORM** (SQLite/Room/Core Data/Realm/ObjectBox) | <ul><li>**Object-relational mapping (ORM):** Simplifies data access and manipulation using object-oriented paradigms.</li><li>**Schema and querying:** Supports structured data with defined schemas and powerful querying capabilities using SQL or ORM-specific query languages.</li><li>**Data migration:** Provides mechanisms for managing schema changes and data migration.</li><li>**ACID properties:** Guarantees atomicity, consistency, isolation, and durability.</li><li>**Efficient for complex operations:** Optimized for complex data structures and operations.</li></ul> | <ul><li>**More complex setup:** Requires defining schemas, setting up database connections, and managing ORM configurations.</li><li>**Potentially Insecure:** (use SQLCipher or other encryption libraries, properly configured)</li><li>**Bigger memory footprint:** Database files can consume significant storage space.</li><li>**Performance overhead:** ORM can introduce performance overhead compared to raw SQL queries.</li><li>**Steeper learning curve:** Requires familiarity with SQL or ORM concepts.</li></ul> |
+| **Custom/Binary** (DataStore/NSCoding/Codable/Protocol Buffers) | <ul><li>**Highly customizable:** Allows fine-grained control over data serialization and storage.</li><li>**Performant:** Can be optimized for specific data structures and operations.</li><li>**Potentially smaller footprint:** If you carefully control serialization and avoid ORM overhead.</li></ul> | <ul><li>**No schema/migration:** Requires manual management of schema changes and data migration.</li><li>**Lots of manual effort:** Requires writing custom serialization and deserialization code.</li><li>**Increased complexity:** Requires a deep understanding of data structures and serialization techniques.</li><li>**Error-prone:** Serialization and deserialization code can be complex and prone to errors.</li><li>**Harder to debug:** Binary formats are difficult to inspect and debug without specialized tools.</li></ul> |
+| **On-Device Secure Storage** (Keystore/Key Chain/Android Biometrics) | <ul><li>**Secure:** Provides hardware-backed or OS-level encryption for sensitive data. Protects against unauthorized access and data breaches.</li><li>**Integrates with device security:** Leverages device-level security features such as biometrics and PIN/password authentication.</li></ul> | <ul><li>**Not optimized for general storage:** Designed for storing small amounts of sensitive data such as encryption keys and user credentials.</li><li>**Encryption/decryption overhead:** Can introduce performance overhead for encryption and decryption operations.</li><li>**No schema/migration:** Limited querying capabilities. Difficult to manage schema changes.</li><li>**Complex API:** Can be complex to use correctly.</li><li>**Limited storage:** Has restrictions on the amount of storage space available.</li><li>**User Dependency:** Reliant on the user configuring a lockscreen.</li></ul> |
+| **File Storage** (Internal/External Storage) | <ul><li>**Simple to implement.**</li><li>**Suitable for storing large, unstructured data.**</li></ul> | <ul><li>**No schema.**</li><li>**Limited querying capabilities.**</li><li>**Can be slow for random access.**</li><li>**Requires careful management of file paths and permissions.**</li></ul> |
 
-- **Database/ORM (SQLite/Room/Core Data/Realm/ObjectBox):**
-  - Relational or object database. For large, structured, *relational* data requiring complex queries, transactions, and data integrity. Consider `Room` on Android for a modern, type-safe SQLite abstraction.
-    - Pros:
-      - **Object-relational mapping (ORM):** Simplifies data access and manipulation using object-oriented paradigms.
-      - **Schema and querying:** Supports structured data with defined schemas and powerful querying capabilities using SQL or ORM-specific query languages.
-      - **Data migration:** Provides mechanisms for managing schema changes and data migration.
-      - **ACID properties:** Guarantees atomicity, consistency, isolation, and durability.
-      - **Efficient for complex operations:** Optimized for complex data structures and operations.
-    - Cons:
-      - **More complex setup:** Requires defining schemas, setting up database connections, and managing ORM configurations.
-      - **Potentially Insecure:** (use SQLCipher or other encryption libraries, properly configured)
-      - **Bigger memory footprint:** Database files can consume significant storage space.
-      - **Performance overhead:** ORM can introduce performance overhead compared to raw SQL queries.
-      - **Steeper learning curve:** Requires familiarity with SQL or ORM concepts.
-
-- **Custom/Binary (DataStore/NSCoding/Codable/Protocol Buffers):**
-  - Low-level storage and loading. For custom data serialization and storage pipelines where you need maximum control over performance and data format.  Consider `Protocol Buffers` for efficient serialization and deserialization.  DataStore on Android provides a performant solution without ORM overhead.
-    - Pros:
-      - **Highly customizable:** Allows fine-grained control over data serialization and storage.
-      - **Performant:** Can be optimized for specific data structures and operations.
-      - **Potentially smaller footprint:** If you carefully control serialization and avoid ORM overhead.
-    - Cons:
-      - **No schema/migration:** Requires manual management of schema changes and data migration.
-      - **Lots of manual effort:** Requires writing custom serialization and deserialization code.
-      - **Increased complexity:** Requires a deep understanding of data structures and serialization techniques.
-      - **Error-prone:** Serialization and deserialization code can be complex and prone to errors.
-      - **Harder to debug:** Binary formats are difficult to inspect and debug without specialized tools.
-
-- **On-Device Secure Storage (Keystore/Key Chain/Android Biometrics):**
-  - Hardware-backed or OS-encrypted storage for sensitive data, encryption keys, certificates, and user credentials.  Use the `Android Biometrics` API for secure authentication with biometric sensors.
-    - Pros:
-      - **Secure:** Provides hardware-backed or OS-level encryption for sensitive data. Protects against unauthorized access and data breaches.
-      - **Integrates with device security:** Leverages device-level security features such as biometrics and PIN/password authentication.
-    - Cons:
-      - **Not optimized for general storage:** Designed for storing small amounts of sensitive data such as encryption keys and user credentials.
-      - **Encryption/decryption overhead:** Can introduce performance overhead for encryption and decryption operations.
-      - **No schema/migration:** Limited querying capabilities. Difficult to manage schema changes.
-      - **Complex API:** Can be complex to use correctly.
-      - **Limited storage:** Has restrictions on the amount of storage space available.
-      - **User Dependency:** Reliant on the user configuring a lockscreen.
-
-- **File Storage (Internal/External Storage):**
-  - Storing data as files, suitable for larger unstructured data like images, videos, and documents.
-    - Pros:
-        - Simple to implement.
-        - Suitable for storing large, unstructured data.
-    - Cons:
-        - No schema.
-        - Limited querying capabilities.
-        - Can be slow for random access.
-        - Requires careful management of file paths and permissions.
 
 ### Storage Location
 - **Internal:** Sandboxed, private to the app, and not readable by other apps (with few exceptions). Data is deleted when the app is uninstalled.
@@ -680,42 +474,21 @@ Privacy and security should be a central consideration throughout the entire dev
 
 Choose between running functionality on a device or in the cloud. Especially relevant for On-Device AI, Machine Learning, and complex processing.
 
-**Advantages of running things in a cloud:**
-- **Device-independent:** Customers are not limited by device capabilities (CPU, GPU, memory). Runs consistently across all devices.
-- **Better usage of client system resources:** Offloads intensive computation, saving device battery and preventing overheating.
-- **Fast pace of changes:** Updates and improvements can be deployed server-side without requiring app updates, enabling rapid iteration. A/B testing and experimentation are easier.
-- **Bigger computational resources:** Access to virtually unlimited compute power, enabling complex tasks such as large-scale data processing and complex AI models.
-- **Better security:** Server-side code is generally more secure than client-side code, as it is not exposed to the user. Easier to protect against reverse engineering and tampering. Secure environments and more sophisticated security tools are usually available.
-- **Easier analytics and offline data analysis:** Centralized data collection enables comprehensive analytics and insights into user behavior and app performance. Easier to perform batch processing and machine learning on aggregated data.
-- **Simplified development:** Can simplify mobile development by offloading complex logic and processing to the cloud. Developers can focus on building the user interface and user experience.
+**Cloud Execution**
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Device-independent:** Customers are not limited by device capabilities (CPU, GPU, memory). Runs consistently across all devices.</li><li>**Better usage of client system resources:** Offloads intensive computation, saving device battery and preventing overheating.</li><li>**Fast pace of changes:** Updates and improvements can be deployed server-side without requiring app updates, enabling rapid iteration. A/B testing and experimentation are easier.</li><li>**Bigger computational resources:** Access to virtually unlimited compute power, enabling complex tasks such as large-scale data processing and complex AI models.</li><li>**Better security:** Server-side code is generally more secure than client-side code, as it is not exposed to the user. Easier to protect against reverse engineering and tampering. Secure environments and more sophisticated security tools are usually available.</li><li>**Easier analytics and offline data analysis:** Centralized data collection enables comprehensive analytics and insights into user behavior and app performance. Easier to perform batch processing and machine learning on aggregated data.</li><li>**Simplified development:** Can simplify mobile development by offloading complex logic and processing to the cloud. Developers can focus on building the user interface and user experience.</li></ul> | <ul><li>**Increased Latency:** Requires network communication, which can introduce latency and negatively impact the user experience. Can be a major problem for real-time or interactive applications.</li><li>**Network Dependency:** Requires a reliable network connection. Users may not be able to access certain features when they are offline or have a poor network connection.</li><li>**Cost:** Cloud resources can be expensive, especially for computationally intensive tasks. Need to carefully manage cloud costs and optimize resource utilization.</li><li>**Security Risks:** Requires careful attention to security to protect data in transit and at rest. Data breaches can have serious consequences.</li><li>**Compliance Challenges:** May be subject to data privacy regulations such as GDPR and CCPA. Requires careful consideration of data residency and data transfer requirements.</li></ul> |
 
-**Disadvantages of running things in a cloud:**
-- **Increased Latency:** Requires network communication, which can introduce latency and negatively impact the user experience. Can be a major problem for real-time or interactive applications.
-- **Network Dependency:** Requires a reliable network connection. Users may not be able to access certain features when they are offline or have a poor network connection.
-- **Cost:** Cloud resources can be expensive, especially for computationally intensive tasks. Need to carefully manage cloud costs and optimize resource utilization.
-- **Security Risks:** Requires careful attention to security to protect data in transit and at rest. Data breaches can have serious consequences.
-- **Compliance Challenges:** May be subject to data privacy regulations such as GDPR and CCPA. Requires careful consideration of data residency and data transfer requirements.
-
-**Advantages of running things on a device:**
-- **Better privacy:** Data does not leave the user's device, providing enhanced privacy and security. Reduces the risk of data breaches and unauthorized access. No data is transmitted over the network.
-- **Real-time functionality:** Certain operations can run much faster on a user's device, providing a more responsive and interactive user experience. Suitable for applications that require low latency.
-- **Lower bandwidth usage:** Reduces bandwidth consumption by avoiding the need to send data over the network. Can be important for users with limited data plans or poor network connections.
-- **Offline functionality:** Allows users to access certain features even when they are offline. Improves the user experience in areas with poor network coverage.
-- **Lower backend usage:** Reduces the load on the backend servers, potentially saving costs. Distributes the processing load across all client devices. No server costs for computations performed on-device.
-- **Reduced dependency on external services:** Makes the application more resilient to outages or disruptions of external services.
-
-**Disadvantages of running things on a device:**
-- **Device Limitations:** Performance is limited by the device's CPU, GPU, and memory. May not be suitable for computationally intensive tasks or large datasets.
-- **Inconsistent Performance:** Performance can vary significantly depending on the device. Requires careful optimization to ensure consistent performance across a range of devices.
-- **Larger App Size:** Can increase the app size due to the inclusion of machine learning models or other large libraries.
-- **Difficult to Update:** Requires app updates to deploy new features or bug fixes. Can be difficult to ensure that all users are running the latest version of the app.
-- **Security Risks:** Client-side code can be more vulnerable to reverse engineering and tampering. Requires careful attention to security to protect sensitive data.
-- **Battery Consumption:** Can drain battery life, especially for computationally intensive tasks.
+**On-Device Execution**
+| Pros | Cons |
+| :--- | :--- |
+| <ul><li>**Better privacy:** Data does not leave the user's device, providing enhanced privacy and security. Reduces the risk of data breaches and unauthorized access. No data is transmitted over the network.</li><li>**Real-time functionality:** Certain operations can run much faster on a user's device, providing a more responsive and interactive user experience. Suitable for applications that require low latency.</li><li>**Lower bandwidth usage:** Reduces bandwidth consumption by avoiding the need to send data over the network. Can be important for users with limited data plans or poor network connections.</li><li>**Offline functionality:** Allows users to access certain features even when they are offline. Improves the user experience in areas with poor network coverage.</li><li>**Lower backend usage:** Reduces the load on the backend servers, potentially saving costs. Distributes the processing load across all client devices. No server costs for computations performed on-device.</li><li>**Reduced dependency on external services:** Makes the application more resilient to outages or disruptions of external services.</li></ul> | <ul><li>**Device Limitations:** Performance is limited by the device's CPU, GPU, and memory. May not be suitable for computationally intensive tasks or large datasets.</li><li>**Inconsistent Performance:** Performance can vary significantly depending on the device. Requires careful optimization to ensure consistent performance across a range of devices.</li><li>**Larger App Size:** Can increase the app size due to the inclusion of machine learning models or other large libraries.</li><li>**Difficult to Update:** Requires app updates to deploy new features or bug fixes. Can be difficult to ensure that all users are running the latest version of the app.</li><li>**Security Risks:** Client-side code can be more vulnerable to reverse engineering and tampering. Requires careful attention to security to protect sensitive data.</li><li>**Battery Consumption:** Can drain battery life, especially for computationally intensive tasks.</li></ul> |
 
 **Things you should never run on a device:**
 - **New "resource" creation (sensitive):** Generating coupons, tickets, promo codes, or other sensitive resources should always be done server-side to prevent fraud.
 - **Transactions and Payment verification:** Never process payment information directly on the device. Delegate to a 3rd-party SDK (e.g., Stripe, Braintree) or redirect the user to a secure payment gateway. Sensitive financial calculations should be performed on the server.
 - **Complex Business Logic or sensitive Algorithms:** Sensitive algorithms, user authentication, or core business rules should be kept on the server for security and control. This protects valuable IP and allows for updates without app releases.
+
 
 ### Offline and Opportunistic State
 Offline state ensures app usability without a network connection:
@@ -748,46 +521,21 @@ val request = Request.Builder()
 #### Synching Local and Remote States
 Handle state synchronization across multiple devices. Implementing conflict resolution is crucial.
 
-**Local Conflict Resolution (Last Write Wins with Timestamps - often NOT recommended):**
-Local device merges remote state with local state and uploads changes.
-
-Pros:
-- Easy to implement (but often incorrect).
-
-Cons:
-- Insecure - gives a local device authority over the backend.
-- Fails if multiple devices send updates simultaneously (the last update "wins," potentially losing data).
-- Requires app update for merging logic changes.
-- Can lead to data loss and inconsistencies.
-
-**Remote Conflict Resolution (Recommended):**
-Local device sends its local state to the backend, receives a *complete* new state, and overwrites the local state.
-
-Pros:
-- Moves conflict resolution authority to the backend.
-- Does not require client updates for resolution logic.
-- More reliable and consistent data synchronization.
-
-Cons:
-- More complex backend implementation.
-- Potentially overwrites local, un-synced changes on the client, requiring careful UX design to manage.
+| Strategy | Pros | Cons |
+| :--- | :--- | :--- |
+| **Local Conflict Resolution** (Last Write Wins with Timestamps - often NOT recommended) | <ul><li>**Easy to implement** (but often incorrect).</li></ul> | <ul><li>**Insecure** - gives a local device authority over the backend.</li><li>**Fails if multiple devices send updates simultaneously** (the last update "wins," potentially losing data).</li><li>**Requires app update for merging logic changes.**</li><li>**Can lead to data loss and inconsistencies.**</li></ul> |
+| **Remote Conflict Resolution** (Recommended) | <ul><li>**Moves conflict resolution authority to the backend.**</li><li>**Does not require client updates for resolution logic.**</li><li>**More reliable and consistent data synchronization.**</li></ul> | <ul><li>**More complex backend implementation.**</li><li>**Potentially overwrites local, un-synced changes on the client**, requiring careful UX design to manage.</li></ul> |
 
 **Conflict Resolution Strategies (on the server, using Remote Conflict Resolution):**
 
-* **Last Write Wins with Timestamps (Not recommended in most cases):** The server simply accepts the latest update based on the timestamp.  This is the simplest approach, but it can lead to data loss if clocks are not synchronized or if updates are received out of order.
+* **Last Write Wins with Timestamps (Not recommended in most cases):** The server simply accepts the latest update based on the timestamp. This is the simplest approach, but it can lead to data loss if clocks are not synchronized or if updates are received out of order.
 * **Conflict Detection and Resolution UI:** The server detects a conflict and returns an error to the client, prompting the user to manually resolve the conflict through a UI. This approach provides the most control over conflict resolution but can be cumbersome for the user.
 * **Operational Transformation (OT):** A more sophisticated approach that transforms operations based on the history of changes. This allows for concurrent edits to be merged seamlessly. OT is more complex to implement but provides a better user experience.
 * **Conflict-Free Replicated Data Types (CRDTs):** Data structures that are designed to be merged automatically without conflicts. CRDTs are a good choice for applications where data consistency is critical.
 
+
 #### More Information
-- Offline functionality for Trello’s mobile applications:
-  - [Airplane Mode: Enabling Trello Mobile Offline](https://www.atlassian.com/blog/atlassian-engineering/sync-architecture)
-  - [Syncing Changes](https://blog.danlew.net/2017/02/26/syncing-changes/)
-  - [Sync Failure Handling](https://blog.danlew.net/2017/02/28/sync-failure-handling/)
-  - [The Two ID Problem](https://blog.danlew.net/2017/03/09/the-two-id-problem/)
-  - [Offline Attachments](https://blog.danlew.net/2017/03/14/offline-attachments/)
-  - [Sync is a Two-Way Street](https://blog.danlew.net/2017/03/21/sync-is-a-two-way-street/)
-  - [Displaying Sync State](https://blog.danlew.net/2017/03/30/displaying-sync-state/)
+Offline functionality for Trello’s mobile applications: [Airplane Mode: Enabling Trello Mobile Offline](https://www.atlassian.com/blog/atlassian-engineering/sync-architecture)
 
 ### Caching
 Caching is essential for offline support, reducing network usage, and improving performance. It involves storing data in memory (for immediate access) or on disk (for persistence).
@@ -821,19 +569,7 @@ Navigating system design interviews can feel like an overwhelming task. Remember
 - **Your Preparation:** Thorough preparation is your strongest weapon. Practice mock interviews with peers, mentors, or online services. The more you practice, the more comfortable and confident you'll become.
 - **Your Knowledge Base:** Continuously expand your knowledge of mobile technologies, architectural patterns, and design principles. Stay updated with the latest trends and best practices in iOS and Android development.
     - Immerse yourself in open-source projects: [iOS](https://github.com/search?q=iOS&type=Repositories), [Android](https://github.com/search?o=desc&q=Android&s=stars&type=Repositories)
-    - Follow tech company engineering blogs to gain insights into real-world challenges and solutions:
-        - [Uber](https://eng.uber.com/category/articles/mobile/)
-        - Instagram: [iOS](https://instagram-engineering.com/tagged/ios), [Android](https://instagram-engineering.com/tagged/android)
-        - [Trello](https://www.atlassian.com/blog/atlassian-engineering)
-        - Meta:
-            - [Engineering at Meta](https://engineering.fb.com/tag/mobile/)
-            - [Meta Tech Podcast](https://open.spotify.com/show/1NlTm7OkZmcrOPfvlqlBMz)
-        - [Square](https://code.cash.app)
-        - [Dropbox](https://dropbox.tech/mobile)
-        - [Reddit](https://www.redditinc.com/blog/topic/technology)
-        - [Airbnb](https://medium.com/airbnb-engineering/tagged/mobile)
-        - [Lyft Tech Podcast](https://podcasts.apple.com/us/podcast/lyft-mobile/id1453587931)
-        - [Curated List of Blog Posts](/BLOGPOSTS.MD)
+    - [Curated List of Real-world Design Blog Posts](/BLOGPOSTS.MD)
 - **How you articulate your thought process:** Clearly and concisely explain your reasoning behind design choices, and be prepared to justify your decisions with evidence and trade-offs. Walk the interviewer through your process step-by-step.
 - **Your Resume:** Craft a compelling resume that highlights your accomplishments and demonstrates the impact you've made in your previous roles. Quantify your achievements whenever possible. Tailor your resume to match the specific requirements of the position you're applying for.
 
