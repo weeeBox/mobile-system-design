@@ -24,12 +24,19 @@ Clarifying requirements is crucial. Avoid proceeding to the solution before esta
 
 > **Candidate**: "Should we limit the number of active simultaneous downloads?"  
 > **Interviewer**: "I don't know - what do you think?"  
-> **Candidate**: "I think, having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources.  Also, without limits we open ourselves up to DOS style attacks. At the same time, we can't make any assumptions about app-specific use-cases, so the best approach might be selecting a sensible default value (for example, no more than `4` parallel downloads) and letting developers configure it based on their application's need."
+> **Candidate**: "I think having unrestricted parallel downloads might hurt application performance and quickly exhaust system resources (sockets, file handles). Also, without limits, we open ourselves up to DOS-style attacks or simply choking the bandwidth. A sensible default might be `4`, but it should be configurable."
 
 > **Interviewer**: "Why do you think `4` is a good number for parallel downloads?"  
-> **Candidate**: "It's a tricky question. We can use different heuristics to select the best number. For example, we can limit the size to the number of CPU cores on the device."  
-> **Candidate**: "On the other hand - each downloader would be blocked on the network I/O so we can use a higher number like `16`."  
-> **Candidate**: "It's hard to figure this out for the general case. So `4`-`16` seems reasonable by default. The user may pick a better size depending on the use-case."
+> **Candidate**: "It's a heuristic. On mobile, we are often constrained by the network radio. Opening too many TCP connections can increase overhead. However, since these are I/O bound, we aren't limited by CPU cores. `4` is a conservative starting point to ensure we don't block the app's other network requests (like API calls)."
+
+> **Candidate**: "What about network constraints? Should we allow downloads over Cellular, or restricted to WiFi?"  
+> **Interviewer**: "Good point. Let's make it configurable per download or globally."
+
+> **Candidate**: "Do we need to ensure file integrity? e.g., verifying a checksum after download?"  
+> **Interviewer**: "Yes, that would be a great feature for a robust library."
+
+> **Candidate**: "How robust should the persistence be? If the app crashes or is killed by the OS, should the downloads resume automatically next launch?"  
+> **Interviewer**: "Yes, they should survive app termination."
 
 > **Candidate**: "Should we support progress reporting for active downloads?"  
 > **Interviewer**: "Might skip it for now and discuss it if we have time"
@@ -162,6 +169,13 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 > **Interviewer**: "Why do you need Init and Complete/Fail operations in the File Store?"  
 > **Candidate**: "This gives you an ability to pre-allocate disk space before downloading a file and perform post-processing/cleanup after a complete download."
+
+## Deep Dive: File Integrity & Security
+
+> **Interviewer**: "How do we ensure the file downloaded correctly and wasn't tampered with?"
+> **Candidate**: "We should implement a checksum validation. The server should provide a hash (MD5/SHA-256) in the response headers (e.g., `Content-MD5` or a custom header)."
+> **Candidate**: "Once the download completes, but *before* we notify the client, the `File Store` component calculates the hash of the file on disk."
+> **Candidate**: "If the hashes match, we rename the temporary file to the final destination. If not, we trigger a failure."
 
 **Platform Specific Considerations:**
 
