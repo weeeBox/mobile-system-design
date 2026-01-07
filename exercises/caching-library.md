@@ -151,7 +151,7 @@ After a high-level discussion, your interviewer might want to discuss some speci
 
 > **Candidate**: "The introduction of states makes it more reliable but won't solve all potential concurrency issues. We might still run in situations where different threads are trying to write the same item concurrently. We may try to add more synchronization but it would greatly complicate the design."  
 
-> **Candidate**: "The advantage of this option - the app cache (with all binary files) might be cleaned up by the user from the app settings when device storage is low."  
+> **Candidate**: "The advantage of this option - the app cache (with all binary files) might be cleaned up by the user from the app settings when device storage is low. However, on mobile, the OS can also *automatically* delete files in the temporary/cache directory when disk space is critically low. This leads to a 'Zombie Journal' problem where the metadata exists, but the file is gone. Our `get()` method must handle 'File Not Found' errors gracefully by removing the orphan journal entry."
 
 ### Second Option: BLOBs
 > **Candidate**: "We can store the binary data in the same database where the Journal data is stored."  
@@ -199,7 +199,11 @@ _NOTE: It's ok to change some of your initial statements as the interview progre
 > **Candidate**: "For the In-Memory component, it could be a custom iterator over the collection which would perform a similar function."  
 
 > **Interviewer**: "What data structure would you use for the in-memory store?"  
-> **Candidate**: "I think a self-balancing tree with a custom item comparator should work."  
+> **Candidate**: "I would use a **Doubly Linked List** combined with a **Hash Map**. The Hash Map provides `O(1)` access to items. The Doubly Linked List maintains the eviction order (e.g., LRU). When an item is accessed, we move it to the head of the list in `O(1)`. When we need to evict, we remove from the tail in `O(1)`."
+
+### Handling System Memory Warnings
+> **Interviewer**: "What happens if the system runs low on memory?"
+> **Candidate**: "If our cache consumes too much memory, the OS might kill the host application. We must listen for system memory warnings. When a warning is received, the library should aggressively clear the **In-Memory Cache** (e.g., reduce size by 50% or clear entirely) to free up resources and keep the app alive."
 
 ## Follow-up Questions
 Some interviewers might ask follow-up questions that might change the original design and introduce new requirements.  
