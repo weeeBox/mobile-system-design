@@ -30,6 +30,9 @@ You are expected to ask clarifying questions and narrow down the scope of the ta
 > **Candidate**: "Do we need to support sign-up and log-in?"  
 > **Interviewer**: "We can leave it out of scope."  
 
+> **Candidate**: "Are there any constraints on media attachments, like file size or types?"  
+> **Interviewer**: "Let's support images only, max 10MB. No video/audio."  
+
 Make sure not to overload the system requirements with unnecessary features. Think in terms of MVP (Minimum Viable Product) and pick features that have the biggest value. You can learn more about requirements gathering [here](https://github.com/weeeBox/mobile-system-design#gathering-requirements).
 
 ### Functional requirements
@@ -266,6 +269,9 @@ ChatInfo:
 
 > **Candidate**: "We can get the list of messages for a specific chat by selecting on the `chat_id` column."  
 
+> **Interviewer**: "Joining three tables every time you open the app might be slow. How would you optimize it?"  
+> **Candidate**: "Good point. On mobile devices, complex JOINs can lead to dropped frames during scrolling. We can denormalize the `Chat` table by adding `last_message_preview` and `last_message_timestamp` columns. This way, we can fetch the entire lobby list with a single query without any JOINs."  
+
 > **Interviewer**: "What would you use for message and attachment ids?"  
 > **Candidate**: "What do you mean?"  
 
@@ -276,6 +282,10 @@ ChatInfo:
 > **Candidate**: "Alternatively, we can maintain separate local and server ids: all local operations would be using local ids while the backend communication would use server ids. We would also need to build a bijection between them."  
 
 _NOTE: Learn more about Local and Servier ids [here](https://blog.danlew.net/2017/03/09/the-two-id-problem/)._
+
+### 🔍 Data Model Analysis
+**Key Insight:**
+The "Two-ID Problem" discussion is the highlight here. Mobile apps must function offline. If an app relies solely on Server IDs, a user can't send a message when offline (because there's no server response yet). Using a local ID (UUID) or a temporary ID allows the UI to update immediately ("Optimistic UI"), while the sync happens in the background.
 
 ## Deep Dive: Attachments
 
@@ -306,6 +316,9 @@ Some interviewers might ask follow-up questions that might change the original d
 > **Interviewer**: "Why won't you use the client time for both cases?"  
 > **Candidate**: "We can't trust the client time: if the device clock reports incorrect time - we can end up with messages from the future."  
 > **Candidate**: "There's still a chance for the wrong message ordering. For example, when the user sends messages while being offline."  
+
+> **Interviewer**: "So how do we solve the ordering problem effectively?"  
+> **Candidate**: "We can use **Logical Clocks** (like Lamport timestamps) or a simple `sequence_number` per chat. This helps us detect gaps (e.g., 'I have message 5, I need 6, but received 7'). Relying solely on 'Wall Clock' time is risky due to clock skew."  
 
 _NOTE: Ensuring a proper message order is a [tricky problem](https://www.addictivetips.com/ios/ios-11-bug-fix-imessages-received-out-of-order): it's pretty unlikely for a candidate to know a solution unless they've been working on chat apps in the past._  
 
